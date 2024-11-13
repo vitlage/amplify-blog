@@ -4,7 +4,21 @@ import Menu from '@/components/Menu/Menu'
 import Image from 'next/image'
 import Comments from '@/components/comments/Comments'
 
-const SinglePage = () => {
+const getData = async (slug) => {
+  const res = await fetch(`http://localhost:3000/api/posts?page=${page}&cat=${cat || ""}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Getting categories failed");
+  }
+
+  return res.json();
+};
+
+const SinglePage = async ({ params }) => {
+  const { slug } = params;
+  const data = await getData(slug);
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
