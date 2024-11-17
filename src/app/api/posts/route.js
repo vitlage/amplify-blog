@@ -7,7 +7,7 @@ export const GET = async (req) => {
     const page = searchParams.get("page");
     const cat = searchParams.get("cat");
 
-    const POST_PER_PAGE = 2;
+    const POST_PER_PAGE = 5;
     const query = {
         take: POST_PER_PAGE,
         skip: POST_PER_PAGE * (page - 1),
@@ -23,7 +23,7 @@ export const GET = async (req) => {
         ]);
 
         return new NextResponse(
-            JSON.stringify(JSON.stringify({posts, count}, { status: 200 }))
+            JSON.stringify({posts, count}, { status: 200 })
         );
     } catch (err) {
         console.log(err);
@@ -36,9 +36,7 @@ export const GET = async (req) => {
 // CREATE A POST
 export const POST = async (req) => {
     const session = await getAuthSession();
-    console.log("session is: ", session);
-    console.log("session.user.email is: ", session.user.email);
-
+    
     if(!session) {
         return new NextResponse(
             JSON.stringify({ message: "Not Authenticated!" }, { status: 401 })
@@ -47,17 +45,28 @@ export const POST = async (req) => {
 
     try {
         const body = await req.json();
-        console.log({body});
+        
+        if (!body.catSlug || !body.title || !body.desc || !body.slug) {
+            return new NextResponse(
+                JSON.stringify({ message: "Missing required fields" }, { status: 400 })
+            );
+        }
+
         const post = await prisma.post.create({
-            data: {...body, userMail: session.user.email}
-        })
+            data: {
+                ...body,
+                userEmail: session.user.email  // Changed from userMail to userEmail
+            }
+        });
+
         return new NextResponse(
-            JSON.stringify(JSON.stringify(post, { status: 200 }))
+            JSON.stringify(post), { status: 200 }
         );
     } catch (err) {
         console.log(err);
         return new NextResponse(
-            JSON.stringify({ message: `Something went wrong!${err}` }, { status: 500 })
+            JSON.stringify({ message: "Something went wrong!", error: err.message }), 
+            { status: 500 }
         );
     }
 }

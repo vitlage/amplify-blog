@@ -13,7 +13,7 @@ const MenuPosts = ({ withImage }) => {
             </div>
             )}
             <div className={styles.textContainer}>
-            <span className={`${styles.category} ${styles.travel}`}>Travel</span>
+            <span className={`${styles.category} ${styles.amp}`}>AMP</span>
             <h3 className={styles.postTitle}>Lorem ipsum dolor sit, amet consectetur</h3>
             <div className={styles.detail}>
               <span className={styles.username}>Joh Doe</span>
@@ -28,7 +28,7 @@ const MenuPosts = ({ withImage }) => {
             </div> 
             )}
           <div className={styles.textContainer}>
-            <span className={`${styles.category} ${styles.culture}`}>Culture</span>
+            <span className={`${styles.category} ${styles.marketing}`}>Marketing</span>
             <h3 className={styles.postTitle}>Lorem ipsum dolor sit, amet consectetur</h3>
             <div className={styles.detail}>
               <span className={styles.username}>Joh Doe</span>
@@ -43,7 +43,7 @@ const MenuPosts = ({ withImage }) => {
               </div> 
             )}
           <div className={styles.textContainer}>
-            <span className={`${styles.category} ${styles.food}`}>Food</span>
+            <span className={`${styles.category} ${styles.d2c}`}>D2C</span>
             <h3 className={styles.postTitle}>Lorem ipsum dolor sit, amet consectetur</h3>
             <div className={styles.detail}>
               <span className={styles.username}>Joh Doe</span>
@@ -58,7 +58,7 @@ const MenuPosts = ({ withImage }) => {
           </div> 
         )}
         <div className={styles.textContainer}>
-          <span className={`${styles.category} ${styles.fashion}`}>Fashion</span>
+          <span className={`${styles.category} ${styles.technology}`}>Technology</span>
           <h3 className={styles.postTitle}>Lorem ipsum dolor sit, amet consectetur</h3>
           <div className={styles.detail}>
             <span className={styles.username}>Joh Doe</span>

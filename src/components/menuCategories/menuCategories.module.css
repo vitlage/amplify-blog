@@ -12,26 +12,26 @@
     font-size: 14px;
 }
 
-.categoryItem.style {
+.categoryItem.email {
     background-color: #57c4ff31;
 }
 
-.categoryItem.fashion {
+.categoryItem.technology {
     background-color: #da85c731;
 }
 
-.categoryItem.food {
+.categoryItem.d2c {
     background-color: #7fb88133;
 }
 
-.categoryItem.travel {
-    background-color: #ff795736;
+.categoryItem.amp {
+    background-color: #F5A9E1;
 }
 
-.categoryItem.culture {
-    background-color: #ff795736;
+.categoryItem.marketing {
+    background-color: #CEF6CE;
 }
 
-.categoryItem.coding {
+.categoryItem.ai {
     background-color: #57c4ff31;
 }

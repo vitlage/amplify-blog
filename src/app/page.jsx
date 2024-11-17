@@ -1,4 +1,3 @@
-import NavBar from "@/components/navbar/NavBar";
 import styles from "./homepage.module.css";
 import CategoryList from "@/components/categoryList/CategoryList";
 import CardList from "@/components/cardList/CardList";
@@ -10,7 +9,7 @@ export default function Home({ searchParams }) {
 
   return (
     <div className={styles.container}>
-      <Featured />
+      <Featured item={page} />
       <CategoryList />
       <div className={styles.content}>
         <CardList page={page}/>

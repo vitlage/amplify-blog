@@ -1,45 +1,48 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import styles from './writePage.module.css';
-import Image from 'next/image';
-import "react-quill/dist/quill.bubble.css"
-import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
-import dynamic from 'next/dynamic';
+import Image from "next/image";
+import styles from "./writePage.module.css";
+import { useEffect, useState } from "react";
+import "react-quill/dist/quill.bubble.css";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import ReactQuill from "react-quill";
 
 const WritePage = () => {
   const { status } = useSession();
-  const ReactQuill = dynamic(() => import('react-quill', {ssr: false}));
   const router = useRouter();
-  
+
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState(null);
   const [media, setMedia] = useState("");
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
+  const [catSlug, setCatSlug] = useState("");
 
   useEffect(() => {
     const upload = () => {
-      setMedia("downloadUrl to paste here");
+      const name = new Date().getTime() + file.name;
+      setMedia(`${name}image.png`);
     };
+
     file && upload();
   }, [file]);
 
-  if(status === "loading") {
-    return <div className={styles.loading}>Loading...</div>
+  if (status === "loading") {
+    return <div className={styles.loading}>Loading...</div>;
   }
 
-  if(status === "unauthenticated") {
+  if (status === "unauthenticated") {
     router.push("/");
   }
 
-  const slugify = (str) => 
-    str.toLowerCase()
-        .trim()
-        .replace(/[^\w\s-]/g, "")
-        .replace(/[\s_-]+/g, "-")
-        .replace(/^-+|-+$/g, "");
+  const slugify = (str) =>
+    str
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   const handleSubmit = async () => {
     const res = await fetch("/api/posts", {
@@ -49,26 +52,32 @@ const WritePage = () => {
         desc: value,
         img: media,
         slug: slugify(title),
-        catSlug: "food",
-        // cat: "coding",
-      })
-    })
+        catSlug: catSlug || "marketing",
+      }),
+    });
 
-    console.log("response is: ", res);
+    if (res.status === 200) {
+      const data = await res.json();
+      router.push(`/posts/${data.slug}`);
+    }
   };
-  
+
   return (
     <div className={styles.container}>
-      <input 
+      <input
         type="text"
-        placeholder='Title'
+        placeholder="Title"
         className={styles.input}
-        onChange={e => setTitle(e.target.value)}
+        onChange={(e) => setTitle(e.target.value)}
       />
-      <input type="text"
-        className={styles.category}
-        placeholder='Category'
-      />
+      <select className={styles.select} onChange={(e) => setCatSlug(e.target.value)}>
+        <option value="d2c">d2c</option>
+        <option value="marketing">marketing</option>
+        <option value="ai">ai</option>
+        <option value="email">email</option>
+        <option value="amp">amp</option>
+        <option value="technology">technology</option>
+      </select>
       <div className={styles.editor}>
         <button className={styles.button} onClick={() => setOpen(!open)}>
           <Image src="/plus.png" alt="" width={16} height={16} />
@@ -78,14 +87,14 @@ const WritePage = () => {
             <input
               type="file"
               id="image"
-              onChange={e => setFile(e.target.files[0])}
-              style={{ display: 'none' }}
+              onChange={(e) => setFile(e.target.files[0])}
+              style={{ display: "none" }}
             />
-              <button className={styles.addButton}>
-                <label htmlFor="image">
-                    <Image src="/image.png" alt="" width={16} height={16} />
-                </label>
-              </button>
+            <button className={styles.addButton}>
+              <label htmlFor="image">
+                <Image src="/image.png" alt="" width={16} height={16} />
+              </label>
+            </button>
             <button className={styles.addButton}>
               <Image src="/external.png" alt="" width={16} height={16} />
             </button>
@@ -94,17 +103,19 @@ const WritePage = () => {
             </button>
           </div>
         )}
-        <ReactQuill 
+        <ReactQuill
           className={styles.textArea}
-          theme="bubble" 
-          value={value} 
-          onChange={setValue} 
-          placeholder='Tell your story...' 
+          theme="bubble"
+          value={value}
+          onChange={setValue}
+          placeholder="Tell your story..."
         />
       </div>
-      <button className={styles.publish} onClick={handleSubmit}>Publish</button>
+      <button className={styles.publish} onClick={handleSubmit}>
+        Publish
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default WritePage
+export default WritePage;

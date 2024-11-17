@@ -23,28 +23,28 @@
     border-radius: 10px;
 }
 
-.category.style {
+.category.email {
     background-color: #57c4ff31;
 }
 
-.category.fashion {
+.category.technology {
     background-color: #da85c731;
 }
 
-.category.food {
+.category.d2c {
     background-color: #7fb88133;
 }
 
-.category.travel {
+.category.amp {
+    background-color: #F5A9BC;
+}
+
+.category.marketing {
     background-color: #ff795736;
 }
 
-.category.culture {
-    background-color: #ff795736;
-}
-
-.category.coding {
-    background-color: #57c4ff31;
+.category.ai {
+    background-color: #ffb04f45;
 }
 
 .image {
@@ -53,7 +53,7 @@
 
 @media screen and (max-width: 1280px) {
     .category {
-        width: 20%;
+        width: 30%;
     }
 }
 
