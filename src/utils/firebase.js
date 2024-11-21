@@ -2,11 +2,12 @@ import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE,
-  authDomain: "blog-143a6.firebaseapp.com",
-  projectId: "blog-143a6",
-  storageBucket: "blog-143a6.firebasestorage.app",
-  messagingSenderId: "764668560832",
-  appId: "1:764668560832:web:8c02adca1e02acd82ef425"
+  authDomain: "convertic-4dbfa.firebaseapp.com",
+  projectId: "convertic-4dbfa",
+  storageBucket: "convertic-4dbfa.firebasestorage.app",
+  messagingSenderId: "942288747158",
+  appId: "1:942288747158:web:52a4e5ce4d4011297c60b7",
+  measurementId: "G-SVF8YMFX1V"
 };
 
 // Initialize Firebase

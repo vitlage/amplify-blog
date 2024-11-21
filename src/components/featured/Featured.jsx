@@ -17,6 +17,7 @@ const getData = async (page, cat) => {
 
 const Featured = async ({item}) => {
   const { posts } = await getData(item);
+  const featuredPost = posts[posts.length-1];
 
   return (
     <div className={styles.container}>
@@ -25,12 +26,12 @@ const Featured = async ({item}) => {
       </h1>
       <div className={styles.post}>
         <div className={styles.imgContainer}>
-          <Image src="/p1.jpeg" alt="" fill className={styles.image} />
+          <Image src={featuredPost.img} alt="" fill className={styles.image} />
         </div>
         <div className={styles.textContainer}>
-          <h1 className={styles.postTitle}>{posts[0].title}</h1>
-          <p className={styles.postDesc}>{posts[0].desc}</p>
-          <Link href={`/posts/${posts[0].slug}`}>
+          <h1 className={styles.postTitle}>{featuredPost.title}</h1>
+          <p className={styles.postDesc}>{featuredPost.desc}</p>
+          <Link href={`/posts/${featuredPost.slug}`}>
             <button className={styles.button}>Read More</button>
           </Link>
         </div>
