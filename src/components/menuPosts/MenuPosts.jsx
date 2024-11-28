@@ -17,10 +17,9 @@ const getData = async (page, cat) => {
 
 const MenuPosts = async ({ withImage }) => {
   const { posts } = await getData(1);
-  console.log("posts in MenuPosts: ", posts);
   return (
     <div className={styles.items}>
-        <Link href={`/posts/${posts[0].slug}`} className={styles.item}>
+        <Link href={`blog/posts/${posts[0].slug}`} className={styles.item}>
             {withImage && (
                 <div className={styles.imageContainer}>
                 <Image src="/p1.jpeg" alt="" fill className={styles.image}/>  
@@ -34,7 +33,7 @@ const MenuPosts = async ({ withImage }) => {
             </div>
           </div> 
         </Link>
-        <Link href={`/posts/${posts[1].slug}`} className={styles.item}>
+        <Link href={`blog/posts/${posts[1].slug}`} className={styles.item}>
             {withImage && (
                 <div className={styles.imageContainer}>
                 <Image src="/p1.jpeg" alt="" fill className={styles.image}/>  
@@ -48,7 +47,7 @@ const MenuPosts = async ({ withImage }) => {
             </div>
           </div> 
         </Link>
-        <Link href={`/posts/${posts[2].slug}`} className={styles.item}>
+        <Link href={`blog/posts/${posts[2].slug}`} className={styles.item}>
             {withImage && (
                 <div className={styles.imageContainer}>
                 <Image src="/p1.jpeg" alt="" fill className={styles.image}/>  
@@ -62,7 +61,7 @@ const MenuPosts = async ({ withImage }) => {
             </div>
           </div> 
         </Link>
-        <Link href={`/posts/${posts[3].slug}`} className={styles.item}>
+        <Link href={`blog/posts/${posts[3].slug}`} className={styles.item}>
             {withImage && (
                 <div className={styles.imageContainer}>
                 <Image src="/p1.jpeg" alt="" fill className={styles.image}/>  

@@ -8,8 +8,10 @@ import AuthLinks from '../authLinks/AuthLinks'
 const NavBar = () => {
   return (
     <div className={styles.container}>
-
-      <Link href={"/"} className={styles.logo}>
+      <div className={styles.social}>
+         
+      </div>
+      <Link href={"/blog"} className={styles.logo}>
         Сonvertic ai
       </Link>
       <div className={styles.links}>

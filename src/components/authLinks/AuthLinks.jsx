@@ -8,18 +8,17 @@ import { signOut, useSession } from 'next-auth/react';
 const AuthLinks = () => {
   const [open, setOpen] = useState(false);
 
-  // const status = 'not-authenticated';
-  // const status = 'authenticated';
-  const { status } = useSession();
+  const { data: session, status } = useSession();
+  console.log({session});
   return (
     <>
       {status === 'unauthenticated' ? (
         <>
-          <Link href="/login" className={styles.link}>Login</Link>
+          <Link href="/blog/login" className={styles.link}>Login</Link>
         </>
       ) : (
         <>
-          <Link href="/write" className={styles.link}>Write</Link>
+          <Link href="/blog/write" className={styles.link}>Write</Link>
           <span className={styles.link} onClick={signOut}>Logout</span>
         </>
       )}
@@ -31,15 +30,14 @@ const AuthLinks = () => {
       {open && (
         <div className={styles.responsiveMenu}>
           <Link href="/">Homepage</Link>
-          <Link href="/about">About</Link>
-          <Link href="/contact">Contact</Link>
+          <Link href="/blog/">Blog</Link>
           {status === 'not-authenticated' ? (
             <>
-              <Link href="/login">Login</Link>
+              <Link href="/blog/login">Login</Link>
             </>
           ) : (
             <>
-              <Link href="/write">Write</Link>
+              <Link href="/blog/write">Write</Link>
               <span className={styles.link}>Logout</span>
             </>
           )}

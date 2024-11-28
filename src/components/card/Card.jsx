@@ -17,11 +17,11 @@ const Card = ({ key, item }) => {
           </span>
           <span className={styles.category}>{item?.catSlug}</span>
         </div>
-        <Link href={`/posts/${item?.slug}`}>
+        <Link href={`/blog/posts/${item?.slug}`}>
           <h1>{item?.title}</h1>
         </Link>
         <div className={styles.desc} dangerouslySetInnerHTML={{ __html: item?.desc.substring(0,60) }}/>
-        <Link href={`/posts/${item?.slug}`} className={styles.link}>
+        <Link href={`/blog/posts/${item?.slug}`} className={styles.link}>
           Read More
         </Link>
       </div>

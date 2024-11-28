@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html amp4email data-css-strict>
+<head>
+    <meta charset="UTF-8">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+<!--    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>-->
+    <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+    <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+<!--    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>-->
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+
+    <style amp4email-boilerplate>body {visibility: hidden}</style>
+    <style amp-custom>
+        @media screen and (max-width: 600px) {
+            table.es-content-body, table.es-footer-body {
+                width: 100%;
+            }
+        }
+
+        /* General */
+
+        body {
+            width:100%;
+            /* font-family:arial, 'helvetica neue', helvetica, sans-serif; */
+            font-family: Helvetica, sans-serif;
+            padding:0;
+            margin:0;
+        }
+        h1 {
+            font-size: 30px;
+        }
+        h5 {
+            font-size: 14px;
+        }
+        p {
+            line-height: 1.5;
+            font-size: 16px;
+            margin: 16px 0;
+        }
+        table {
+            border-spacing: 0;
+        }
+
+        /* Accordion */
+
+        .accordion-widget {
+            margin: 16px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 25px 1px rgba(0,0,0, 0.1);
+        }
+
+        .accordion-widget section h3.section-title {
+            padding: 16px;
+            margin: 0;
+            font-size: 18px;
+            background: white;
+            border: none;
+            border-bottom: 1px solid #efefef;
+            position: relative;
+        }
+
+        .accordion-widget section h3.section-title span {
+            position: absolute;
+            right: 16px;
+            color: #aaaaaa;
+        }
+
+        .accordion-widget section[expanded] h3.section-title{
+            color: #206eff;
+        }
+
+        .accordion-widget section h3.section-title:hover{
+            color: #206eff;
+        }
+
+        .accordion-widget section >div {
+            padding: 0 16px;
+        }
+
+        /* Score */
+
+        .score-container {
+            margin: 15px 0;
+        }
+        .score-btn {
+            color: #787878;
+            font-size: 30px;
+            cursor: pointer;
+            margin-right: 5px;
+            filter: grayscale(1);
+            opacity: .5;
+        }
+
+        .score-btn.active {
+            filter: grayscale(0);
+            opacity: 1;
+        }
+
+        .score-btn.orange.active {
+            /* color: #ffc107; */
+            color: rgb(254, 95, 16);
+        }
+
+        .score-btn.red.active {
+            color: #fc0c1a;
+        }
+
+        .score-btn.blue.active {
+            color: #206eff;
+        }
+
+        .carousel-preview {
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        amp-selector {
+            display: inline-flex;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .carousel-preview amp-selector amp-img[selected]{
+            outline: none;
+            box-shadow: 0 0 0px 2px #206eff;
+        }
+
+        .carousel-preview amp-selector amp-img:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        /*  Form  */
+        fieldset {
+            border: none;
+        }
+        .amp-form-group {
+            display: flex;
+            flex-direction: column;
+            margin: 25px 0;
+        }
+
+        .amp-form-group label.amp-form-label {
+            cursor: pointer;
+        }
+
+        .amp-form-group label.amp-form-label.title {
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        .amp-form-input {
+            padding: 20px;
+            box-sizing: border-box;
+            /* border: 1px solid #cecece; */
+            border: 1px solid rgba(24, 24, 24, 0.13);
+            font-size: 16px;
+            color: grey;
+            border-radius: 15px;
+            height: 70px;
+        }
+
+        .feedback_header {
+            font-weight: 100;
+            font-size: 20px;
+        }
+
+        .amp-form-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 0.5px rgba(32, 110, 255, 1);
+            border-color: rgba(32, 110, 255, 1);
+        }
+
+        /*.amp-form-input::placeholder {*/
+        /*    color: 1px solid rgba(24, 24, 24, 0.13);*/
+        /*    font-family: Verdana, Geneva, Tahoma, sans-serif;*/
+        /*    font-weight: 100;*/
+        /*    font-size: 13px;*/
+        /*}*/
+
+        textarea.amp-form-input {
+            resize: none;
+            border-radius: 16px;
+            font-family: inherit;
+            height: 150px;
+        }
+
+        .amp-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 32px;
+            /* background: #206eff; */
+            background: rgb(254, 95, 16);
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            min-width: 200px;
+            /* font-weight: bold; */
+            text-decoration: none;
+            /* border: 2px solid white; */
+            border: none;
+            min-height: 60px;
+            margin: 0;
+        }
+
+        .amp-button:not(.disabled):hover {
+            background-color: rgb(254, 95, 16);
+        }
+
+        .amp-button.disabled {
+            opacity: .5;
+        }
+
+        .highlight {
+            border-radius: 35px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .highlight:hover {
+            background: #ecececff;
+            box-shadow: 0 0 0 10px #ecececff;
+        }
+
+        p,img {margin:0;}
+        p,ul li,ol li, a {line-height:150%;color:#333333;}
+        h1,h2,h3,h4,h5,h6 {margin:0;color:#191919;}
+
+        *.text-caption {font-family: sans-serif Tahoma;font-size:13px;}
+        *.text-capitalize {text-transform: capitalize;}
+
+        *.light-text {color: #ffffff;}
+        *.dark-text {color:#333333;}
+        *.text-muted {color:#b5b4b4;}
+
+        *.es-p20t {padding-top:20px;}
+        *.es-m0 {margin:0;}
+        *.es-m0t{margin-top:0;}
+        *.es-m0b{margin-bottom:0;}
+        *.es-m0l{margin-left:0;}
+        *.es-m0r{margin-right:0;}
+        *.es-m20t{margin-top:20px;}
+        *.es-p0 {padding:0;}
+        *.es-p20 {padding:20px;}
+        *.es-p20r {padding-right:20px;}
+        *.es-p20l {padding-left:20px;}
+        *.es-p20t {padding-top:20px;}
+        *.es-p20b {padding-bottom:20px;}
+        *.es-p20h {padding-left: 20px; padding-right: 20px;}
+        *.es-p20v {padding-top: 20px;padding-bottom: 20px;}
+        *.es-p40 {padding:40px;}
+        *.es-p40r {padding-right:40px;}
+        *.es-p40l {padding-left:40px;}
+        *.es-p40t {padding-top:40px;}
+        *.es-p40b {padding-bottom:40px;}
+        *.es-p40h {padding-left: 40px; padding-right: 40px;}
+        *.es-p40v {padding-top: 40px;padding-bottom: 40px;}
+        *.es-p5 {padding:5px;}
+        *.es-p5t {padding-top:5px;}
+        *.es-p5l {padding-left:5px;}
+        *.es-p5r {padding-right:5px;}
+        *.es-p5b {padding-bottom:5px;}
+        *.es-p5h {padding-left: 5px;padding-right: 5px;}
+        *.es-p5v {padding-top:5px;padding-bottom: 5px;}
+        *.es-p10 {padding:10px;}
+        *.es-p10l {padding-left:10px;}
+        *.es-p10r {padding-right:10px;}
+        *.es-p10t {padding-top:10px;}
+        *.es-p10b {padding-bottom:10px;}
+        *.es-p10h {padding-left:10px;padding-right: 10px;}
+        *.es-p10v {padding-top:10px;padding-bottom: 10px;}
+        *.es-p15 {padding:15px;}
+        *.es-p15l {padding-left:15px;}
+        *.es-p15r {padding-right:15px;}
+        *.es-p15t {padding-top:15px;}
+        *.es-p15b {padding-bottom:15px;}
+        *.es-p15h {padding-left: 15px;padding-right: 15px;}
+        *.es-p15v {padding-top:15px;padding-bottom: 15px;}
+
+        .es-button {
+            text-decoration:none;
+        }
+
+        .centered {
+            position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);
+        }
+
+        @media  only screen and (max-width:600px) {p, ul li, ol li, a { line-height:150% } h1, h2, h3, h1 a, h2 a, h3 a { line-height:120% } h1 { font-size:30px; text-align:left } h2 { font-size:24px; text-align:left } h3 { font-size:20px; text-align:left } .es-header-body h1 a, .es-content-body h1 a, .es-footer-body h1 a { font-size:30px; text-align:left } .es-header-body h2 a, .es-content-body h2 a, .es-footer-body h2 a { font-size:24px; text-align:left } .es-header-body h3 a, .es-content-body h3 a, .es-footer-body h3 a { font-size:20px; text-align:left } .es-menu td a { font-size:14px } .es-header-body p, .es-header-body ul li, .es-header-body ol li, .es-header-body a { font-size:14px } .es-content-body p, .es-content-body ul li, .es-content-body ol li, .es-content-body a { font-size:14px } .es-footer-body p, .es-footer-body ul li, .es-footer-body ol li, .es-footer-body a { font-size:14px } .es-infoblock p, .es-infoblock ul li, .es-infoblock ol li, .es-infoblock a { font-size:12px } *[class="gmail-fix"] { display:none } .es-m-txt-c, .es-m-txt-c h1, .es-m-txt-c h2, .es-m-txt-c h3 { text-align:center } .es-m-txt-r, .es-m-txt-r h1, .es-m-txt-r h2, .es-m-txt-r h3 { text-align:right } .es-m-txt-l, .es-m-txt-l h1, .es-m-txt-l h2, .es-m-txt-l h3 { text-align:left } .es-m-txt-r img, .es-m-txt-c img, .es-m-txt-l img { display:inline } .es-button-border { display:inline-block } a.es-button, button.es-button { font-size:18px; display:inline-block } .es-adaptive table, .es-left, .es-right { width:100% } .es-content table, .es-header table, .es-footer table, .es-content, .es-footer, .es-header { width:100%; max-width:600px } .es-adapt-td { display:block; width:100% } .adapt-img { width:100%; height:auto } .es-m-p0 { padding:0px } .es-m-p0r { padding-right:0px } .es-m-p0l { padding-left:0px } .es-m-p0t { padding-top:0px } .es-m-p0b { padding-bottom:0 } .es-m-p20b { padding-bottom:20px } .es-mobile-hidden, .es-hidden { display:none } tr.es-desk-hidden, td.es-desk-hidden, table.es-desk-hidden { width:auto; overflow:visible; float:none; max-height:inherit; line-height:inherit } tr.es-desk-hidden { display:table-row } table.es-desk-hidden { display:table } td.es-desk-menu-hidden { display:table-cell } .es-menu td { width:1% } table.es-table-not-adapt, .esd-block-html table { width:auto } table.es-social { display:inline-block } table.es-social td { display:inline-block } .es-desk-hidden { display:table-row; width:auto; overflow:visible; max-height:inherit } .h-auto { height:auto } }
+
+    </style>
+</head>
+<body>
+<div>
+    <amp-state id="step">
+        <script type="application/json">
+            {
+                "value": 1
+            }
+        </script>
+    </amp-state>
+    <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;">
+        <tr>
+            <td valign="top" style="padding:0;Margin:0">
+
+                <!-- hd -->
+                <table cellpadding="0" cellspacing="0" class="esd-header-popover es-header" align="center" style="background-color: transparent;">
+                    <tbody>
+                    <tr>
+                        <td class="esd-stripe" align="center">
+                            <table class="es-header-body" align="center" cellpadding="0" cellspacing="0" width="600" style="background-color: transparent;">
+                                <tbody>
+                                <tr>
+                                    <td class="esd-structure es-p20v" align="right">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- ehd -->
+
+
+                <table class="es-content" cellspacing="0" cellpadding="0" align="center" >
+                    <tbody>
+                    <tr>
+                        <td class="esd-stripe" align="left">
+                            <table class="es-content-body" width="600" cellspacing="0" cellpadding="0" bgcolor="#ffffff"
+                                   align="center">
+                                <tbody>
+
+                                <tr>
+                                    <td class="esd-structure es-p20t es-p20r es-p20l">
+                                        <amp-state id="formState_65d78e5083961">
+                                            <script type="application/json">
+                                                {"status": ""}
+                                            </script>
+                                        </amp-state>
+                                        <form method="GET" action-xhr="https://localhost:8888/api/v2/campaigns/66acc1700f553/track" [hidden]="formState_65d78e5083961.status == 'success'"
+                                              on="submit:AMP.setState({formState_65d78e5083961:{status:'submitting'}});submit-error:AMP.setState({formState_65d78e5083961:{status:'success'}});submit-success:AMP.setState({formState_65d78e5083961:{status:'success'}})"
+                                              novalidate="">
+                                            <table>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <table width="100%" style="opacity: 1;" class="builder-class-element-selected">
+                                                            <tbody>
+                                                                <tr style="margin-bottom: 16px;">
+                                                                    <span class="feedback_header">Your name and phone number</span>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="padding-bottom:15px">
+                                                                        <div class="container">
+                                                                            <div class="form-group-container">
+                                                                                <div class="amp-form-group">
+                                                                                    <!-- <label class="amp-form-label title">Name</label> -->
+                                                                                    <input type="text" class="amp-form-input" name="name" placeholder="Name">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="container">
+                                                                            <div class="form-group-container">
+                                                                                <div class="amp-form-group">
+                                                                                    <!-- <label class="amp-form-label title">Email</label> -->
+                                                                                    <input type="tel" class="amp-form-input" name="phone" placeholder="Phone number">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td align="center">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"  id="s65d78e5083961" class="score-widget">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td width="560" class="esd-container-frame" align="left" valign="top">
+                                                                    <table cellpadding="0" cellspacing="0" width="100%">
+                                                                        <tbody>
+                                                                        <tr style="margin-bottom: 16px;">
+                                                                            <span class="feedback_header">Your service rating</span>
+                                                                        </tr>
+                                                                        <amp-state id="scores65d78e5083961">
+                                                                            <script type="application/json">
+                                                                                {"value": 0}
+                                                                            </script>
+                                                                        </amp-state>
+
+                                                                        <tr>
+                                                                            <div class="score-container">
+                                                                            <span [class]="(scores65d78e5083961.value >= 1 ? 'active score-btn orange' : ' score-btn orange')"
+                                                                                  class="score-btn orange"
+                                                                                  style="font-size: 45px"
+                                                                                  role="button"
+                                                                                  tabindex="0"
+                                                                                  data-icon="0"
+                                                                                  on="tap:AMP.setState({scores65d78e5083961: {value: 1 }})">★</span>
+                                                                                <span [class]="(scores65d78e5083961.value >= 2 ? 'active score-btn orange' : ' score-btn orange')"
+                                                                                      class="score-btn orange"
+                                                                                      style="font-size: 45px"
+                                                                                      role="button"
+                                                                                      tabindex="0"
+                                                                                      data-icon="0"
+                                                                                      on="tap:AMP.setState({scores65d78e5083961: {value: 2 }})">★</span>
+                                                                                <span [class]="(scores65d78e5083961.value >= 3 ? 'active score-btn orange' : ' score-btn orange')"
+                                                                                      class="score-btn orange"
+                                                                                      style="font-size: 45px"
+                                                                                      role="button"
+                                                                                      tabindex="0"
+                                                                                      data-icon="0"
+                                                                                      on="tap:AMP.setState({scores65d78e5083961: {value: 3 }})">★</span>
+                                                                                <span [class]="(scores65d78e5083961.value >= 4 ? 'active score-btn orange' : ' score-btn orange')"
+                                                                                      class="score-btn orange"
+                                                                                      style="font-size: 45px"
+                                                                                      role="button"
+                                                                                      tabindex="0"
+                                                                                      data-icon="0"
+                                                                                      on="tap:AMP.setState({scores65d78e5083961: {value: 4 }})">★</span>
+                                                                                <span [class]="(scores65d78e5083961.value >= 5 ? 'active score-btn orange' : ' score-btn orange')"
+                                                                                      class="score-btn orange"
+                                                                                      style="font-size: 45px"
+                                                                                      role="button"
+                                                                                      tabindex="0"
+                                                                                      data-icon="0"
+                                                                                      on="tap:AMP.setState({scores65d78e5083961: {value: 5 }})">★</span>
+                                                                            </div>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                            <input type="hidden" name="score" [value]="scores65d78e5083961.value">
+                                                                            <span class="feedback_header">Your feedback</span>
+                                                                            <div class="form-group-container" style="padding: 1rem 0;display: flex;flex-direction: column;">
+                                                                                <textarea name="feedback-message" placeholder="Write your review here" class="amp-form-input" maxlength="1000" rows="5"></textarea>
+                                                                            </div>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <button on="tap:AMP.setState({step: {value: 2}})" type="submit" [class]="formState_65d78e5083961.status == 'submitting' ? 'amp-button disabled' : 'amp-button' " class="amp-button">Submit feedback</button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <input type="hidden" name="subscriber" value="{SUBSCRIBER_EMAIL}">
+                                            <input type="hidden" name="__form_tracking_data_type" value="score">
+                                        </form>
+                                        <div [hidden]="formState_65d78e5083961.status != 'success'"
+                                             hidden
+                                             style="margin-top: 20px;"
+                                             [class]="formState_65d78e5083961.status == 'success' ? 'centered' : ''">
+                                            <div>
+                                                <p style="color: white;background-color: #0a0; padding: 36px;border-radius:50px;" class="es-p10">Congratulations, your feedback submitted</p>
+                                            </div>
+                                            <!-- <div data-amp-hidden="formState_65d78e5083961.status != 'error'">
+                                                <p style="color: #ffffff;background-color: #ee807d;" class="es-p10">Something went wrong, please try again</p>
+                                            </div> -->
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>              
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

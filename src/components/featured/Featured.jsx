@@ -9,7 +9,7 @@ const getData = async (page, cat) => {
   });
 
   if (!res.ok) {
-    throw new Error("Getting categories failed");
+    throw new Error("Getting featured failed");
   }
 
   return res.json();
@@ -31,7 +31,7 @@ const Featured = async ({item}) => {
         <div className={styles.textContainer}>
           <h1 className={styles.postTitle}>{featuredPost.title}</h1>
           <p className={styles.postDesc}>{featuredPost.desc}</p>
-          <Link href={`/posts/${featuredPost.slug}`}>
+          <Link href={`blog/posts/${featuredPost.slug}`}>
             <button className={styles.button}>Read More</button>
           </Link>
         </div>

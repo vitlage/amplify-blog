@@ -1,0 +1,2761 @@
+<!DOCTYPE html>
+<html amp4email data-css-strict>
+<head>
+    <meta charset="utf-8"/>
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+<!--    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>-->
+    <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+    <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+<!--    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>-->
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
+
+    <style amp4email-boilerplate>body {
+        visibility: hidden
+    }</style>
+    <style amp-custom>
+        @media screen and (max-width: 600px) {
+            table.es-content-body,
+            table.es-footer-body {
+                width: 100%;
+            }
+        }
+
+        /* General */
+
+        body {
+            width: 100%;
+            /* font-family: Courier, serif; */
+            font-family: Helvetica, sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 30px;
+        }
+
+        h5 {
+            font-size: 14px;
+        }
+
+        p {
+            line-height: 1.5;
+            font-size: 16px;
+            margin: 16px 0;
+        }
+
+        table {
+            border-spacing: 0;
+        }
+
+        /* Accordion */
+
+        .accordion-widget {
+            margin: 16px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 25px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .accordion-widget section h3.section-title {
+            padding: 16px;
+            margin: 0;
+            font-size: 18px;
+            background: white;
+            border: none;
+            border-bottom: 1px solid #efefef;
+            position: relative;
+        }
+
+        .accordion-widget section h3.section-title span {
+            position: absolute;
+            right: 16px;
+            color: #aaaaaa;
+        }
+
+        .accordion-widget section[expanded] h3.section-title {
+            color: #206eff;
+        }
+
+        .accordion-widget section h3.section-title:hover {
+            color: #206eff;
+        }
+
+        .accordion-widget section > div {
+            padding: 0 16px;
+        }
+
+        /* Score */
+
+        .score-container {
+            margin: 15px 0;
+        }
+
+        .score-btn {
+            color: #787878;
+            font-size: 30px;
+            cursor: pointer;
+            margin-right: 5px;
+            filter: grayscale(1);
+            opacity: .5;
+        }
+
+        .score-btn.active {
+            filter: grayscale(0);
+            opacity: 1;
+        }
+
+        .score-btn.orange.active {
+            color: #ffc107;
+        }
+
+        .score-btn.red.active {
+            color: #fc0c1a;
+        }
+
+        .score-btn.blue.active {
+            color: #206eff;
+        }
+
+        .carousel-preview {
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .carousel-preview img {
+            object-fit: cover;
+        }
+
+        amp-selector {
+            display: inline-flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        amp-selector img {
+            object-fit: cover;
+        }
+
+        .carousel-preview > div {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .carousel-preview amp-selector {
+            display: flex;
+            justify-content: center;
+        }
+
+        .carousel-preview amp-selector amp-img {
+            outline: none;
+            box-shadow: 0 0 0px 2px #F65044;
+        }
+
+        .carousel-preview amp-selector amp-img:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        .carousel>div img, .carousel amp-carousel amp-img {
+            object-fit: contain;
+        }
+
+        /*  Form  */
+
+        fieldset {
+            border: none;
+        }
+
+        .amp-form-group {
+            display: flex;
+            flex-direction: column;
+            margin: 25px 0;
+        }
+
+        .amp-form-group label.amp-form-label {
+            cursor: pointer;
+        }
+
+        .amp-form-group label.amp-form-label.title {
+            margin-bottom: 16px;
+            font-weight: bold;
+        }
+
+        .amp-form-input {
+            padding: 8px 16px 8px 16px;
+            border: 1px solid #8A98AB;
+            border-radius: 20px;
+            font-size: 16px;
+            /* font-family: inherit; */
+            font-family: Helvetica, sans-serif;
+        }
+
+        .amp-form-input:focus {
+            border: 1px solid #30384B;
+            box-shadow: 0 0 1px 1px #30384B;
+            outline: none;
+        }
+
+        textarea.amp-form-input {
+            border-radius: 20px;
+            /* font-family: inherit; */
+            font-family: Helvetica, sans-serif;
+            resize: none;
+            line-height: 24px;
+        }
+
+        .amp-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 32px;
+            background: #206eff;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            min-width: 200px;
+            font-weight: bold;
+            text-decoration: none;
+            border: 2px solid white;
+            min-height: 60px;
+            margin: 0;
+        }
+
+        .amp-button:hover {
+            background-color: #1d5ed5;
+        }
+
+        .highlight {
+            border-radius: 35px;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .highlight:hover {
+            background: #ecececff;
+            box-shadow: 0 0 0 10px #ecececff;
+        }
+
+        p,
+        img {
+            margin: 0;
+        }
+
+        p,
+        ul li,
+        ol li,
+        a {
+            line-height: 150%;
+            color: #333333;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+            color: #191919;
+        }
+
+        *.text-caption {
+            /* font-family: sans-serif Tahoma; */
+            font-family: Helvetica, sans-serif;
+            font-size: 13px;
+        }
+
+        *.text-capitalize {
+            text-transform: capitalize;
+        }
+
+        *.light-text {
+            color: #ffffff;
+        }
+
+        *.dark-text {
+            color: #333333;
+        }
+
+        *.text-muted {
+            color: #b5b4b4;
+        }
+
+        *.es-p20t {
+            padding-top: 20px;
+        }
+
+        *.es-m0 {
+            margin: 0;
+        }
+
+        *.es-m0t {
+            margin-top: 0;
+        }
+
+        *.es-m0b {
+            margin-bottom: 0;
+        }
+
+        *.es-m0l {
+            margin-left: 0;
+        }
+
+        *.es-m0r {
+            margin-right: 0;
+        }
+
+        *.es-m20t {
+            margin-top: 20px;
+        }
+
+        *.es-p0 {
+            padding: 0;
+        }
+
+        *.es-p20 {
+            padding: 20px;
+        }
+
+        *.es-p20r {
+            padding-right: 20px;
+        }
+
+        *.es-p20l {
+            padding-left: 20px;
+        }
+
+        *.es-p20t {
+            padding-top: 20px;
+        }
+
+        *.es-p20b {
+            padding-bottom: 20px;
+        }
+
+        *.es-p20h {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        *.es-p20v {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        *.es-p25 {
+            padding: 25px;
+        }
+
+        *.es-p40 {
+            padding: 40px;
+        }
+
+        *.es-p40r {
+            padding-right: 40px;
+        }
+
+        *.es-p40l {
+            padding-left: 40px;
+        }
+
+        *.es-p40t {
+            padding-top: 40px;
+        }
+
+        *.es-p40b {
+            padding-bottom: 40px;
+        }
+
+        *.es-p40h {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        *.es-p40v {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        *.es-p5 {
+            padding: 5px;
+        }
+
+        *.es-p5t {
+            padding-top: 5px;
+        }
+
+        *.es-p5l {
+            padding-left: 5px;
+        }
+
+        *.es-p5r {
+            padding-right: 5px;
+        }
+
+        *.es-p5b {
+            padding-bottom: 5px;
+        }
+
+        *.es-p5h {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        *.es-p5v {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        *.es-p10 {
+            padding: 10px;
+        }
+
+        *.es-p10l {
+            padding-left: 10px;
+        }
+
+        *.es-p10r {
+            padding-right: 10px;
+        }
+
+        *.es-p10t {
+            padding-top: 10px;
+        }
+
+        *.es-p10b {
+            padding-bottom: 10px;
+        }
+
+        *.es-p10h {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        *.es-p10v {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        *.es-p15 {
+            padding: 15px;
+        }
+
+        *.es-p15l {
+            padding-left: 15px;
+        }
+
+        *.es-p15r {
+            padding-right: 15px;
+        }
+
+        *.es-p15t {
+            padding-top: 15px;
+        }
+
+        *.es-p15b {
+            padding-bottom: 15px;
+        }
+
+        *.es-p15h {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        *.es-p15v {
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        .es-button {
+            text-decoration: none;
+        }
+
+        @media only screen and (max-width: 600px) {
+            p,
+            ul li,
+            ol li,
+            a {
+                line-height: 150%
+            }
+
+            h1,
+            h2,
+            h3,
+            h1 a,
+            h2 a,
+            h3 a {
+                line-height: 120%
+            }
+
+            h1 {
+                font-size: 30px;
+                text-align: left
+            }
+
+            h2 {
+                font-size: 24px;
+                text-align: left
+            }
+
+            h3 {
+                font-size: 20px;
+                text-align: left
+            }
+
+            .es-header-body h1 a,
+            .es-content-body h1 a,
+            .es-footer-body h1 a {
+                font-size: 30px;
+                text-align: left
+            }
+
+            .es-header-body h2 a,
+            .es-content-body h2 a,
+            .es-footer-body h2 a {
+                font-size: 24px;
+                text-align: left
+            }
+
+            .es-header-body h3 a,
+            .es-content-body h3 a,
+            .es-footer-body h3 a {
+                font-size: 20px;
+                text-align: left
+            }
+
+            .es-menu td a {
+                font-size: 14px
+            }
+
+            .es-header-body p,
+            .es-header-body ul li,
+            .es-header-body ol li,
+            .es-header-body a {
+                font-size: 14px
+            }
+
+            .es-content-body p,
+            .es-content-body ul li,
+            .es-content-body ol li,
+            .es-content-body a {
+                font-size: 14px
+            }
+
+            .es-footer-body p,
+            .es-footer-body ul li,
+            .es-footer-body ol li,
+            .es-footer-body a {
+                font-size: 14px
+            }
+
+            .es-infoblock p,
+            .es-infoblock ul li,
+            .es-infoblock ol li,
+            .es-infoblock a {
+                font-size: 12px
+            }
+
+            *[class="gmail-fix"] {
+                display: none
+            }
+
+            .es-m-txt-c,
+            .es-m-txt-c h1,
+            .es-m-txt-c h2,
+            .es-m-txt-c h3 {
+                text-align: center
+            }
+
+            .es-m-txt-r,
+            .es-m-txt-r h1,
+            .es-m-txt-r h2,
+            .es-m-txt-r h3 {
+                text-align: right
+            }
+
+            .es-m-txt-l,
+            .es-m-txt-l h1,
+            .es-m-txt-l h2,
+            .es-m-txt-l h3 {
+                text-align: left
+            }
+
+            .es-m-txt-r img,
+            .es-m-txt-c img,
+            .es-m-txt-l img {
+                display: inline
+            }
+
+            .es-button-border {
+                display: inline-block
+            }
+
+            a.es-button,
+            button.es-button {
+                font-size: 18px;
+                display: inline-block
+            }
+
+            .es-adaptive table,
+            .es-left,
+            .es-right {
+                width: 100%
+            }
+
+            .es-content table,
+            .es-header table,
+            .es-footer table,
+            .es-content,
+            .es-footer,
+            .es-header {
+                width: 100%;
+                max-width: 600px
+            }
+
+            .es-adapt-td {
+                display: block;
+                width: 100%
+            }
+
+            .adapt-img {
+                width: 100%;
+                height: auto
+            }
+
+            .es-m-p0 {
+                padding: 0px
+            }
+
+            .es-m-p0r {
+                padding-right: 0px
+            }
+
+            .es-m-p0l {
+                padding-left: 0px
+            }
+
+            .es-m-p0t {
+                padding-top: 0px
+            }
+
+            .es-m-p0b {
+                padding-bottom: 0
+            }
+
+            .es-m-p20b {
+                padding-bottom: 20px
+            }
+
+            .es-mobile-hidden,
+            .es-hidden {
+                display: none
+            }
+
+            tr.es-desk-hidden,
+            td.es-desk-hidden,
+            table.es-desk-hidden {
+                width: auto;
+                overflow: visible;
+                float: none;
+                max-height: inherit;
+                line-height: inherit
+            }
+
+            tr.es-desk-hidden {
+                display: table-row
+            }
+
+            table.es-desk-hidden {
+                display: table
+            }
+
+            td.es-desk-menu-hidden {
+                display: table-cell
+            }
+
+            .es-menu td {
+                width: 1%
+            }
+
+            table.es-table-not-adapt,
+            .esd-block-html table {
+                width: auto
+            }
+
+            table.es-social {
+                display: inline-block
+            }
+
+            table.es-social td {
+                display: inline-block
+            }
+
+            .es-desk-hidden {
+                display: table-row;
+                width: auto;
+                overflow: visible;
+                max-height: inherit
+            }
+
+            .h-auto {
+                height: auto
+            }
+        }
+
+        .p-detail {
+            padding: 120px 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            flex-basis: 100%;
+        }
+
+        .col-half {
+            width: 50%;
+            flex-basis: 50%;
+            position: relative;
+        }
+
+        .col-70 {
+            width: 70%;
+            flex-basis: 70%;
+            position: relative;
+        }
+
+        .col-30 {
+            width: 30%;
+            flex-basis: 30%;
+            position: relative;
+        }
+
+        .d-flex {
+            display: flex;
+        }
+
+        .align-items-center {
+            align-items: center;
+        }
+
+        .justify-content-between {
+            justify-content: space-between;
+        }
+
+        .p-data span {
+            color: #8c8cf9;
+            font-size: .9rem;
+            /* font-family: Gillsans, sans-serif; */
+            font-family: Helvetica, sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: flex;
+            margin-bottom: 10px;
+            justify-content: center;
+        }
+
+        .p-data .p-name {
+            /* font-family: Gillsans, sans-serif; */
+            font-family: Helvetica, sans-serif;
+            font-size: 1.57rem;
+            margin: 0;
+            line-height: 32px;
+            letter-spacing: .16em;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 400;
+            width: 100%;
+        }
+
+        .p-data .p-price {
+            /* font-family: "Nexa Bold", sans-serif; */
+            font-family: Helvetica, sans-serif;
+            font-size: 1.57rem;
+            margin-top: 5px;
+            font-weight: 400;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .p-data .p-description,
+        .addToCart p {
+            /* font-family: Gillsans, sans-serif; */
+            font-family: Helvetica, sans-serif;
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 24px;
+            text-align: center;
+            width: 100%;
+            margin: auto;
+        }
+
+        .addToCart p.beforeclick {
+            padding: 0;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .addToCart p.afterclick {
+            opacity: 1;
+            visibility: visible;
+            text-decoration: underline;
+            color: #3ba552;
+            margin-bottom: 10px;
+        }
+
+        .p-colors ul {
+            list-style: none;
+            display: flex;
+            padding-left: 0;
+        }
+
+        .p-colors ul li {
+            border-radius: 100px;
+            position: relative;
+        }
+
+        .p-colors ul li input {
+            width: 35px;
+            height: 35px;
+            border-radius: 100px;
+            position: relative;
+            display: flex;
+            z-index: 9;
+            cursor: pointer;
+        }
+
+        .p-colors ul li input[type=radio] + label .indicator {
+            position: relative;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: transparent;
+            color: #fff;
+        }
+
+        .p-colors ul li input[type=radio] + label .indicator svg {
+            height: 10px;
+            width: 10px;
+        }
+
+        .p-colors ul li input + label .indicator {
+            display: flex;
+        }
+
+        .p-colors ul li:not(:last-child) {
+            margin-right: 5px;
+        }
+
+        .p-colors ul li a {
+            width: 100%;
+            display: flex;
+            height: 100%;
+        }
+
+        .bg-red {
+            background-color: #c91524;
+        }
+
+        .bg-black {
+            background-color: #323232;
+        }
+
+        .bg-blue {
+            background-color: #314780;
+        }
+
+        .p-colors ul li a:focus {
+            border: 2px solid;
+            transition: unset;
+            position: absolute;
+            width: 130%;
+            height: 130%;
+            left: -5px;
+            top: -5px;
+            border-radius: 100px;
+        }
+
+        .styled-checkbox {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .styled-checkbox + label {
+            position: absolute;
+            cursor: pointer;
+            padding: 0;
+            top: 0;
+            left: 0;
+            border-radius: 100px;
+            width: 35px;
+            height: 35px;
+        }
+
+        .styled-checkbox:disabled + label {
+            color: #b8b8b8;
+        }
+
+        amp-selector amp-img {
+            display: inline-block;
+            width: 100%;
+            object-fit: contain;
+            filter: grayscale(1);
+            opacity: .6;
+        }
+
+        .carousel amp-carousel amp-img, .carousel>div img {
+            object-fit: contain;
+        }
+
+        .carousel-preview amp-selector [option][selected] {
+            opacity: 1;
+            filter: grayscale(0);
+        }
+
+        amp-selector [option] {
+            cursor: pointer;
+            display: flex;
+            background: #fff;
+            /*outline: 1px solid #dbdbdb;*/
+            border-radius: .5rem;
+            height: 70px;
+            width: 70px;
+            margin-bottom: .75rem;
+        }
+
+        .amp-carousel-button {
+            display: none;
+        }
+
+        amp-selector ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .addToCart button,
+        .addToCart .viewCart {
+            display: inline-flex;
+            background-color: #8c8cf9;
+            border-radius: 6px;
+            font-size: 1rem;
+            /* font-family: "Roboto", sans-serif; */
+            font-family: Helvetica, sans-serif;
+            text-align: center;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 30px;
+            border: 0;
+            cursor: pointer;
+            z-index: 1;
+            position: relative;
+        }
+
+        .addToCart button:hover,
+        .addToCart .viewCart:hover {
+            background-color: #a4a4fa;
+        }
+
+        .show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .addToCart button+.viewCart {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 0;
+        }
+
+        .buttons {
+            position: relative;
+        }
+
+        @media(max-width: 1024px) {
+            .col-half {
+                width: 100%;
+                flex-basis: 100%;
+            }
+            amp-selector [option] {
+                height: 50px;
+                width: 50px;
+            }
+            amp-selector {
+                /*position: absolute;*/
+                /*top: 108%;*/
+                /*left: 50%;*/
+                /*transform: translateX(-50%);*/
+                /*z-index: 9;*/
+                display: flex;
+                gap: 10px;
+            }
+            amp-selector ul {
+                display: flex;
+            }
+            .col-half .p-data {
+                margin-top: 100px;
+            }
+            amp-selector ul li:not(:last-child) {
+                margin-right: 10px;
+            }
+            .p-data .p-name {
+                font-size: 28px;
+                letter-spacing: 0px;
+            }
+            .p-data .p-price {
+                font-size: 1.3rem;
+                font-weight: 700;
+            }
+            .p-data .p-description,
+            .addToCart p {
+                font-size: 1rem;
+            }
+            .addToCart {
+                /*margin-top: 0;*/
+            }
+        }
+
+        .amp-carousel-button {
+            display: none;
+        }
+
+        amp-selector ul, .carousel-preview ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .addToCart {
+            margin-bottom: 30px;
+        }
+
+        .p-data > div {
+            flex-wrap: wrap;
+        }
+
+        .addToCart button,
+        .addToCart .viewCart {
+            display: inline-flex;
+            background-color: #242424;
+            border-radius: 0;
+            font-size: 1rem;
+            /* font-family: Gillsans, sans-serif; */
+            font-family: Helvetica, sans-serif;
+            text-align: center;
+            color: #fff;
+            text-decoration: none;
+            padding: 18px 15px;
+            border: 0;
+            cursor: pointer;
+            z-index: 1;
+            position: relative;
+            width: 50%;
+            justify-content: center;
+        }
+
+        .addToCart button:hover,
+        .addToCart .viewCart:hover {
+            background-color: #000;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+        }
+
+        .show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .addToCart button + .viewCart {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            z-index: 0;
+            transform: translateX(-50%);
+        }
+
+        .buttons {
+            position: relative;
+        }
+
+        .sizes ul {
+            display: flex;
+            list-style: none;
+            padding-left: 0;
+            margin: 15px 0;
+        }
+
+        .sizes ul li {
+            width: 40px;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            font-size: 16px;
+            /* font-family: Gillsans, sans-serif; */
+            font-family: Helvetica, sans-serif;
+        }
+
+        .sizes label {
+            font-size: 18px;
+            font-weight: 500;
+            /* font-family: Gillsans, sans-serif; */
+            font-family: Helvetica, sans-serif;
+            margin-right: 35px;
+        }
+
+        .sizes {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sizes input[type="radio"] {
+            display: none;
+        }
+
+        .sizes label {
+            display: inline-block;
+            width: auto;
+            height: 30px;
+            border: 1px solid transparent;
+            border-radius: 0;
+            text-align: center;
+            line-height: 30px;
+            padding: 0 10px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .sizes input[type="radio"]:checked + label {
+            border-color: black;
+        }
+
+        div[role=list]{
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        div[role=listitem]{
+            display: inherit;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        div[role=listitem]>div{
+            display: inherit;
+            gap: 15px;
+        }
+
+        @media (max-width: 1024px) {
+            .col-half {
+                width: 100%;
+                flex-basis: 100%;
+            }
+
+            amp-selector#carouselWithPreviewSelector [option], .carousel-preview [option] {
+                height: 20px;
+                width: 20px;
+                border: none;
+            }
+
+            .p-data .p-name {
+                margin-top: 30px;
+            }
+        }
+
+        .shopify-product-catalog_nav-bar-container {
+            height: 40px;
+            padding: 0;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .shopify-product-catalog_nav-bar-breadcrumb {
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: stretch;
+            height: 32px;
+            font-family: 'proxima-nova', Helvetica, Arial, sans-serif;
+            font-weight: 100;
+            text-transform: uppercase;
+        }
+        .shopify-product-catalog_nav-bar-item-separator {
+            width: 8px;
+            height: 8px;
+            display: inline-flex;
+            font-size: x-small;
+            margin-right: 6.08px;
+            line-height: normal;
+            justify-content: center;
+            align-items: center;
+        }
+        .shopify-product-catalog_nav-bar-item {
+            opacity: 64%;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            margin-right: 6.08px;
+            font-family: 'proxima-nova', Helvetica, Arial, sans-serif;
+        }
+        .shopify-product-catalog_nav-bar-item.active {
+            opacity: 100%;
+            font-weight: 100;
+            text-transform: uppercase;
+            
+            /* color: #F65044; */
+        }
+        .shopify-product-catalog_nav-bar-item.button {
+            cursor: pointer;
+        }
+
+        .shopify-product-catalog_product-count-container {
+            display: flex;
+            gap: 8px;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: start;
+            width: 170px;
+        }
+        @media (max-width: 480px) {
+            .shopify-product-catalog_product-count-container {
+                width: auto;
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+
+        .shopify-product-catalog_address-read-view {
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 20px;
+            text-align: left;
+            color: rgba(0, 0, 0, .72);
+        }
+        .shopify-product-catalog_address-header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 4px;
+        }
+        .shopify-product-catalog_address-header .action {
+            color: #000;
+            text-align: right;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 18px;
+            cursor: pointer;
+        }
+        .row.shopify-product-catalog-row {
+            display: flex;
+            /*gap: 15px;*/
+        }
+        .col-half.shopify-product-catalog-col {
+            flex-basis: 100%;
+            display: flex;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 642px) {
+            .col-half.shopify-product-catalog-col {
+                flex-basis: 100%;
+                margin-bottom: 20px;
+            }
+            .row.shopify-product-catalog-row {
+                margin-bottom: 10px;
+            }
+        }
+
+        .shopify-product-catalog-col input, .shopify-product-catalog-col textarea, .shopify-product-catalog-col select {
+            /* border-radius: 20px; */
+            padding: 8px 16px 8px 16px;
+            width: 100%;
+            border: 0.5px solid #8A98AB;
+            font-size: 16px;
+            font-weight: 100;
+            line-height: 24px;
+            /* font-family: inherit; */
+            font-family: Helvetica, sans-serif;
+        }
+
+        .relative {
+            position: relative;
+        }
+        .error {
+            font-size: 12px;
+            bottom: -15px;
+            color: orangered;
+            position: absolute;
+        }
+
+        .p-data span {
+            font-size: .9rem;
+            color: #F65044;
+            /* font-family: inherit; */
+            font-family: Helvetica, sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .p-data .p-name {
+            /* font-family: inherit; */
+            font-family: Helvetica, sans-serif;
+            font-size: 28px;
+            color: #444f60;
+            margin: 0;
+            font-weight: 800;
+        }
+
+        .p-data .p-price {
+            /* font-family: inherit; */
+            font-family: Helvetica, sans-serif;
+            font-size: 2rem;
+            color: #444f60;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .p-data .p-description,
+        .addToCart p {
+            /* font-family: inherit; */
+            font-family: Helvetica, sans-serif;
+            font-size: 1.15rem;
+            font-weight: 300;
+            color: #98a9c3;
+            line-height: 24px;
+        }
+
+        .addToCart p.beforeclick {
+            padding: 0;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .addToCart p.afterclick {
+            opacity: 1;
+            visibility: visible;
+            text-decoration: unset;
+            color: #3ba552;
+            font-size: 16px;
+        }
+
+        .p-colors ul {
+            list-style: none;
+            display: flex;
+            padding-left: 0;
+        }
+
+        .p-colors ul li {
+            border-radius: 100px;
+            position: relative;
+        }
+
+        .p-colors ul li input {
+            width: 35px;
+            height: 35px;
+            border-radius: 100px;
+            position: relative;
+            display: flex;
+            z-index: 9;
+            cursor: pointer;
+        }
+
+        .p-colors ul li input[type=radio]+label .indicator {
+            position: relative;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: transparent;
+            color: #fff;
+        }
+
+        .p-colors ul li input[type=radio]+label .indicator svg {
+            height: 10px;
+            width: 10px;
+        }
+
+        .p-colors ul li input[selected]+label .indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .p-colors ul li:not(:last-child) {
+            margin-right: 5px;
+        }
+
+        .p-colors ul li a {
+            width: 100%;
+            display: flex;
+            height: 100%;
+        }
+
+        .bg-red {
+            background-color: #c91524;
+        }
+
+        .bg-black {
+            background-color: #323232;
+        }
+
+        .bg-blue {
+            background-color: #314780;
+        }
+
+        .p-colors ul li a:focus {
+            border: 2px solid;
+            transition: unset;
+            position: absolute;
+            width: 130%;
+            height: 130%;
+            left: -5px;
+            top: -5px;
+            border-radius: 100px;
+        }
+
+        .styled-checkbox {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .styled-checkbox+label {
+            position: absolute;
+            cursor: pointer;
+            padding: 0;
+            top: 0;
+            left: 0;
+            border-radius: 100px;
+            width: 35px;
+            height: 35px;
+        }
+
+        .styled-checkbox:disabled+label {
+            color: #b8b8b8;
+        }
+
+        amp-selector amp-img {
+            display: inline-block;
+            width: 100%;
+            object-fit: contain;
+            filter: grayscale(1);
+            opacity: .6;
+        }
+
+        .carousel amp-carousel amp-img, .carousel>div img {
+            object-fit: contain;
+        }
+
+        .carousel-preview amp-selector [option][selected] {
+            opacity: 1;
+            filter: grayscale(0);
+        }
+
+        amp-selector [option] {
+            cursor: pointer;
+            display: flex;
+            background: #fff;
+            outline: 1px solid #dbdbdb;
+            border-radius: .5rem;
+            height: 70px;
+            width: 70px;
+            margin-bottom: .75rem;
+        }
+
+        .amp-carousel-button {
+            display: none;
+        }
+
+        amp-selector ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .addToCart button,
+        .addToCart .viewCart {
+            display: inline-flex;
+            background-color: #8c8cf9;
+            border-radius: 6px;
+            font-size: 1rem;
+            /* font-family: "Roboto", sans-serif; */
+            font-family: Helvetica, sans-serif;
+            text-align: center;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 30px;
+            border: 0;
+            cursor: pointer;
+            z-index: 1;
+            position: relative;
+        }
+
+        .addToCart button:hover,
+        .addToCart .viewCart:hover {
+            background-color: #a4a4fa;
+        }
+
+        .show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .addToCart button+.viewCart {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 0;
+        }
+
+        .buttons {
+            position: relative;
+        }
+
+
+        .w-100 {
+            width: 100%;
+        }
+
+        .img-responsive-container {
+            width: 170px;
+            /*margin-right: 15px;*/
+        }
+        input:focus, textarea:focus, select:focus {
+            border: 1px solid black;
+            /* box-shadow: 0 0 1px 1px #F65044; */
+            outline: none;
+        }
+
+        .two-columns-one {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .two-columns-one-left {
+            width: 220px;
+        }
+
+        .two-columns-one-right {
+            width: 270px;
+        }
+
+        .two-columns-two {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: center;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        .two-columns-two-left {
+            width: 270px;
+            margin-left: 20px;
+        }
+
+        .two-columns-two-right {
+            width: 220px;
+        }
+
+        .two-columns-image-and-text {
+            display: flex;
+        }
+
+        .two-columns-image-and-text-left {
+            width: 60%;
+        }
+
+        .two-columns-image-and-text-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 30px;
+        }
+
+        .two-columns-image-and-text-big {
+            font-size: 24px;
+        }
+
+        .two-columns-image-and-text-small {
+            font-size: 16px;
+            font-weight: 100;
+        }
+
+        .three-columns {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .email-header {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: flex-start;
+            font-size: 60px;
+            font-weight: 100;
+            /* font-family: Helvetica, sans-serif; */
+            font-family: Didot, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -11px;
+        }
+
+        .one-column-picture {
+            width: 100%;
+            height: 700px;
+            /* display: flex; */
+            position: relative;
+        }
+
+        .one-column-arrow-left {
+            width: 100px;
+            height: 100px;
+            /* border: 1px solid #919191; */
+            /* border: 1px solid white; */
+            border-radius: 50%;
+            cursor: pointer;
+            position: absolute;
+            top: 260px;
+            left: 5px;
+            z-index: 99;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        .one-column-arrow-right {
+            width: 100px;
+            height: 100px;
+            /* border: 1px solid #919191; */
+            /* border: 1px solid white; */
+            border-radius: 50%;
+            cursor: pointer;
+            position: absolute;
+            top: 260px;
+            right: 5px;
+            z-index: 99;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        .one-column-white-text {
+            color: white;
+            position: absolute;
+            top: 20px;
+            text-align: center;
+            font-size: 50px;
+            z-index: 99;
+            width: 100%;
+            font-family: 'Courier New';
+        }
+
+        .one-column-bottom-white-text {     
+            /* height: 30px;        */
+            /* text-align: center; */
+            /* font-size: 20px; */
+            /* width: 100%; */
+        }
+        
+        .one-column-bottom-white-text1 {
+            font-size: 20px;
+            color: black;
+            text-transform: none;
+            letter-spacing: 0.8px;
+            height: 50px;
+            display: flex;
+        }
+
+        .one-column-bottom-white-price {
+            padding: 15px;
+        }
+
+        .one-column-bottom-white-text2 {
+            /* bottom: 80px; */
+        }
+
+        .one-column-bottom-white-price-top {
+            display: flex;
+            gap: 5px;
+        }
+
+        .one-column-bottom-white-price-bottom {
+            margin-top: 5px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .one-column-bottom-white-price-header {
+            margin-bottom: 10px;
+        }
+
+        .one-column-bottom-white-price-item {
+            width: 140px;
+            height: 36px;
+            border: 0.5px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            background: white;
+            font-size: 12px;
+            font-weight: 100;
+            color: rgb(153, 153, 153);
+        }
+
+        .one-column-bottom-white-text3 {
+            /* bottom: 50px; */
+        }
+
+        .one-column-bottom-white-text4 {
+            text-transform: none;
+            margin-top: 5px;
+        }
+
+        .white-block-over-photo {
+            width: 447px;
+            height: 300px;
+            background: white;
+            position: absolute;
+            z-index: 99;
+            bottom: 54px;
+            left: 50%;
+            transform: translateX(-50%);
+            /* border-top: 1px solid black; */
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            font-family: Helvetica, sans-serif;
+            font-weight: 100;
+            font-size: 12px;
+            /* color: rgb(153, 153, 153); */
+            color: #4A4E51;
+            text-transform: uppercase;
+        }
+
+        .white-block-add-to-cart {
+            width: 100%;
+            text-align: center;
+            height: 37px;
+            border: 0.5px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgb(153, 153, 153);
+            cursor: pointer;
+        }
+
+        .white-block-add-to-cart-active {
+            background: #000;
+            color: white;
+            width: 100%;
+            text-align: center;
+            border: 0.5px solid black;
+            height: 37px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .with-border-bundle-block {
+            border: 0.5px solid #000;
+            /* width: 60%; */
+            font-family: Helvetica, sans-serif;
+            font-weight: 100;
+            font-size: 12px;
+            /* color: rgb(153, 153, 153); */
+            color: #4A4E51;
+            text-transform: uppercase;
+        }
+
+        .with-border-bundle-header {
+            padding-left: 20px;
+            box-sizing: border-box;
+            width: 100%;
+            height: 45px;
+            border-bottom: 0.5px solid black;
+            display: flex;
+            align-items: center;
+        }
+
+        .with-border-bundle-content {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .with-border-bundle-content-second {
+            margin-top: 20px;
+        }
+
+        .with-border-bundle-content-item {
+            display: flex;
+            gap: 20px;
+        }
+
+        .with-border-item-description {
+            text-transform: none;
+            margin-top: 8px;
+        }
+
+        .with-border-item-image {
+            min-width: 100px;
+            height: 100px;
+            overflow: hidden;
+        }
+
+        .with-border-item-price {
+            margin-top: 5px;
+            width: 30%;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .with-border-item-price-crossed {
+            color: rgb(153, 153, 153);
+            text-decoration: line-through;
+        }
+
+        .with-border-refill {
+            margin-top: -17px;
+            display: flex;
+            align-items: center;
+        }
+
+        .with-border-refill input[type="checkbox"] {
+            margin-right: 7px;
+        }
+
+        .nps_score {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nps_score_submitted {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 100;
+        }
+
+        .nps_score_element {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 0.5px solid black;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: 100;
+        }
+
+        .nps_score_element_selected {
+            background: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 0.5px solid black;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: 100;
+        }
+
+        .nps_score_button {
+            text-transform: uppercase;
+            width: 30%;
+        }
+
+        .subheader-text {
+            font-size: 20px;
+            color: black;
+            text-transform: none;
+            letter-spacing: 0.8px;
+            font-family: Helvetica, sans-serif;
+            font-weight: 100;
+        }
+
+        .one-column-short-block {
+            width: 100%;
+            height: 250px;
+            /* background: #FADFD9; */
+            background: #F3EBDC;
+            display: flex;
+        }
+
+        .one-column-short-block-left {
+            margin-left: 30px;
+        }
+
+        .one-column-short-block-right {
+            margin-left: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .white-header-uppercase {
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .mid-text {
+            font-family: Helvetica;
+            font-weight: 100;
+            line-height: 1.5;
+        }
+
+        .one-column-pink {
+            width: 100%;
+            height: 700px;
+            background: #D4B2D3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .one-column-brown {
+            background: #D7D2C4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 700px;
+        }
+
+        .one-column-white-blue {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, white 50%, #C4D4FE 50%);
+            width: 100%;
+            height: 700px;
+        }
+
+        .one-column-white {
+            width: 100%;
+            background: white;
+            height: 350px;
+        }
+
+        .one-column-blue {
+            width: 100%;
+            background: #C4D4FE;
+            height: 350px;
+        }
+
+        .one-column-pink-item {
+            width: 378px;
+            height: 520px;
+            background: white;
+            border-radius: 200px 200px 0px 0px;
+        }
+
+        .one-column-square-item {
+            /* background: #BF8075; */
+            background: #FFFFFF;
+            width: 378px;
+            height: 520px;
+        }
+
+        .one-column-square-text {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Helvetica, sans-serif;
+            font-weight: 100;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: rgb(153, 153, 153);
+        }
+
+        #myMainCarousel img {
+            object-fit: cover;
+        }
+
+        @media(max-width: 600px) {
+            .space-block {
+                display: none;
+            }
+
+            .two-columns {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .three-columns {
+                flex-direction: column;
+            }
+
+            .shopify-button {
+                width: 100%;
+            }
+
+            .img-responsive-container {
+                width: 100%;
+                margin: 0;
+            }
+
+            .es-padding {
+                padding: 16px;
+            }
+        }
+
+        @media(max-width: 1024px) {
+            .col-half {
+                width: 100%;
+                flex-basis: 100%;
+            }
+            amp-selector [option] {
+                height: 50px;
+                width: 50px;
+            }
+            amp-selector {
+                /*position: absolute;*/
+                /*top: 108%;*/
+                /*left: 50%;*/
+                /*transform: translateX(-50%);*/
+                /*z-index: 9;*/
+                display: flex;
+                gap: 10px;
+            }
+            amp-selector ul {
+                display: flex;
+            }
+            .col-half .p-data {
+                margin-top: 100px;
+            }
+            amp-selector ul li:not(:last-child) {
+                margin-right: 10px;
+            }
+            .p-data .p-name {
+                font-size: 28px;
+                letter-spacing: 0px;
+            }
+            .p-data .p-price {
+                font-size: 1.3rem;
+                font-weight: 700;
+            }
+            .p-data .p-description,
+            .addToCart p {
+                font-size: 1rem;
+            }
+            .addToCart {
+                /*margin-top: 0;*/
+            }
+        }
+
+        h1 {
+            font-weight: 500;
+            font-size: 28px;
+            color: #036969;
+            line-height: 42px;
+        }
+
+        p {
+            color: #1B1C1C;
+            font-size: 16px;
+            font-weight: 100;
+            line-height: 24px;
+            text-align: left;
+        }
+
+        .shopify-button {
+            cursor: pointer;
+            background: transparent;
+            /* background: #383838; */
+            /* padding: 8px 16px 8px 16px; */
+            padding: 12px 47px;
+            /* border-radius: 4.4px; */
+            /* color: #F65044; */
+            /* color: #B9885C; */
+            color: rgb(153, 153, 153);
+            /* font-family: inherit; */
+            font-size: 11px;
+            font-weight: 100;
+            /* line-height: 24px; */
+            line-height: 14px;
+            text-align: center;
+            /* border: 2px solid #F65044; */
+            /* border: 2px solid #B9885C; */
+            border: 1px solid rgb(153, 153, 153);
+            text-transform: uppercase;
+            font-family: Helvetica, sans-serif;
+        }
+
+        .shopify-button.secondary {
+            /* background: #F65044; */
+            border: 0.5px solid black;
+            color: black;
+        }
+
+        .shopify-button.stepper {
+            background: #ffffff;
+            /* color: #1B1C1C; */
+            padding: 0;
+            width: 22px;
+            height: 22px;
+            border-radius: 20px;
+            /* font-family: inherit; */
+            font-family: Helvetica, sans-serif;
+            /* border: 1px solid #1B1C1C; */
+        }
+
+        amp-img, img {
+            border-radius: 2px;
+        }
+
+        .text-secondary {
+            color: #717171;
+        }
+
+        hr {
+            width: 100%;
+        }
+
+        amp-selector [option][selected] {
+            outline: none;
+        }
+
+        .button-stepper-text {
+            /* font-family: 'Georgia'; */
+            font-family: Helvetica, sans-serif;
+            border: none;
+            background: none;
+            width: 20px;
+            height: 32px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            /* font-weight: 700; */
+        }
+
+        img:not([option]), amp-img:not([option]) {
+            object-fit: cover;
+            /*border-top-left-radius: 100%;*/
+            /*border-top-right-radius: 100%;*/
+            /* border-radius: 100px 100px 0px 0px; */
+            /* border: 1px solid #F65044; */
+        }
+
+        img.rectangular, amp-img.rectangular {
+            border-radius: 0px;
+        }
+
+        .secondary-color {
+            color: #F65044;
+        }
+
+        .upsell-make-it-a-bundle {
+            margin-top: 14px;
+            width: auto;
+        }
+
+        .upsell-make-it-a-bundle-button-active {
+            margin-top: 14px;
+            background: #000;
+            color: white;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 100;
+        }
+        
+    </style>
+</head>
+
+
+<body style="background-color: #ffffff;">
+<div>
+    <table width="100%" cellspacing="0" cellpadding="0">
+        <tbody>
+        <tr>
+            <td class="esd-email-paddings" valign="top">
+                <table bgcolor="#FFFFFF" class="es-content-body" align="center" cellpadding="0" cellspacing="0"
+                       width="600" style="height: 50px;">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div>
+
+                                <!-- <div class="es-p40v" style="background-color: #F65044;white-space: nowrap;overflow: hidden;background-position-y:center;background-image: url(https://i.ibb.co/ssJm8XF/2024-05-24-17-06-45.png)"></div> -->
+
+                                <!--  STATES  -->
+                                <amp-state id="view">
+                                    <script type="application/json">
+                                        {
+                                            "value": 1,
+                                            "product": "product_1"
+                                        }
+                                    </script>
+                                </amp-state>
+                                <amp-state id="step">
+                                    <script type="application/json">
+                                        {
+                                            "value": 1
+                                        }
+                                    </script>
+                                </amp-state>
+
+                                <amp-state id="cartState">
+                                    <script type="application/json">
+                                        {
+                                            "product_1": {
+                                                "title": "Black dress",
+                                                "image": "https://i.ibb.co/9gFpTJk/i-Love-IMG-image.png",
+                                                "details": "Outer fabric material: 64% cotton, 36% polyester Fabric: Sweat Care instructions: Do not tumble dry, machine wash at 30C, machine wash on gentle cycle",
+                                                "quantity": 0,
+                                                "price": 100,
+                                                "total": 0
+                                            },
+                                            "product_2": {
+                                                "title": "Black dress",
+                                                "image": "https://i.ibb.co/NtVMkgX/1380bb9f2f12eb58209de9d86e423dcd.png",
+                                                "details": "Outer fabric material: 65% cotton, 35% polyester Fabric: Sweat Care instructions: Do not tumble dry, machine wash at 30 C, machine wash on gentle cycle",
+                                                "quantity": 0,
+                                                "price": 100,
+                                                "total": 0
+                                            },
+                                            "product_3": {
+                                                "title": "Black dress",
+                                                "image": "https://i.ibb.co/Rj5tjDH/i-Love-IMG-Download.png",
+                                                "details": "Outer fabric material: 80% cotton, 20% polyester Fabric: Sweat Care instructions: Do not tumble dry, machine wash at 30 °C, machine wash on gentle cycle",
+                                                "quantity": 0,
+                                                "price": 100,
+                                                "total": 0
+                                            },
+                                            "product_4": {
+                                                "title": "Black dress",
+                                                "image": "https://i.ibb.co/9gFpTJk/i-Love-IMG-image.png",
+                                                "details": "Outer fabric material: 64% cotton, 36% polyester Fabric: Sweat Care instructions: Do not tumble dry, machine wash at 30C, machine wash on gentle cycle",
+                                                "quantity": 0,
+                                                "price": 100,
+                                                "total": 0
+                                            },
+                                            "product_5": {
+                                                "title": "Black dress",
+                                                "image": "https://i.ibb.co/NtVMkgX/1380bb9f2f12eb58209de9d86e423dcd.png",
+                                                "details": "Outer fabric material: 65% cotton, 35% polyester Fabric: Sweat Care instructions: Do not tumble dry, machine wash at 30 C, machine wash on gentle cycle",
+                                                "quantity": 0,
+                                                "price": 100,
+                                                "total": 0
+                                            },
+                                            "product_6": {
+                                                "title": "Black dress",
+                                                "image": "https://i.ibb.co/Rj5tjDH/i-Love-IMG-Download.png",
+                                                "details": "Outer fabric material: 80% cotton, 20% polyester Fabric: Sweat Care instructions: Do not tumble dry, machine wash at 30 °C, machine wash on gentle cycle",
+                                                "quantity": 0,
+                                                "price": 100,
+                                                "total": 0
+                                            }
+                                        }</script>
+                                </amp-state>
+
+                                <amp-state id="npsSelected">
+                                    <script type="application/json">
+                                        {
+                                            "value": 1
+                                        }</script>
+                                </amp-state>
+
+                                <amp-state id="npsSubmitted">
+                                    <script type="application/json">
+                                        {
+                                            "submitted": false
+                                        }</script>
+                                </amp-state>
+
+                                <amp-state id="billingState">
+                                    <script type="application/json">
+                                        {
+                                            "firstname": "",
+                                            "lastname": "",
+                                            "address1": "",
+                                            "address2": "",
+                                            "city": "",
+                                            "province": "",
+                                            "email": "",
+                                            "zip": "",
+                                            "phone": "",
+                                            "countryCode": "",
+                                            "clicked_submit": false,
+                                            "hiddenForm": false
+                                        }
+                                    </script>
+                                </amp-state>
+
+                                <!-- VIEW 1 -->
+                                <div [hidden]="view.value != 1">
+                                    <!-- STEP 1 -->
+                                    <div [hidden]="step.value != 1" style="display: flex;flex-direction: column;gap: 25px;" class="es-p25 es-padding">
+                                        <div class="subheader-text">Make it a bundle: you save $56</div>
+                                        <div class="with-border-bundle-block">
+                                            <div class="with-border-bundle-header">
+                                                <div>Get 30% off with bundling:</div>
+                                                <div></div>
+                                            </div>
+                                            <div class="with-border-bundle-content">
+                                                <div class="with-border-bundle-content-item">
+                                                    <div class="with-border-item-image">
+                                                        <amp-img src="https://convertic.ai/assets/template/16.png" width="17" height="17" layout="responsive" class="rectangular"></amp-img>
+                                                    </div>
+                                                    <div class="with-border-item-top">
+                                                        <div class="with-border-item-link">STUDDED SUEDE SANDALS</div>
+                                                        <div class="with-border-item-description">Suede flat sandals. Stud and buckle detail at upper. Topstitching detail at sole.</div>
+                                                        <div class="one-column-bottom-white-price-item upsell-make-it-a-bundle"
+                                                            [hidden]="sizeSelected.product_1.selected"
+                                                            [class]="(sizeSelected.product_1.selected) ? 'upsell-make-it-a-bundle-button-active' : 'one-column-bottom-white-price-item upsell-make-it-a-bundle'"
+                                                            on="tap:AMP.setState({sizeSelected: {product_1: {selected: true}}})"
+                                                             role="button"
+                                                             tabindex="-1"
+                                                            >
+                                                            <div
+                                                                role="button"
+                                                                tabindex="0"
+                                                                style="width: 100%;">
+                                                                    <span>Make it a bundle and save $25</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="one-column-bottom-white-price-item upsell-make-it-a-bundle"
+                                                            [hidden]="!sizeSelected.product_1.selected" hidden
+                                                            [class]="(sizeSelected.product_1.selected) ? 'upsell-make-it-a-bundle-button-active' : 'one-column-bottom-white-price-item upsell-make-it-a-bundle'"
+                                                            on="tap:AMP.setState({step: {value: 2}})"
+                                                             role="button"
+                                                             tabindex="-1"
+                                                            >
+                                                            <div
+                                                                role="button"
+                                                                tabindex="0"
+                                                                style="width: 100%;">
+                                                                    <span>Bundle created, proceed to checkout</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="with-border-item-price">
+                                                        <span class="with-border-item-price-crossed">$33</span>
+                                                        <span>$22</span>
+                                                    </div>
+                                                </div>
+                                                <div class="with-border-bundle-content-item with-border-bundle-content-second">
+                                                    <div class="with-border-item-image">
+                                                        <amp-img src="https://convertic.ai/assets/template/17.png" width="17" height="17" layout="responsive" class="rectangular"></amp-img>
+                                                    </div>
+                                                    <div class="with-border-item-top">
+                                                        <div class="with-border-item-link">BACK BUCKLE MENSWEAR VEST</div>
+                                                        <div class="with-border-item-description">V-neck vest. Front false welt pockets. Adjustable back strap. Front button closure.</div>
+                                                        <div class="one-column-bottom-white-price-item upsell-make-it-a-bundle"
+                                                            [hidden]="sizeSelected.product_2.selected"
+                                                            [class]="(sizeSelected.product_2.selected) ? 'upsell-make-it-a-bundle-button-active' : 'one-column-bottom-white-price-item upsell-make-it-a-bundle'"
+                                                            on="tap:AMP.setState({sizeSelected: {product_2: {selected: true}}})"
+                                                             role="button"
+                                                             tabindex="-1"
+                                                            >
+                                                            <div
+                                                                role="button"
+                                                                tabindex="0"
+                                                                style="width: 100%;">
+                                                                    <span>Make it a bundle and save $25</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="one-column-bottom-white-price-item upsell-make-it-a-bundle"
+                                                            [hidden]="!sizeSelected.product_2.selected" hidden
+                                                            [class]="(sizeSelected.product_2.selected) ? 'upsell-make-it-a-bundle-button-active' : 'one-column-bottom-white-price-item upsell-make-it-a-bundle'"
+                                                            on="tap:AMP.setState({step: {value: 2}})"
+                                                             role="button"
+                                                             tabindex="-1"
+                                                            >
+                                                            <div
+                                                                role="button"
+                                                                tabindex="0"
+                                                                style="width: 100%;">
+                                                                    <span>Bundle created, proceed to checkout</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="with-border-item-price">
+                                                        <span class="with-border-item-price-crossed">$43</span>
+                                                        <span>$22</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="subheader-text">Save with subscription</div>
+                                        <div class="with-border-bundle-block">
+                                            <div class="with-border-bundle-header">
+                                                <div>Refill every 30 days and save 20%:</div>
+                                            </div>
+                                            <div class="with-border-bundle-content">
+                                                <div class="with-border-bundle-content-item with-border-bundle-content-second">
+                                                    <div class="with-border-item-image">
+                                                        <amp-img src="https://convertic.ai/assets/template/coffee1.png" width="17" height="17" layout="responsive" class="rectangular"></amp-img>
+                                                    </div>
+                                                    <div class="with-border-item-top">
+                                                        <div class="with-border-item-link">Elevate Everyday Coffee</div>
+                                                        <div class="with-border-item-description">Discover the exquisite taste of our handcrafted, ethically sourced coffee, designed to awaken your senses.</div>
+                                                        <div class="one-column-bottom-white-price-item upsell-make-it-a-bundle"
+                                                            [hidden]="sizeSelected.product_3.selected"
+                                                            [class]="(sizeSelected.product_3.selected) ? 'upsell-make-it-a-bundle-button-active' : 'one-column-bottom-white-price-item upsell-make-it-a-bundle'"
+                                                            on="tap:AMP.setState({sizeSelected: {product_3: {selected: true}}})"
+                                                             role="button"
+                                                             tabindex="-1"
+                                                            >
+                                                            <div
+                                                                role="button"
+                                                                tabindex="0"
+                                                                style="width: 100%;">
+                                                                    <span>Refill every month and save 25%</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="one-column-bottom-white-price-item upsell-make-it-a-bundle"
+                                                            [hidden]="!sizeSelected.product_3.selected" hidden
+                                                            [class]="(sizeSelected.product_3.selected) ? 'upsell-make-it-a-bundle-button-active' : 'one-column-bottom-white-price-item upsell-make-it-a-bundle'"
+                                                            on="tap:AMP.setState({step: {value: 2}})"
+                                                             role="button"
+                                                             tabindex="-1"
+                                                            >
+                                                            <div
+                                                                role="button"
+                                                                tabindex="0"
+                                                                style="width: 100%;">
+                                                                    <span>Refill confirmed, proceed to checkout</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="with-border-item-price">
+                                                        <span class="with-border-item-price-crossed">$39</span>
+                                                        <span>$22</span>
+                                                    </div>
+                                                </div>
+                                                <div class="with-border-bundle-content-item with-border-bundle-content-second">
+                                                    <div class="with-border-item-image">
+                                                        <amp-img src="https://convertic.ai/assets/template/coffee2.png" width="17" height="17" layout="responsive" class="rectangular"></amp-img>
+                                                    </div>
+                                                    <div class="with-border-item-top">
+                                                        <div class="with-border-item-link">Pure Bliss Coffee</div>
+                                                        <div class="with-border-item-description">Savor the exceptional flavor of our ethically sourced, artisan-roasted coffee, designed to elevate every cup.</div>
+                                                        <div class="one-column-bottom-white-price-item upsell-make-it-a-bundle"
+                                                            [hidden]="sizeSelected.product_4.selected"
+                                                            [class]="(sizeSelected.product_4.selected) ? 'upsell-make-it-a-bundle-button-active' : 'one-column-bottom-white-price-item upsell-make-it-a-bundle'"
+                                                            on="tap:AMP.setState({sizeSelected: {product_4: {selected: true}}})"
+                                                             role="button"
+                                                             tabindex="-1"
+                                                            >
+                                                            <div
+                                                                role="button"
+                                                                tabindex="0"
+                                                                style="width: 100%;">
+                                                                    <span>Refill every quarter and save 15%</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="one-column-bottom-white-price-item upsell-make-it-a-bundle"
+                                                            [hidden]="!sizeSelected.product_4.selected" hidden
+                                                            [class]="(sizeSelected.product_4.selected) ? 'upsell-make-it-a-bundle-button-active' : 'one-column-bottom-white-price-item upsell-make-it-a-bundle'"
+                                                            on="tap:AMP.setState({step: {value: 2}})"
+                                                             role="button"
+                                                             tabindex="-1"
+                                                            >
+                                                            <div
+                                                                role="button"
+                                                                tabindex="0"
+                                                                style="width: 100%;">
+                                                                    <span>Refill confirmed, proceed to checkout</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="with-border-item-price">
+                                                        <span class="with-border-item-price-crossed">$31</span>
+                                                        <span>$22</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="subheader-text" [hidden]="npsSubmitted.submitted">On scale from 0 to 10, how likely are you to recommend to a friend or colleague?</div>
+                                        <div class="nps_score" [hidden]="npsSubmitted.submitted">
+                                            <div on="tap:AMP.setState({npsSelected: {value: 0}})" role="button" tabindex="-1" [class]="(npsSelected.value == 0) ? 'nps_score_element_selected' : 'nps_score_element'" class="nps_score_element">0</div>
+                                            <div on="tap:AMP.setState({npsSelected: {value: 1}})" role="button" tabindex="-1" [class]="(npsSelected.value == 1) ? 'nps_score_element_selected' : 'nps_score_element'" class="nps_score_element">1</div>
+                                            <div on="tap:AMP.setState({npsSelected: {value: 2}})" role="button" tabindex="-1" [class]="(npsSelected.value == 2) ? 'nps_score_element_selected' : 'nps_score_element'" class="nps_score_element">2</div>
+                                            <div on="tap:AMP.setState({npsSelected: {value: 3}})" role="button" tabindex="-1" [class]="(npsSelected.value == 3) ? 'nps_score_element_selected' : 'nps_score_element'" class="nps_score_element">3</div>
+                                            <div on="tap:AMP.setState({npsSelected: {value: 4}})" role="button" tabindex="-1" [class]="(npsSelected.value == 4) ? 'nps_score_element_selected' : 'nps_score_element'" class="nps_score_element">4</div>
+                                            <div on="tap:AMP.setState({npsSelected: {value: 5}})" role="button" tabindex="-1" [class]="(npsSelected.value == 5) ? 'nps_score_element_selected' : 'nps_score_element'" class="nps_score_element">5</div>
+                                            <div on="tap:AMP.setState({npsSelected: {value: 6}})" role="button" tabindex="-1" [class]="(npsSelected.value == 6) ? 'nps_score_element_selected' : 'nps_score_element'" class="nps_score_element">6</div>
+                                            <div on="tap:AMP.setState({npsSelected: {value: 7}})" role="button" tabindex="-1" [class]="(npsSelected.value == 7) ? 'nps_score_element_selected' : 'nps_score_element'" class="nps_score_element">7</div>
+                                            <div on="tap:AMP.setState({npsSelected: {value: 8}})" role="button" tabindex="-1" [class]="(npsSelected.value == 8) ? 'nps_score_element_selected' : 'nps_score_element'" class="nps_score_element">8</div>
+                                            <div on="tap:AMP.setState({npsSelected: {value: 9}})" role="button" tabindex="-1" [class]="(npsSelected.value == 9) ? 'nps_score_element_selected' : 'nps_score_element'" class="nps_score_element">9</div>
+                                            <div on="tap:AMP.setState({npsSelected: {value: 10}})" role="button" tabindex="-1" [class]="(npsSelected.value == 10) ? 'nps_score_element_selected' : 'nps_score_element'" class="nps_score_element">10</div>
+                                        </div>
+                                        <div class="nps_score_submitted" [hidden]="!npsSubmitted.submitted" hidden>
+                                            Thank you!
+                                        </div>
+                                        <div class="one-column-bottom-white-price-item upsell-make-it-a-bundle nps_score_button"
+                                            [hidden]="npsSubmitted.submitted"
+                                             role="button"
+                                             tabindex="-1"
+                                            on="tap:AMP.setState({npsSubmitted: {submitted: true}})"
+                                            >
+                                            <div
+                                                role="button"
+                                                tabindex="0"
+                                                style="width: 100%;">
+                                                    <span>Submit</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- STEP 2 -->
+                                    <div [hidden]="step.value != 2" hidden style="padding: 25px;display: flex;flex-direction: column;gap: 25px;">
+                                        <div class="shopify-product-catalog_nav-bar-container">
+                                                <span class="shopify-product-catalog_nav-bar-breadcrumb">
+                                                    <span class="shopify-product-catalog_nav-bar-item button" tabindex="0" role="button" on="tap:AMP.setState({step: {value: 1}})">Cart</span>
+                                                    <span class="shopify-product-catalog_nav-bar-item-separator">
+                                                        <amp-img src="https://i.ibb.co/PQKNZTB/img-5.png" width="10" height="10"></amp-img>
+                                                    ︎</span>
+                                                    <span class="shopify-product-catalog_nav-bar-item active" >Checkout</span>
+                                                </span>
+                                        </div>
+
+                                        <div>
+                                            <div class="shopify-product-catalog_address-header">
+                                                <p>Delivery address:</p>
+                                                <span tabindex="0" role="button" on="tap:AMP.setState({billingState:{hiddenForm:false}})" class="absolute" style="cursor: pointer;font-size: 14px;font-weight: 600;" [hidden]="!billingState.hiddenForm" hidden>Change</span>
+                                            </div>
+
+                                            <div [hidden]="!billingState.hiddenForm"
+                                                 hidden
+                                                 class="shopify-product-catalog_address-read-view"
+                                                 [text]="billingState.firstname + ' ' + billingState.lastname + ', '+ billingState.address1 + ', ' + (billingState.address2.length ? billingState.address2 + ', ' : '') +  billingState.city + ', ' + billingState.province + ', ' + billingState.email + ', ' + billingState.zip + ', ' + billingState.countryCode + ', ' + billingState.phone">
+                                            </div>
+
+
+                                            <div [hidden]="billingState.hiddenForm">
+                                                <div class="es-p15t">
+                                                    <div class="row shopify-product-catalog-row">
+                                                        <div class="col-half shopify-product-catalog-col relative">
+                                                            <input type="text" placeholder="First name"
+                                                                   required
+                                                                   autocomplete="off"
+                                                                   on="input-throttled:AMP.setState({billingState:{firstname: event.value}})"
+                                                                   name="firstname">
+                                                            <span class="error" [hidden]="billingState.clicked_submit && billingState.firstname.length > 0 || !billingState.clicked_submit" hidden>* Required field</span>
+                                                        </div>
+                                                        <div class="col-half shopify-product-catalog-col relative">
+                                                            <input type="text" placeholder="Last name"
+                                                                   required
+                                                                   autocomplete="off"
+                                                                   on="input-throttled:AMP.setState({billingState:{lastname: event.value}})"
+                                                                   name="lastname">
+                                                            <span class="error" [hidden]="billingState.clicked_submit && billingState.lastname.length > 0 || !billingState.clicked_submit" hidden>* Required field</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row shopify-product-catalog-row">
+                                                        <div class="col-half shopify-product-catalog-col relative">
+                                                            <input type="text" placeholder="Address 1"
+                                                                   required
+                                                                   on="input-throttled:AMP.setState({billingState:{address1: event.value}})"
+                                                                   name="address1">
+                                                            <span class="error" [hidden]="billingState.clicked_submit && billingState.address1.length > 0 || !billingState.clicked_submit" hidden>* Required field</span>
+                                                        </div>
+                                                        <div class="col-half shopify-product-catalog-col relative">
+                                                            <input type="text" placeholder="Address 2"
+                                                                   on="input-throttled:AMP.setState({billingState:{address2: event.value}})"
+                                                                   name="address2">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row shopify-product-catalog-row">
+                                                        <div class="col-half shopify-product-catalog-col relative">
+                                                            <input type="text" placeholder="City"
+                                                                   required
+                                                                   on="input-throttled:AMP.setState({billingState:{city: event.value}})"
+                                                                   name="city">
+                                                            <span class="error" [hidden]="billingState.clicked_submit && billingState.city.length > 0 || !billingState.clicked_submit" hidden>* Required field</span>
+                                                        </div>
+                                                        <div class="col-half shopify-product-catalog-col relative">
+                                                            <input type="text" placeholder="State" name="province"
+                                                                   required
+                                                                   on="input-throttled:AMP.setState({billingState:{province: event.value}})">
+                                                            <span class="error" [hidden]="billingState.clicked_submit && billingState.province.length > 0 || !billingState.clicked_submit" hidden>* Required field</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row shopify-product-catalog-row">
+                                                        <div class="col-half shopify-product-catalog-col relative">
+                                                            <select name="countryCode"
+                                                                    required
+                                                                    on="change:AMP.setState({billingState:{countryCode: event.value}})">
+                                                                <option value="" selected="" disabled="">Country</option>
+                                                                <option value="+93"> (+93) Afghanistan</option>,<option value="+355"> (+355) Albania</option>,<option value="+213"> (+213) Algeria</option>,<option value="+1684"> (+1684) American Samoa</option>,<option value="+376"> (+376) Andorra</option>,<option value="+244"> (+244) Angola</option>,<option value="+1264"> (+1264) Anguilla</option>,<option value="+672"> (+672) Antarctica</option>,<option value="+1268"> (+1268) Antigua and Barbuda</option>,<option value="+54"> (+54) Argentina</option>
+                                                                <option value="+374"> (+374) Armenia</option>,<option value="+297"> (+297) Aruba</option>,<option value="+61"> (+61) Australia</option>,<option value="+43"> (+43) Austria</option>,<option value="+994"> (+994) Azerbaijan</option>,<option value="+1242"> (+1242) Bahamas</option>,<option value="+973"> (+973) Bahrain</option>,
+                                                                <option value="+880"> (+880) Bangladesh</option>,<option value="+1246"> (+1246) Barbados</option>,<option value="+375"> (+375) Belarus</option>,<option value="+32"> (+32) Belgium</option>,<option value="+501"> (+501) Belize</option>,<option value="+229"> (+229) Benin</option>,<option value="+1441"> (+1441) Bermuda</option>,
+                                                                <option value="+975"> (+975) Bhutan</option>,<option value="+591"> (+591) Bolivia</option>,<option value="+387"> (+387) Bosnia and Herzegovina</option>,<option value="+267"> (+267) Botswana</option>,<option value="+55"> (+55) Brazil</option>,<option value="+246"> (+246) British Indian Ocean Territory</option>,<option value="+1284"> (+1284) British Virgin Islands</option>,
+                                                                <option value="+673"> (+673) Brunei</option>,<option value="+359"> (+359) Bulgaria</option>,<option value="+226"> (+226) Burkina Faso</option>,<option value="+257"> (+257) Burundi</option>,<option value="+855"> (+855) Cambodia</option>,<option value="+237"> (+237) Cameroon</option>,<option value="+1"> (+1) Canada</option>,<option value="+238"> (+238) Cape Verde</option>,
+                                                                <option value="+1345"> (+1345) Cayman Islands</option>,<option value="+236"> (+236) Central African Republic</option>,<option value="+235"> (+235) Chad</option>,<option value="+56"> (+56) Chile</option>,<option value="+86"> (+86) China</option>,<option value="+61"> (+61) Christmas Island</option>,<option value="+61"> (+61) Cocos Islands</option>,<option value="+57"> (+57) Colombia</option>,<option value="+269"> (+269) Comoros</option>,<option value="+682"> (+682) Cook Islands</option>,
+                                                                <option value="+506"> (+506) Costa Rica</option>,<option value="+385"> (+385) Croatia</option>,<option value="+53"> (+53) Cuba</option>,<option value="+599"> (+599) Curacao</option>,<option value="+357"> (+357) Cyprus</option>,<option value="+420"> (+420) Czech Republic</option>,<option value="+243"> (+243) Democratic Republic of the Congo</option>,<option value="+45"> (+45) Denmark</option>,<option value="+253"> (+253) Djibouti</option>,<option value="+1767"> (+1767) Dominica</option>,<option value="+1809"> (+1809) Dominican Republic</option>,<option value="+670"> (+670) East Timor</option>,
+                                                                <option value="+593"> (+593) Ecuador</option>,<option value="+20"> (+20) Egypt</option>,<option value="+503"> (+503) El Salvador</option>,<option value="+240"> (+240) Equatorial Guinea</option>,<option value="+291"> (+291) Eritrea</option>,<option value="+372"> (+372) Estonia</option>,<option value="+251"> (+251) Ethiopia</option>,<option value="+500"> (+500) Falkland Islands</option>,<option value="+298"> (+298) Faroe Islands</option>,<option value="+679"> (+679) Fiji</option>,<option value="+358"> (+358) Finland</option>,<option value="+33"> (+33) France</option>,
+                                                                <option value="+689"> (+689) French Polynesia</option>,<option value="+241"> (+241) Gabon</option>,<option value="+220"> (+220) Gambia</option>,<option value="+995"> (+995) Georgia</option>,<option value="+49"> (+49) Germany</option>,<option value="+233"> (+233) Ghana</option>,<option value="+350"> (+350) Gibraltar</option>,<option value="+30"> (+30) Greece</option>,<option value="+299"> (+299) Greenland</option>,<option value="+1473"> (+1473) Grenada</option>,<option value="+1671"> (+1671) Guam</option>,<option value="+502"> (+502) Guatemala</option>,
+                                                                <option value="+441481"> (+441481) Guernsey</option>,<option value="+224"> (+224) Guinea</option>,<option value="+245"> (+245) GuineaBissau</option>,<option value="+592"> (+592) Guyana</option>,<option value="+509"> (+509) Haiti</option>,<option value="+504"> (+504) Honduras</option>,<option value="+852"> (+852) Hong Kong</option>,<option value="+36"> (+36) Hungary</option>,<option value="+354"> (+354) Iceland</option>,<option value="+91"> (+91) India</option>,<option value="+62"> (+62) Indonesia</option>,<option value="+98"> (+98) Iran</option>,
+                                                                <option value="+964"> (+964) Iraq</option>,<option value="+353"> (+353) Ireland</option>,<option value="+441624"> (+441624) Isle of Man</option>,<option value="+972"> (+972) Israel</option>,<option value="+39"> (+39) Italy</option>,<option value="+225"> (+225) Ivory Coast</option>,<option value="+1876"> (+1876) Jamaica</option>,<option value="+81"> (+81) Japan</option>,<option value="+441534"> (+441534) Jersey</option>,<option value="+962"> (+962) Jordan</option>,<option value="+7"> (+7) Kazakhstan</option>,<option value="+254"> (+254) Kenya</option>,
+                                                                <option value="+686"> (+686) Kiribati</option>,<option value="+383"> (+383) Kosovo</option>,<option value="+965"> (+965) Kuwait</option>,<option value="+996"> (+996) Kyrgyzstan</option>,<option value="+856"> (+856) Laos</option>,<option value="+371"> (+371) Latvia</option>,<option value="+961"> (+961) Lebanon</option>,<option value="+266"> (+266) Lesotho</option>,<option value="+231"> (+231) Liberia</option>,<option value="+218"> (+218) Libya</option>,<option value="+423"> (+423) Liechtenstein</option>,<option value="+370"> (+370) Lithuania</option>,
+                                                                <option value="+352"> (+352) Luxembourg</option>,<option value="+853"> (+853) Macau</option>,<option value="+389"> (+389) Macedonia</option>,<option value="+261"> (+261) Madagascar</option>,<option value="+265"> (+265) Malawi</option>,<option value="+60"> (+60) Malaysia</option>,<option value="+960"> (+960) Maldives</option>,<option value="+223"> (+223) Mali</option>,<option value="+356"> (+356) Malta</option>,<option value="+692"> (+692) Marshall Islands</option>,<option value="+222"> (+222) Mauritania</option>,<option value="+230"> (+230) Mauritius</option>,
+                                                                <option value="+262"> (+262) Mayotte</option>,<option value="+52"> (+52) Mexico</option>,<option value="+691"> (+691) Micronesia</option>,<option value="+373"> (+373) Moldova</option>,<option value="+377"> (+377) Monaco</option>,<option value="+976"> (+976) Mongolia</option>,<option value="+382"> (+382) Montenegro</option>,<option value="+1664"> (+1664) Montserrat</option>,<option value="+212"> (+212) Morocco</option>,<option value="+258"> (+258) Mozambique</option>,<option value="+95"> (+95) Myanmar</option>,<option value="+264"> (+264) Namibia</option>,
+                                                                <option value="+674"> (+674) Nauru</option>,<option value="+977"> (+977) Nepal</option>,<option value="+31"> (+31) Netherlands</option>,<option value="+599"> (+599) Netherlands Antilles</option>,<option value="+687"> (+687) New Caledonia</option>,<option value="+64"> (+64) New Zealand</option>,<option value="+505"> (+505) Nicaragua</option>,<option value="+227"> (+227) Niger</option>,<option value="+234"> (+234) Nigeria</option>,<option value="+683"> (+683) Niue</option>,<option value="+850"> (+850) North Korea</option>,<option value="+1670"> (+1670) Northern Mariana Islands</option>,
+                                                                <option value="+47"> (+47) Norway</option>,<option value="+968"> (+968) Oman</option>,<option value="+92"> (+92) Pakistan</option>,<option value="+680"> (+680) Palau</option>,<option value="+970"> (+970) Palestine</option>,<option value="+507"> (+507) Panama</option>,<option value="+675"> (+675) Papua New Guinea</option>,<option value="+595"> (+595) Paraguay</option>,<option value="+51"> (+51) Peru</option>,<option value="+63"> (+63) Philippines</option>,<option value="+64"> (+64) Pitcairn</option>,<option value="+48"> (+48) Poland</option>,<option value="+351"> (+351) Portugal</option>,
+                                                                <option value="+1787"> (+1787) Puerto Rico</option>,<option value="+974"> (+974) Qatar</option>,<option value="+242"> (+242) Republic of the Congo</option>,<option value="+262"> (+262) Reunion</option>,<option value="+40"> (+40) Romania</option>,<option value="+7"> (+7) Russia</option>,<option value="+250"> (+250) Rwanda</option>,<option value="+590"> (+590) Saint Barthelemy</option>,<option value="+290"> (+290) Saint Helena</option>,<option value="+1869"> (+1869) Saint Kitts and Nevis</option>,<option value="+1758"> (+1758) Saint Lucia</option>,<option value="+590"> (+590) Saint Martin</option>,
+                                                                <option value="+508"> (+508) Saint Pierre and Miquelon</option>,<option value="+1784"> (+1784) Saint Vincent and the Grenadines</option>,<option value="+685"> (+685) Samoa</option>,<option value="+378"> (+378) San Marino</option>,<option value="+239"> (+239) Sao Tome and Principe</option>,<option value="+966"> (+966) Saudi Arabia</option>,<option value="+221"> (+221) Senegal</option>,<option value="+381"> (+381) Serbia</option>,<option value="+248"> (+248) Seychelles</option>,<option value="+232"> (+232) Sierra Leone</option>,<option value="+65"> (+65) Singapore</option>,
+                                                                <option value="+1721"> (+1721) Sint Maarten</option>,<option value="+421"> (+421) Slovakia</option>,<option value="+386"> (+386) Slovenia</option>,<option value="+677"> (+677) Solomon Islands</option>,<option value="+252"> (+252) Somalia</option>,<option value="+27"> (+27) South Africa</option>,<option value="+82"> (+82) South Korea</option>,<option value="+211"> (+211) South Sudan</option>,<option value="+34"> (+34) Spain</option>,<option value="+94"> (+94) Sri Lanka</option>,<option value="+249"> (+249) Sudan</option>,<option value="+597"> (+597) Suriname</option>,
+                                                                <option value="+47"> (+47) Svalbard and Jan Mayen</option>,<option value="+268"> (+268) Swaziland</option>,<option value="+46"> (+46) Sweden</option>,<option value="+41"> (+41) Switzerland</option>,<option value="+963"> (+963) Syria</option>,<option value="+886"> (+886) Taiwan</option>,<option value="+992"> (+992) Tajikistan</option>,<option value="+255"> (+255) Tanzania</option>,<option value="+66"> (+66) Thailand</option>,<option value="+228"> (+228) Togo</option>,<option value="+690"> (+690) Tokelau</option>,<option value="+676"> (+676) Tonga</option>,
+                                                                <option value="+1868"> (+1868) Trinidad and Tobago</option>,<option value="+216"> (+216) Tunisia</option>,<option value="+90"> (+90) Turkey</option>,<option value="+993"> (+993) Turkmenistan</option>,<option value="+1649"> (+1649) Turks and Caicos Islands</option>,<option value="+688"> (+688) Tuvalu</option>,<option value="+1340"> (+1340) U.S. Virgin Islands</option>,<option value="+256"> (+256) Uganda</option>,<option value="+380"> (+380) Ukraine</option>,<option value="+971"> (+971) United Arab Emirates</option>,<option value="+44"> (+44) United Kingdom</option>,<option value="+1"> (+1) United States</option>,
+                                                                <option value="+598"> (+598) Uruguay</option>,<option value="+998"> (+998) Uzbekistan</option>,<option value="+678"> (+678) Vanuatu</option>,<option value="+379"> (+379) Vatican</option>,<option value="+58"> (+58) Venezuela</option>,<option value="+84"> (+84) Vietnam</option>,<option value="+681"> (+681) Wallis and Futuna</option>,<option value="+212"> (+212) Western Sahara</option>,<option value="+967"> (+967) Yemen</option>,<option value="+260"> (+260) Zambia</option>,<option value="+263"> (+263) Zimbabwe</option>
+                                                            </select>
+                                                            <span class="error" [hidden]="billingState.clicked_submit && billingState.countryCode.length > 0 || !billingState.clicked_submit" hidden>* Required field</span>
+                                                        </div>
+                                                        <div class="col-half shopify-product-catalog-col relative">
+                                                            <input type="text" placeholder="Zip code"
+                                                                   required
+                                                                   on="input-throttled:AMP.setState({billingState:{zip: event.value}})"
+                                                                   name="zip">
+                                                            <span class="error" [hidden]="billingState.clicked_submit && billingState.zip.length > 0 || !billingState.clicked_submit" hidden>* Required field</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row shopify-product-catalog-row">
+                                                        <div class="col-half shopify-product-catalog-col relative">
+                                                            <input type="email" placeholder="Email"
+                                                                   required
+                                                                   on="input-throttled:AMP.setState({billingState:{email: event.value}})"
+                                                                   name="email">
+                                                            <span class="error" [hidden]="billingState.clicked_submit && billingState.email.length > 0 || !billingState.clicked_submit" hidden>* Required field</span>
+                                                        </div>
+                                                        <div class="col-half shopify-product-catalog-col relative">
+                                                            <input type="number" placeholder="Phone number"
+                                                                   required
+                                                                   on="input-throttled:AMP.setState({billingState:{phone: event.value}})"
+                                                                   name="phonenumber">
+                                                            <span class="error" [hidden]="billingState.clicked_submit && billingState.phone.length > 0 || !billingState.clicked_submit" hidden>* Required field</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="two-columns" style="display: flex;justify-content: end;gap:16px;">
+                                                    <span tabindex="0" role="button" on="tap:AMP.setState({step: {value: 1}})" class="shopify-button secondary" style="width: auto;">Edit cart</span>
+                                                    <span tabindex="0" role="button" on="tap:AMP.setState({billingState:{clicked_submit: true, hiddenForm: billingState.firstname.length > 0 && billingState.lastname.length > 0 && billingState.address1.length > 0 && billingState.city.length > 0 && billingState.province.length > 0 && billingState.email.length > 0 &&  billingState.zip.length > 0 &&  billingState.countryCode.length > 0 &&  billingState.phone.length > 0}})"
+                                                          class="shopify-button secondary" style="width: auto;">Save address</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div style="border: 0.5px solid #000000;padding: 32px;">
+                                            <p style="font-weight: 700;">Order summary</p>
+                                            <div style="padding: 16px 0;">
+                                                <div style="margin-bottom: 16px;opacity: 72%;">
+                                                    <p style="color: #717171;">Item summary</p>
+                                                    <p [hidden]="cartState.product_1.quantity == 0"><span [text]="cartState.product_1.quantity+'x • ' + cartState.product_1.title"></span></p>
+                                                    <p [hidden]="cartState.product_2.quantity == 0"><span [text]="cartState.product_2.quantity+'x • ' + cartState.product_2.title"></span></p>
+                                                    <p [hidden]="cartState.product_3.quantity == 0"><span [text]="cartState.product_3.quantity+'x • ' + cartState.product_3.title"></span></p>
+                                                    <p [hidden]="cartState.product_4.quantity == 0"><span [text]="cartState.product_4.quantity+'x • ' + cartState.product_4.title"></span></p>
+                                                    <p [hidden]="cartState.product_5.quantity == 0"><span [text]="cartState.product_5.quantity+'x • ' + cartState.product_5.title"></span></p>
+                                                    <p [hidden]="cartState.product_6.quantity == 0"><span [text]="cartState.product_6.quantity+'x • ' + cartState.product_6.title"></span></p>
+                                                </div>
+                                                <p style="color: #717171;">Total <span [text]="'$ ' + (cartState.product_1.total + cartState.product_2.total + cartState.product_3.total + cartState.product_4.total + cartState.product_5.total + cartState.product_6.total).toFixed(2)" style="color:#1B1C1C;font-weight: 600;"></span></p>
+                                            </div>
+                                            <form method="GET" action-xhr="https://api.convertic.ai" novalidate="">
+                                                <!--                                        on="tap:AMP.setState({step: {value: 3}})" -->
+                                                <button type="submit" class="shopify-button secondary" on="tap:AMP.setState({step: {value: 3}})" style="width: 100%; background: black; color: white;">Pay now</button>
+                                                <input type="hidden" name="subscriber" value="{SUBSCRIBER_EMAIL}">
+                                                <input type="hidden" name="__form_tracking_data_type" value="purchase">
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- hd -->
+    <div class="space-block es-p40v" style="background-color: #ffffff;"></div>
+    <!-- ehd -->
+</div>
+</body>
+</html>
