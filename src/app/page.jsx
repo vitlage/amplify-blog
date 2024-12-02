@@ -1,6 +1,7 @@
 "use client";
 import './global.css';
 import { useEffect, useState } from "react";
+import InputAI from "@/components/inputAI/InputAI";
 
 export default function Home({ searchParams }) {
   const page = parseInt(searchParams.page) || 1;
@@ -174,6 +175,15 @@ export default function Home({ searchParams }) {
               </div>
           </div>
       </header>
+        <div class="row">
+            <div class="col">
+                <div class="container">
+                    <div class="row">
+                        <InputAI />
+                    </div>
+                </div>
+            </div>
+        </div>
       <div className="row my-5">
         <div className="col above">
             <div className="horizontal_parent">
