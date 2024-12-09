@@ -31,11 +31,11 @@ a {
 .light {
   --bg: white;
   --textColor: black;
-  --softBg: #f0f0f0;
+  --softBg: #ffffff;
   --softTextColor: #626262;
 }
 
-.container {
+.container, .container-fluid {
   min-height: 100vh;
   background-color: var(--softBg);
   color: var(--textColor);
