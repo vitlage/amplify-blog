@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Card from '../card/Card'
 
 const getData = async (page, cat) => {
-  const res = await fetch(`http://localhost:3000/api/posts?page=${page}&cat=${cat || ""}`, {
+  const res = await fetch(`${process.env.HOST_URL}/api/posts?page=${page}&cat=${cat || ""}`, {
     cache: "no-store",
   });
 

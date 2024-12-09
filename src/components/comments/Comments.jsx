@@ -23,7 +23,7 @@ const Comments = ({ postSlug }) => {
   const {status} = useSession();
   console.log("status is: ", status);
   const { data, mutate, isLoading } = useSWR(
-    `http://localhost:3000/api/comments?postSlug=${postSlug}`,
+    `${process.env.HOST_URL}/api/comments?postSlug=${postSlug}`,
     fetcher
   )
 
