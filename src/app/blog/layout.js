@@ -18,7 +18,7 @@ export default function BlogLayout({ children }) {
     <AuthProvider>
       <ThemeContextProvider>
         <ThemeProvider>
-          <div className="container">
+          <div className="container-fluid">
             <div className="wrapper">
               <NavBar />
                 {children}

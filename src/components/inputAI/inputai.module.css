@@ -1,0 +1,92 @@
+.aiInputContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.aiInputBox {
+    position: relative;
+    width: 100%;
+}
+
+.aiInputBoxControl {
+    padding: 26px 80px 26px 26px;
+    border-radius: 45px;
+    border: 1px solid rgba(0,0,0,.1);
+    outline: none;
+    width: 100%;
+    font-size: 18px;
+}
+
+.aiTemplateBox {
+    position: relative;
+    background-color: white;
+    margin-top: 16px;
+    width: 100%;
+    height: 100vh;
+}
+
+.aiTemplateBoxIframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 15px;
+}
+
+.aiInputBoxButton {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    border: none;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.aiInputBoxButton_active {
+    background-color: #206eff;
+}
+
+.aiInputBoxButtonIcon {
+    width: 25px;
+    height: 25px;
+    color: white;
+}
+
+.aiInputBoxButtonSpinner {
+    color: white;
+}
+
+.aiInputBoxControl:focus {
+    box-shadow: 0 0 0 3px rgba(32, 110, 255, 1);
+}
+
+.placeholderWrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 26px;
+    pointer-events: none;
+    font-size: 18px;
+    color: #7d7d7d;
+    white-space: nowrap;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.fadeIn {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.fadeOut {
+    transform: translateY(10px);
+    opacity: 0;
+}
+
+.hidden {
+    opacity: 0;
+}

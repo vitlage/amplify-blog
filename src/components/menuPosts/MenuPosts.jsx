@@ -4,7 +4,7 @@ import styles from '../menuPosts/menuPosts.module.css'
 import Image from 'next/image';
 
 const getData = async (page, cat) => {
-  const res = await fetch(`http://localhost:3000/api/posts?page=${page || ""}&cat=${cat || ""}`, {
+  const res = await fetch(`${process.env.HOST_URL}/api/posts?page=${page || ""}&cat=${cat || ""}`, {
     cache: "no-store",
   });
 
@@ -19,7 +19,7 @@ const MenuPosts = async ({ withImage }) => {
   const { posts } = await getData(1);
   return (
     <div className={styles.items}>
-        <Link href={`blog/posts/${posts[0].slug}`} className={styles.item}>
+        <Link href={`/blog/posts/${posts[0].slug}`} className={styles.item}>
             {withImage && (
                 <div className={styles.imageContainer}>
                 <Image src="/p1.jpeg" alt="" fill className={styles.image}/>  
@@ -33,7 +33,7 @@ const MenuPosts = async ({ withImage }) => {
             </div>
           </div> 
         </Link>
-        <Link href={`blog/posts/${posts[1].slug}`} className={styles.item}>
+        <Link href={`/blog/posts/${posts[1].slug}`} className={styles.item}>
             {withImage && (
                 <div className={styles.imageContainer}>
                 <Image src="/p1.jpeg" alt="" fill className={styles.image}/>  
@@ -47,7 +47,7 @@ const MenuPosts = async ({ withImage }) => {
             </div>
           </div> 
         </Link>
-        <Link href={`blog/posts/${posts[2].slug}`} className={styles.item}>
+        <Link href={`/blog/posts/${posts[2].slug}`} className={styles.item}>
             {withImage && (
                 <div className={styles.imageContainer}>
                 <Image src="/p1.jpeg" alt="" fill className={styles.image}/>  
@@ -61,7 +61,7 @@ const MenuPosts = async ({ withImage }) => {
             </div>
           </div> 
         </Link>
-        <Link href={`blog/posts/${posts[3].slug}`} className={styles.item}>
+        <Link href={`/blog/posts/${posts[3].slug}`} className={styles.item}>
             {withImage && (
                 <div className={styles.imageContainer}>
                 <Image src="/p1.jpeg" alt="" fill className={styles.image}/>  
