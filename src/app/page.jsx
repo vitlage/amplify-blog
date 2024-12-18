@@ -160,9 +160,9 @@ export default function Home({ searchParams }) {
                   <div className="col centeredElement">
                       <div className="centeredElement">
                           <h1 className="header_title_text">
-                            <span>Welcome to the allure&nbsp;</span><br />
+                            <span>Make every email &nbsp;</span><br />
                             <span className="higlighted_header">interactive</span> 
-                            <span> emails era</span>
+                            <span> AI agent</span>
                           </h1>
                       </div>
                   </div>

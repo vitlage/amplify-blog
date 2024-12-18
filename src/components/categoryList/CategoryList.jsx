@@ -4,7 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const getData = async () => {
-  console.log("inside getData");
   const res = await fetch(`${process.env.HOST_URL}/api/categories`, {
     cache: "no-store",
   });

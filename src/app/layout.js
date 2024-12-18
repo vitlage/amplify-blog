@@ -5,7 +5,7 @@ import Script from 'next/script'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Convertic AI Blog',
+  title: 'Convertic AI',
   description: 'Convertic AI Blog',
 }
 
