@@ -1,4 +1,6 @@
 .aiInputContainer {
+    margin-top: 200px;
+    margin-bottom: 100px;
     display: flex;
     justify-content: center;
     width: 100%;
@@ -15,7 +17,9 @@
     border: 1px solid rgba(0,0,0,.1);
     outline: none;
     width: 100%;
-    font-size: 18px;
+    font-size: 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #5F6367;
 }
 
 .aiTemplateBox {
@@ -75,6 +79,8 @@
     display: flex;
     align-items: center;
     transition: transform 0.3s ease, opacity 0.3s ease;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 20px;
 }
 
 .fadeIn {
