@@ -81,6 +81,7 @@ export default function Home({ searchParams }) {
   }
 
   const faqItemClick = (item) => {
+    console.log("on faqItemClick");
     setFaqItemOpen(item);
   };
 
@@ -360,7 +361,9 @@ export default function Home({ searchParams }) {
                                                     <div className="all_faq_item_text">How does Convertic works?</div>
                                                     <div className="d-block">
                                                         <div className="all_faq_item_plus">
-                                                            <div className="all_faq_item_plus_inner">+</div>
+                                                            <div className="all_faq_item_plus_inner">
+                                                                {faqItemOpen == 0 ? <div className='all_faq_item_minus'>-</div> : "+"}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -371,7 +374,9 @@ export default function Home({ searchParams }) {
                                                     <div className="all_faq_item_text">Do you offer a free trial?</div>
                                                     <div className="d-block">
                                                         <div className="all_faq_item_plus">
-                                                            <div className="all_faq_item_plus_inner">+</div>
+                                                            <div className="all_faq_item_plus_inner">
+                                                                {faqItemOpen == 1 ? <div className='all_faq_item_minus'>-</div> : "+"}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -382,7 +387,9 @@ export default function Home({ searchParams }) {
                                                     <div className="all_faq_item_text">Can you explain the key features of your email marketing software?</div>
                                                     <div className="d-block">
                                                         <div className="all_faq_item_plus">
-                                                            <div className="all_faq_item_plus_inner">+</div>
+                                                            <div className="all_faq_item_plus_inner">
+                                                                {faqItemOpen == 2 ? <div className='all_faq_item_minus'>-</div> : "+"}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -393,7 +400,9 @@ export default function Home({ searchParams }) {
                                                     <div className="all_faq_item_text">Can I customize the email templates?</div>
                                                     <div className="d-block">
                                                         <div className="all_faq_item_plus">
-                                                            <div className="all_faq_item_plus_inner">+</div>
+                                                            <div className="all_faq_item_plus_inner">
+                                                                {faqItemOpen == 3 ? <div className='all_faq_item_minus'>-</div> : "+"}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -404,7 +413,9 @@ export default function Home({ searchParams }) {
                                                     <div className="all_faq_item_text">Do you have an affiliate program?</div>
                                                     <div className="d-block">
                                                         <div className="all_faq_item_plus">
-                                                            <div className="all_faq_item_plus_inner">+</div>
+                                                            <div className="all_faq_item_plus_inner">
+                                                                {faqItemOpen == 4 ? <div className='all_faq_item_minus'>-</div> : "+"}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -415,7 +426,9 @@ export default function Home({ searchParams }) {
                                                     <div className="all_faq_item_text">Should I move from my current ESP?</div>
                                                     <div className="d-block">
                                                         <div className="all_faq_item_plus">
-                                                            <div className="all_faq_item_plus_inner">+</div>
+                                                            <div className="all_faq_item_plus_inner">
+                                                                {faqItemOpen == 5 ? <div className='all_faq_item_minus'>-</div> : "+"}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -463,14 +463,15 @@ body {
 }
 
 .all_faq_item_answer {
-    color: #BCCBCF;
+    color: #5F6367!important;
     font-size: 18px;
     font-weight: 300;
     line-height: 1.8rem;
     margin-top: 20px;
     transition: visibility 0s, opacity 0.5s linear;
     /* color: rgb(165, 165, 165); */
-    color: #2E2E2E;
+    /* color: #2E2E2E; */
+    /* color: #BCCBCF; */
     opacity: 0.8;
 }
 
@@ -742,6 +743,10 @@ body {
     background: black;
     margin-left: 5px;
     /* position: absolute; */
+}
+
+.all_faq_item_minus {
+    padding-bottom: 4px;
 }
 
 .all_middle_text_colorful1 {
