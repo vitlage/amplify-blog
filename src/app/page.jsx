@@ -58,14 +58,23 @@ export default function Home({ searchParams }) {
 
   const onTryItClickable1 = () => {
     document.querySelector(".clickable_modal1").style.display = "block";
+    if (window.analytics) {
+        window.analytics.track('Try it clickable 1 clicked');
+    }
   };
 
   const onTryItClickable2 = () => {
     document.querySelector(".clickable_modal2").style.display = "block";
+    if (window.analytics) {
+        window.analytics.track('Try it clickable 2 clicked');
+    }
   };
 
   const onTryItClickable3 = () => {
     document.querySelector(".clickable_modal3").style.display = "block";
+    if (window.analytics) {
+        window.analytics.track('Try it clickable 3 clicked');
+    }
   };
 
   const onTryItClickableClose = () => {
@@ -144,6 +153,15 @@ export default function Home({ searchParams }) {
       .catch(error => {
           displayAlert({status: 'danger', 'msg': 'Oops, Something went wrong. Please, try it later'});
       })
+  }
+
+  const onregisterclick = (param) => {
+    console.log("onregisterclick: ", param);
+    if (window.analytics) {
+      window.analytics.track('Landing page button clicked', {
+        buttonNumber: param,
+      });
+    }
   }
 
   return (
@@ -524,8 +542,8 @@ export default function Home({ searchParams }) {
                         <div className="row">
                             <div className="col">
                                 <div className="footer_feedback">
-                                    <input className="footer_feedback_input" type="text" placeholder="Enter your email to get professional audit of your email marketing for free" />
-                                    <button className="footer_contact_button">Get audit</button>
+                                    <input className="footer_feedback_input" type="text" placeholder="Subscribe to our news" />
+                                    <button className="footer_contact_button">Subscribe</button>
                                 </div>
                             </div>
                         </div>
