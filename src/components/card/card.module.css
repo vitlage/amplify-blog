@@ -38,7 +38,8 @@
 }
 
 .link {
-    border-bottom: 1px solid crimson;
+    color: #1B72E8!important;
+    font-size: 18px;
     width: max-content;
     padding: 2px 0;
 }

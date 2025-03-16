@@ -22,7 +22,7 @@ const Featured = async ({item}) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
-        <b>Hey, we are Convertic AI</b> and we write about marketing, AI, and technology
+        Hey, we are Convertic.ai and we write about marketing, AI, and technology
       </h1>
       <div className={styles.post}>
         <div className={styles.imgContainer}>
