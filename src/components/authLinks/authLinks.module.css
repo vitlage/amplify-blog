@@ -1,5 +1,8 @@
 .link {
     cursor: pointer;
+    font-family: "DM Sans";
+    font-weight: 400;
+    font-size: 19px;
 }
 
 .burger {
