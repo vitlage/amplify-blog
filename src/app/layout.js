@@ -112,6 +112,7 @@ export default function RootLayout({ children }) {
           async
       />
       {/* Convertic  */}
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
       <script id="ACXConnectScript" type="text/javascript"
               src="https://app.convertic.ai/websites/66953e3ababf0/connect.js"></script>
       {/*<Script */}
