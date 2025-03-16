@@ -110,14 +110,17 @@ export default function RootLayout({ children }) {
           src="//code.tidio.co/7ibdpkegkso2ccq3cbvdww88ibwizvsh.js"
           strategy="afterInteractive"
           async
-        />
-        {/* Convertic  */}
-        <Script 
-          id="ACXConnectScript"
-          src="https://app.convertic.ai/websites/66953e3ababf0/connect.js"
-          strategy="afterInteractive"
-          async
-        />
+      />
+      {/* Convertic  */}
+      <script id="ACXConnectScript" type="text/javascript"
+              src="https://app.convertic.ai/websites/66953e3ababf0/connect.js"></script>
+      {/*<Script */}
+      {/*  id="ACXConnectScript"*/}
+      {/*  src="https://app.convertic.ai/websites/66953e3ababf0/connect.js"*/}
+      {/*  strategy="afterInteractive"*/}
+      {/*  crossOrigin="anonymous"*/}
+      {/*  async*/}
+      {/*/>*/}
       </body>
     </html>
   )

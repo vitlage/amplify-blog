@@ -194,10 +194,10 @@ export default function Home({ searchParams }) {
               </div>
           </div>
       </header>
-        <div class="row">
-            <div class="col">
-                <div class="container">
-                    <div class="row">
+        <div className="row">
+            <div className="col">
+                <div className="container">
+                    <div className="row">
                         <InputAI />
                     </div>
                 </div>
