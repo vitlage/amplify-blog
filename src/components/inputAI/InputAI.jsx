@@ -36,7 +36,7 @@ const InputAI = () => {
             }
 
             const result = await response.text();
-            setHtmlContent(result);
+            setHtmlContent(JSON.parse(result).content);
 
             setInputValue("");
             setLoading(false);
