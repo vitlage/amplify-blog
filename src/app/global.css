@@ -278,9 +278,13 @@ body {
 /*}*/
 
 .header {
-    background-image: url("/background.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: radial-gradient(circle, black 1px, transparent 1px), /* Dotted pattern */
+        url('/background.jpg'); /* Main background image */
+    
+    background-size: 40px 40px, cover; /* Size for dots and image */
+    background-position: 0 0, center; /* Align both layers */
+    /* background-size: cover;
+    background-repeat: no-repeat; */
     background-position-y: bottom;
     padding-bottom: 250px;
 }
@@ -292,7 +296,7 @@ body {
     right: 0;
     bottom: 0;
     background: inherit;
-    filter: blur(40px);
+    filter: blur(80px);
     z-index: 0;
     /* backdrop-filter: blur(40px); */
 }

@@ -156,7 +156,6 @@ export default function Home({ searchParams }) {
   }
 
   const onregisterclick = (param) => {
-    console.log("onregisterclick: ", param);
     if (window.analytics) {
       window.analytics.track('Landing page button clicked', {
         buttonNumber: param,
@@ -194,15 +193,6 @@ export default function Home({ searchParams }) {
               </div>
           </div>
       </header>
-        <div className="row">
-            <div className="col">
-                <div className="container">
-                    <div className="row">
-                        <InputAI />
-                    </div>
-                </div>
-            </div>
-        </div>
       <div className="row my-5">
         <div className="col above">
             <div className="horizontal_parent">
@@ -235,7 +225,8 @@ export default function Home({ searchParams }) {
                                 <div className="hor_circle_inner"></div>
                             </div>
                             <div className="whole_screen_text whole_screen_text_small">
-                                Scroll to check the <span className="whole_screen_text_color">use cases</span> of how you can implement interactive emails in your business
+                                Generate <span className="whole_screen_text_color">any email</span> in seconds and see conversions soar to new heights.
+                                {/* Scroll to check the <span className="whole_screen_text_color">use cases</span> of how you can implement interactive emails in your business */}
                             </div>
                         </div>
                     </div>
@@ -244,6 +235,15 @@ export default function Home({ searchParams }) {
         </div>
       </div>
       <div>
+      <div className="row">
+            <div className="col">
+                <div className="container">
+                    <div className="row">
+                        <InputAI />
+                    </div>
+                </div>
+            </div>
+        </div>
                 <section className="section whole_screen_text">
                     <div>
                         Increase revenue from <span className="whole_screen_text_color">shopping</span> in email
