@@ -65,10 +65,15 @@
     margin-top: 60px;
 }
 
+.description {
+    color: #5F6367;
+    font-size: 18px;
+}
+
 .description p {
-    font-size: 20px;
     font-weight: 300;
     margin-bottom: 20px;
+    color: #5F6367;
 }
 
 @media screen and (max-width: 1536px) {

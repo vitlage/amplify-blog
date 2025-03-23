@@ -1,9 +1,99 @@
 .aiInputContainer {
-    margin-top: 200px;
+    margin-top: 100px;
     margin-bottom: 100px;
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+.aiInputTitle {
+    padding-top: 100px;
+    font-family: "DM Sans";
+    font-weight: 300;
+    text-align: center;
+}
+
+.aiTryExample {
+    font-family: "DM Sans";
+    font-weight: 300;
+    text-align: center;
+}
+
+.aiTryExampleHowEmails {
+    font-family: "DM Sans";
+    font-weight: 300;
+    text-align: center;
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+
+.stepper_prompt_suggestion {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.stepper_prompt_suggestion_item {
+    font-family: 'Manrope', sans-serif;
+    background-color: var(--bg-paper);
+    flex: 1 1 30%;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 5px;
+    text-align: center;
+    padding: 16px;
+    cursor: pointer;
+    border: 0.5px solid #c7c7c7;
+    border-radius: 20px;
+    min-height: 110px;
+    color: #6C757D;
+    font-size: 17px;
+    font-weight: 300;
+    transition: opacity 0.9s ease;
+    transition-delay: 0.9s;
+}
+
+.hor_circle_small {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(133,63,250,1) 0%, rgb(222 74 218) 100%);
+    margin-right: 20px;
+}
+
+.hor_circle_inner_small {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.example_prompt_text {
+    text-align: start;
+}
+
+.all_faq_subheader {
+    /* text-align: center; */
+    color: #424242;
+    /* width: 80%; */
+    margin-top: 20px;
+    margin-left: 20px;
+    letter-spacing: -1px;
+    font-size: 27px;
+    align-self: flex-start;
 }
 
 .aiInputBox {

@@ -12,7 +12,7 @@ const NavBar = () => {
          
       </div>
       <Link href={"/blog"} className={styles.logo}>
-        Convertic.ai
+        Convertic<span style={{color: "#1C71E8"}}>.</span>ai
       </Link>
       <div className={styles.links}>
         <ThemeToggle />

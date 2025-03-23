@@ -22,7 +22,7 @@ const Featured = async ({item}) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
-        Hey, we are Convertic.ai and we write about marketing, AI, and technology
+        Hey, we are Convertic<span style={{color: "#1C71E8"}}>.</span>ai and we write about marketing, AI, and technology
       </h1>
       <div className={styles.post}>
         <div className={styles.imgContainer}>
