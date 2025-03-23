@@ -126,47 +126,47 @@ const InputAI = () => {
                     />
                 </div> : ''}
                 <div>
-                    <h2 class={styles.aiTryExample}>Click to try example prompts:</h2>
-                    <div class={styles.stepper_prompt_suggestion}>
-                        <div class={styles.stepper_prompt_suggestion_item} onClick={() => tryExamplePrompt("Welcome email for a fashion brand")}>
-                            <div class={styles.hor_circle_small}>
-                                <div class={styles.hor_circle_inner_small}></div>
+                    <h2 className={styles.aiTryExample}>Click to try example prompts:</h2>
+                    <div className={styles.stepper_prompt_suggestion}>
+                        <div className={styles.stepper_prompt_suggestion_item} onClick={() => tryExamplePrompt("Welcome email for a fashion brand")}>
+                            <div className={styles.hor_circle_small}>
+                                <div className={styles.hor_circle_inner_small}></div>
                             </div>
-                            <div class={styles.example_prompt_text}>Welcome email for a fashion brand</div>
+                            <div className={styles.example_prompt_text}>Welcome email for a fashion brand</div>
                         </div>
-                        <div class={styles.stepper_prompt_suggestion_item} onClick={() => tryExamplePrompt("Product showcase email for a guitar brand")}>
-                            <div class={styles.hor_circle_small}>
-                                <div class={styles.hor_circle_inner_small}></div>
+                        <div className={styles.stepper_prompt_suggestion_item} onClick={() => tryExamplePrompt("Product showcase email for a guitar brand")}>
+                            <div className={styles.hor_circle_small}>
+                                <div className={styles.hor_circle_inner_small}></div>
                             </div>
-                            <div class={styles.example_prompt_text}>Product showcase email for a guitar brand</div>
+                            <div className={styles.example_prompt_text}>Product showcase email for a guitar brand</div>
                         </div>
-                        <div class={styles.stepper_prompt_suggestion_item} onClick={() => tryExamplePrompt("Simple discount offer email for a cosmetics brand")}>
-                            <div class={styles.hor_circle_small}>
-                                <div class={styles.hor_circle_inner_small}></div>
+                        <div className={styles.stepper_prompt_suggestion_item} onClick={() => tryExamplePrompt("Simple discount offer email for a cosmetics brand")}>
+                            <div className={styles.hor_circle_small}>
+                                <div className={styles.hor_circle_inner_small}></div>
                             </div>
-                            <div class={styles.example_prompt_text}>Simple discount offer email for a cosmetics brand</div>
+                            <div className={styles.example_prompt_text}>Simple discount offer email for a cosmetics brand</div>
                         </div>
-                        <div class={styles.stepper_prompt_suggestion_item} onClick={() => tryExamplePrompt('"Thank you" email for subscribers of a skincare brand')}>
-                            <div class={styles.hor_circle_small}>
-                                <div class={styles.hor_circle_inner_small}></div>
+                        <div className={styles.stepper_prompt_suggestion_item} onClick={() => tryExamplePrompt('"Thank you" email for subscribers of a skincare brand')}>
+                            <div className={styles.hor_circle_small}>
+                                <div className={styles.hor_circle_inner_small}></div>
                             </div>
-                            <div class={styles.example_prompt_text}>"Thank you" email for subscribers of a skincare brand</div>
+                            <div className={styles.example_prompt_text}>"Thank you" email for subscribers of a skincare brand</div>
                         </div>
-                        <div class={styles.stepper_prompt_suggestion_item} onClick={() => tryExamplePrompt('"Sale is ending soon" email for a sustainable footwear brand')}>
-                            <div class={styles.hor_circle_small}>
-                                <div class={styles.hor_circle_inner_small}></div>
+                        <div className={styles.stepper_prompt_suggestion_item} onClick={() => tryExamplePrompt('"Sale is ending soon" email for a sustainable footwear brand')}>
+                            <div className={styles.hor_circle_small}>
+                                <div className={styles.hor_circle_inner_small}></div>
                             </div>
-                            <div class={styles.example_prompt_text}>"Sale is ending soon" email for a sustainable footwear brand</div>
+                            <div className={styles.example_prompt_text}>"Sale is ending soon" email for a sustainable footwear brand</div>
                         </div>
-                        <div class={styles.stepper_prompt_suggestion_item} onClick={() => tryExamplePrompt("Early bird pricing email for a tech conference with feedback form at the bottom")}>
-                            <div class={styles.hor_circle_small}>
-                                <div class={styles.hor_circle_inner_small}></div>
+                        <div className={styles.stepper_prompt_suggestion_item} onClick={() => tryExamplePrompt("Early bird pricing email for a tech conference with feedback form at the bottom")}>
+                            <div className={styles.hor_circle_small}>
+                                <div className={styles.hor_circle_inner_small}></div>
                             </div>
-                            <div class={styles.example_prompt_text}>Early bird pricing email for a tech conference with feedback form at the bottom</div>
+                            <div className={styles.example_prompt_text}>Early bird pricing email for a tech conference with feedback form at the bottom</div>
                         </div>
                     </div>
                 </div>
-                <h2 class={styles.aiTryExampleHowEmails}>How interactive emails appear to your target audience:</h2>
+                <h2 className={styles.aiTryExampleHowEmails}>How interactive emails appear to your target audience</h2>
         </div>
     );
 };

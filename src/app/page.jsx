@@ -225,7 +225,7 @@ export default function Home({ searchParams }) {
                                 <div className="hor_circle_inner"></div>
                             </div>
                             <div className="whole_screen_text whole_screen_text_small">
-                                Generate <span className="whole_screen_text_color">any email</span> in seconds and see conversions soar to new heights.
+                                Generate <span className="whole_screen_text_color">any email</span> in seconds and see conversions soar to new heights
                                 {/* Scroll to check the <span className="whole_screen_text_color">use cases</span> of how you can implement interactive emails in your business */}
                             </div>
                         </div>
