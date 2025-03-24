@@ -2,11 +2,13 @@
 import './global.css';
 import { useEffect, useState } from "react";
 import InputAI from "@/components/inputAI/InputAI";
+import JSAlert from 'js-alert';
 
 export default function Home({ searchParams }) {
   const page = parseInt(searchParams.page) || 1;
 
   const [faqItemOpen, setFaqItemOpen] = useState(0);
+  const [subscriberEmail, setSubscriberEmail] = useState("");
 
   useEffect(() => {
     const handleScroll = (e) => {
@@ -162,6 +164,29 @@ export default function Home({ searchParams }) {
       });
     }
   }
+
+    const onSubscribe = () => {
+        fetch(`https://app.convertic.ai/public/api/v1/subscribers`, {
+            method: "POST",
+            body: JSON.stringify({
+                list_uid: "67e0302e67458",
+                EMAIL: subscriberEmail,
+                api_token: "eyXXN39XTpbzmLHxHTgEgum2dq4c6LrzjALZrNPMj8r5PZ3Dg036NtCdXjZ1"
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Помилка HTTP: ' + response.status);
+                }
+                JSAlert.alert("Thank you for subscribing! Stay tuned for the latest updates and exclusive content.");
+            })
+            .then(data => {
+                //
+            })
+            .catch(error => {
+                JSAlert.alert("Something went wrong. Please try again.");
+            })
+    }
 
   return (
     <div>
@@ -542,8 +567,8 @@ export default function Home({ searchParams }) {
                         <div className="row">
                             <div className="col">
                                 <div className="footer_feedback">
-                                    <input className="footer_feedback_input" type="text" placeholder="Subscribe to our news" />
-                                    <button className="footer_contact_button">Subscribe</button>
+                                    <input className="footer_feedback_input" type="text" placeholder="Subscribe to our news" value={subscriberEmail} onInput={e => setSubscriberEmail(e.target.value)} />
+                                    <button className="footer_contact_button" onClick={onSubscribe}>Subscribe</button>
                                 </div>
                             </div>
                         </div>
