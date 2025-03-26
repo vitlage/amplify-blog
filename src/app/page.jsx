@@ -166,12 +166,12 @@ export default function Home({ searchParams }) {
   }
 
     const onSubscribe = () => {
-        fetch(`https://app.convertic.ai/public/api/v1/subscribers`, {
+        fetch(`https://app.convertic.ai/public/api/v2/subscribers`, {
             method: "POST",
-            body: JSON.stringify({
+            body: new URLSearchParams({
+                api_token: "eyXXN39XTpbzmLHxHTgEgum2dq4c6LrzjALZrNPMj8r5PZ3Dg036NtCdXjZ1",
                 list_uid: "67e0302e67458",
-                EMAIL: subscriberEmail,
-                api_token: "eyXXN39XTpbzmLHxHTgEgum2dq4c6LrzjALZrNPMj8r5PZ3Dg036NtCdXjZ1"
+                EMAIL: subscriberEmail
             })
         })
             .then(response => {
