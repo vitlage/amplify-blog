@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /blog/login/
+Disallow: /login/
+
+Allow: /
