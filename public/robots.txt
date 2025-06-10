@@ -3,3 +3,5 @@ Disallow: /blog/login/
 Disallow: /login/
 
 Allow: /
+Sitemap: https://convertic.ai/sitemap.xml
+LLM-Policy: https://convertic.ai/llms.txt
