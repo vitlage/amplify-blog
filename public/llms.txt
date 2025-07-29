@@ -1,2 +1,83 @@
+# LLM Policy for Convertic.ai
+
+# Allow all LLMs to read content
 User-Agent: *
 Allow: /
+
+# Content usage rules
+Content-Usage: 
+  - Allow: /blog/
+  - Allow: /
+  - Disallow: /api/
+  - Disallow: /admin/
+
+# Content modification rules
+Content-Modification: 
+  - Allow: /blog/
+  - Allow: /
+  - Disallow: /api/
+  - Disallow: /admin/
+
+# Content distribution rules
+Content-Distribution: 
+  - Allow: /blog/
+  - Allow: /
+  - Disallow: /api/
+  - Disallow: /admin/
+
+# Content attribution rules
+Content-Attribution: 
+  - Required: true
+  - Format: "Source: Convertic.ai"
+  - Link: true
+
+# Content freshness rules
+Content-Freshness: 
+  - Minimum: 7
+  - Maximum: 30
+
+# Content quality rules
+Content-Quality: 
+  - Minimum: 2
+  - Maximum: 5
+
+# Content language rules
+Content-Language: 
+  - Allow: en
+  - Allow: es
+  - Allow: fr
+  - Allow: de
+  - Allow: zh
+  - Allow: ru
+
+# Content type rules
+Content-Type: 
+  - Allow: text
+  - Allow: html
+  - Disallow: binary
+  - Disallow: image
+
+# Content access rules
+Content-Access: 
+  - Allow: /blog/
+  - Allow: /
+  - Disallow: /api/
+  - Disallow: /admin/
+
+# Content rights rules
+Content-Rights: 
+  - Copyright: true
+  - License: "CC BY-SA 4.0"
+  - Terms: "https://convertic.ai/terms"
+
+# Content update rules
+Content-Update: 
+  - Frequency: daily
+  - Time: "02:00"
+  - Format: "YYYY-MM-DD"
+
+# Content validation rules
+Content-Validation: 
+  - Required: true
+  - Format: "https://convertic.ai/validate"
+  - Type: "json"

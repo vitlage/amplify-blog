@@ -10,6 +10,9 @@ export const metadata = {
   icons: {
     icon: '/favicon.ico',
   },
+  alternates: {
+    canonical: 'https://convertic.ai',
+  },
 }
 
 export default function RootLayout({ children }) {
