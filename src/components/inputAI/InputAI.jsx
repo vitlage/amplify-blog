@@ -150,13 +150,13 @@ const InputAI = () => {
                             <div className={styles.hor_circle_small}>
                                 <div className={styles.hor_circle_inner_small}></div>
                             </div>
-                            <div className={styles.example_prompt_text}>"Thank you" email for subscribers of a skincare brand</div>
+                            <div className={styles.example_prompt_text}>&quot;Thank you&quot; email for subscribers of a skincare brand</div>
                         </div>
                         <div className={styles.stepper_prompt_suggestion_item} onClick={() => tryExamplePrompt('"Sale is ending soon" email for a sustainable footwear brand')}>
                             <div className={styles.hor_circle_small}>
                                 <div className={styles.hor_circle_inner_small}></div>
                             </div>
-                            <div className={styles.example_prompt_text}>"Sale is ending soon" email for a sustainable footwear brand</div>
+                            <div className={styles.example_prompt_text}>&quot;Sale is ending soon&quot; email for a sustainable footwear brand</div>
                         </div>
                         <div className={styles.stepper_prompt_suggestion_item} onClick={() => tryExamplePrompt("Early bird pricing email for a tech conference with feedback form at the bottom")}>
                             <div className={styles.hor_circle_small}>
