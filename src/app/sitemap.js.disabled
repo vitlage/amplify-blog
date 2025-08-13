@@ -1,0 +1,90 @@
+/**
+ * DYNAMIC SITEMAP - CURRENTLY DISABLED
+ * 
+ * This file is renamed to .disabled to prevent Next.js from using it.
+ * The static public/sitemap.xml is being served instead (only homepage).
+ * 
+ * CURRENT STATE:
+ * - This file is completely disabled (wrong filename)
+ * - public/sitemap.xml is being served (only homepage, no blog posts)
+ * - Blog posts are NOT discoverable by search engines
+ * 
+ * TO ENABLE THIS DYNAMIC SITEMAP (when ready to make blog visible):
+ * 1. Rename this file back to sitemap.js: 
+ *    mv src/app/sitemap.js.disabled src/app/sitemap.js
+ * 2. Delete or rename public/sitemap.xml
+ * 3. Restart Next.js dev server
+ * 4. Visit /sitemap.xml - should now include all blog posts dynamically
+ * 
+ * BENEFITS WHEN ENABLED:
+ * - All blog posts automatically included
+ * - Real-time updates when posts are added/modified
+ * - Better SEO and search engine discovery
+ * - Improved crawling by AI/LLM systems
+ */
+
+export default async function sitemap() {
+  const siteUrl = 'https://convertic.ai';
+
+  async function fetchPage(page) {
+    const res = await fetch(`${process.env.HOST_URL}/api/posts?page=${page}`, {
+      // Ensure this can run at build time; adjust if you later switch to DB access here
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) throw new Error('Failed to fetch posts for sitemap');
+    return res.json();
+  }
+
+  // Fetch all posts by paging based on count
+  let posts = [];
+  try {
+    const first = await fetchPage(1);
+    const count = first?.count || 0;
+    const perPage = first?.posts?.length || 0;
+    posts = first?.posts || [];
+
+    if (perPage > 0) {
+      const totalPages = Math.ceil(count / perPage);
+      const remaining = [];
+      for (let p = 2; p <= totalPages; p++) {
+        remaining.push(fetchPage(p));
+      }
+      const rest = await Promise.allSettled(remaining);
+      for (const r of rest) {
+        if (r.status === 'fulfilled') {
+          posts = posts.concat(r.value?.posts || []);
+        }
+      }
+    }
+  } catch (e) {
+    // If API fails, degrade gracefully to only core routes
+    posts = [];
+  }
+
+  // Base routes
+  const entries = [
+    { url: `${siteUrl}/`, changefreq: 'weekly', priority: 1.0 },
+    { url: `${siteUrl}/blog`, changefreq: 'daily', priority: 0.9 },
+  ];
+
+  // Blog posts
+  for (const post of posts) {
+    const slug = post?.slug;
+    if (!slug) continue;
+    const lastmod = post?.updatedAt || post?.createdAt || undefined;
+    entries.push({
+      url: `${siteUrl}/blog/posts/${slug}`,
+      lastModified: lastmod ? new Date(lastmod) : undefined,
+      changefreq: 'weekly',
+      priority: 0.8,
+    });
+  }
+
+  return entries.map((e) => ({
+    url: e.url,
+    lastModified: e.lastModified,
+    changeFrequency: e.changefreq,
+    priority: e.priority,
+  }));
+}
+

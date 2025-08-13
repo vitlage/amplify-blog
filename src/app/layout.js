@@ -5,6 +5,7 @@ import Script from 'next/script'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
+  metadataBase: new URL('https://convertic.ai'),
   title: 'Convertic.ai - AI Agentic Email Marketing Software | Automate AMP Emails Boost Engagement & Conversions',
   description: 'Revolutionize your email marketing with our AI-driven software that automates AMP emails and enhances interactivity. Engage your audience with dynamic, interactive content, personalized messaging, and optimized campaigns—all with zero manual effort. Increase open rates, boost conversions, and effortlessly scale your business with advanced email technology!',
   icons: {
@@ -12,6 +13,20 @@ export const metadata = {
   },
   alternates: {
     canonical: 'https://convertic.ai',
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://convertic.ai',
+    siteName: 'Convertic AI',
+    title: 'Convertic.ai — AI Agentic Email Marketing Software',
+    description: 'AI-driven software to automate and optimize AMP email campaigns with interactive content and personalization.',
+    images: [{ url: 'https://convertic.ai/logo.png' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Convertic.ai — AI Agentic Email Marketing Software',
+    description: 'Automate interactive AMP emails to boost engagement and conversions.',
+    images: ['https://convertic.ai/logo.png'],
   },
 }
 
