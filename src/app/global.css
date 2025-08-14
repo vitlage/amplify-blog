@@ -615,14 +615,14 @@ body {
 .all_faq_input_send {
     color: #E6E6E6;
     position: absolute;
-    top: 50%;
+    top: 74%;
     transform: translateY(-50%);
     border: none;
     width: 70px;
     height: 70px;
     border-radius: 36px;
     padding: 10px;
-    right: 5px;
+    right: 19px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -632,7 +632,7 @@ body {
     z-index: 10;
 }
 .all_faq_input_send_focus {
-    background: #206eff;
+    background: #206eff!important;
 }
 
 .all_request_arrow {
@@ -822,7 +822,7 @@ body {
     margin-top: 60px;
     padding: 20px;
     font-size: 20px;
-    border: 2px solid white;
+    border: 1px solid white;
     border-radius: 42px;
     inline-size: 200px;
     cursor: pointer;
@@ -917,6 +917,7 @@ body {
 
 .all_build .all_faq_input {
     position: relative;
+    margin-bottom: 10px;
 }
 
 /* Responsive form */
@@ -937,6 +938,11 @@ body {
         flex-wrap: wrap;
         margin-top: 1rem;
     }
+
+    .button_radio_container {
+        display: flex;
+        justify-content: center;
+    }
     
     .button_radio_wrapper .button_radio {
         margin: 5px;
@@ -952,12 +958,12 @@ body {
     }
     
     .all_faq_input_send {
-        width: 50px;
-        height: 50px;
-        right: 3px;
-        padding: 8px;
-        border-radius: 25px;
-        top: 50%;
+        background: #efefef;
+        width: 60px;
+        height: 60px;
+        border-radius: 100%;
+        right: 19px;
+        top: 82%;
         transform: translateY(-50%);
     }
     
@@ -1347,8 +1353,14 @@ iframe.all_what_we_can_do_template {
 }
 
 .footer_header_title {
-    text-align: start;
+    text-align: center;
     font-size: 90px;
+}
+
+@media screen and (max-width: 768px) {
+    .footer_header_title {
+        font-size: 60px;
+    }
 }
 
 .footer_header_content {
@@ -1359,52 +1371,70 @@ iframe.all_what_we_can_do_template {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 70px;
+    margin-top: 100px;
+}
+
+.footer_feedback_container {
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
     position: relative;
 }
 
+@media screen and (max-width: 768px) {
+    .footer_feedback_container {
+        width: 100%;
+    }
+}
+
 .footer_feedback_input {
-    background: transparent;
+    background: #181919;
     border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 36px;
     height: 70px;
     width: 100%;
-    color: white;
+    color: #9aa0a6;
     outline: none;
-    font-size: 24px;
+    font-size: 14px;
     font-weight: 200;
+    padding-left: 30px;
 }
 
 .footer_contact_info {
     margin-top: 50px;
     display: flex;
+    justify-content: center;
 }
 
 .footer_contact_info div {
-    border:  1px solid rgba(255, 255, 255, 0.2);
+    border:  0.5px solid rgba(255, 255, 255, 0.2);
     border-radius: 45px;
     padding: 25px 50px;
-    font-size: 20px;
+    font-size: 14px;
     margin-right: 0.5em;
     font-weight: 200;
 }
 
 .footer_contact_button {
-    width: 200px;
-    height: 200px;
-    flex: 0 0 200px;
+    width: 55px;
+    height: 55px;
+    flex: 0 0 55px;
     background-color: #007BFF;
     color: white;
     border: none;
-    padding: 10px 20px;
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 13px;
     cursor: pointer;
-    font-size: 19px;
     font-weight: 200;
     position: absolute;
-    right: 120px;
-    top: -30px;
+    right: 10px;
+    top: 7px;
+}
+
+@media screen and (min-width: 768px) {
+    .footer_feedback_input {
+        width: 450px;
+    }
 }
 
 /* .footer { */
@@ -1954,8 +1984,8 @@ iframe.all_what_we_can_do_template {
 @media screen and (max-width: 768px) {
     .higlighted_header::before {
         height: 60px;
-        width: 4px;
-        right: 12px;
+        width: 7px;
+        right: 27px;
         transform: translateY(-50%);
     }
 }
@@ -1963,8 +1993,8 @@ iframe.all_what_we_can_do_template {
 @media screen and (max-width: 400px) {
     .higlighted_header::before {
         height: 45px;
-        width: 3px;
-        right: 10px;
+        width: 7px;
+        right: 27px;
         transform: translateY(-50%);
     }
 }

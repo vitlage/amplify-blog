@@ -301,7 +301,7 @@ export default function HomeClient({ searchParams }) {
                       </h1>
                       <h1 className="all_faq_header_bold"> in your inbox:</h1>
                     </div>
-                    <div className="col-12 col-lg-6 d-flex">
+                    <div className="col-12 col-lg-6 d-flex button_radio_container">
                       <div className="button_radio_wrapper">
                         <label className="button_radio" htmlFor="first_option">
                           <input type="radio" name="template_option" id="first_option" value="66c37609b2af3" defaultChecked />
@@ -493,8 +493,10 @@ export default function HomeClient({ searchParams }) {
                     <div className="row">
                         <div className="col">
                             <div className="footer_feedback">
+                              <div className="footer_feedback_container">
                                 <input className="footer_feedback_input" type="text" placeholder="Subscribe to our news" value={subscriberEmail} onInput={e => setSubscriberEmail(e.target.value)} />
-                                <button className="footer_contact_button" onClick={onSubscribe}>Subscribe</button>
+                                <button className="footer_contact_button" onClick={onSubscribe}>Send</button>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -504,7 +506,7 @@ export default function HomeClient({ searchParams }) {
                         <div className="col">
                             <div className="footer_contact_info">
                                 <div>contact@convertic.ai</div>
-                                <div>+1 (786) 633-11-49</div>
+                                {/* <div>+1 (786) 633-11-49</div> */}
                             </div>
                         </div>
                     </div>
