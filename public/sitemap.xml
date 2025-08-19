@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  STATIC SITEMAP - CURRENTLY ACTIVE
+  
+  This static sitemap.xml is being served instead of src/app/sitemap.js
+  because Next.js prioritizes static files over dynamic routes.
+  
+  CURRENT STATE:
+  - Only homepage is included
+  - Blog posts are NOT discoverable by search engines
+  - Dynamic sitemap.js is ignored
+  
+  TO SWITCH TO DYNAMIC SITEMAP (when ready to make blog visible):
+  1. Delete or rename this file (public/sitemap.xml)
+  2. Restart Next.js dev server
+  3. The dynamic sitemap will automatically include all blog posts
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <!-- Homepage -->
     <url>
         <loc>https://convertic.ai/</loc>
-        <lastmod>2024-03-26</lastmod>
+        <lastmod>2025-08-13</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
