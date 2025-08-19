@@ -2,17 +2,12 @@ import React from 'react'
 import styles from './featured.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
+import { getStaticPosts } from '@/lib/staticData'
 
+// Use static data for build-time generation (cheapest option)
 const getData = async (page, cat) => {
-  const res = await fetch(`${process.env.HOST_URL}/api/posts?page=${page}&cat=${cat || ""}`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Getting featured failed");
-  }
-
-  return res.json();
+  console.log('Using static data for featured post generation');
+  return getStaticPosts(page, cat);
 };
 
 const Featured = async ({item}) => {

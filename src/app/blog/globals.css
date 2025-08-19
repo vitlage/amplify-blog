@@ -35,9 +35,11 @@ a {
   --softTextColor: #626262;
 }
 
-.container, .container-fluid {
-  min-height: 100vh;
-  background-color: var(--softBg);
+/* Scope container styles to blog layout only */
+.wrapper .container,
+.wrapper .container-fluid {
+  /* min-height: 100vh;
+  background-color: var(--softBg); */
   color: var(--textColor);
 }
 

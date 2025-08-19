@@ -24,6 +24,11 @@
     font-size: 24px;
 }
 
+.logoImage {
+    object-fit: contain !important;
+    object-position: center !important;
+}
+
 .desc {
    font-weight: 300; 
 }

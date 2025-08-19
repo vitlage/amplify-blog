@@ -3,16 +3,12 @@ import styles from './blogPage.module.css'
 import CardList from '@/components/cardList/CardList'
 import Menu from '@/components/Menu/Menu'
 
-export async function generateMetadata({ searchParams }) {
+export async function generateMetadata() {
   const siteUrl = 'https://convertic.ai';
-  const cat = searchParams?.cat || 'All';
-  const page = Number.parseInt(searchParams?.page) || 1;
   const basePath = '/blog/category';
-  const qs = new URLSearchParams({ cat, ...(page > 1 ? { page: String(page) } : {}) }).toString();
-  const url = `${siteUrl}${basePath}?${qs}`;
-  const normalizedCat = String(cat).charAt(0).toUpperCase() + String(cat).slice(1);
-  const title = page > 1 ? `${normalizedCat} — Page ${page} | Convertic AI` : `${normalizedCat} — Convertic AI`;
-  const description = `Articles in ${normalizedCat} about AI-driven AMP email marketing, best practices, and product updates.`;
+  const url = `${siteUrl}${basePath}`;
+  const title = 'Categories — Convertic AI';
+  const description = 'Browse articles by category about AI-driven AMP email marketing, best practices, and product updates.';
 
   return {
     title,
@@ -37,13 +33,17 @@ export async function generateMetadata({ searchParams }) {
   };
 }
 
-const CategoryPage = ({ searchParams }) => {
-  const page = Number.parseInt(searchParams.page) || 1;
-  const { cat } = searchParams;
+// Enable static generation - no server costs
+export const dynamic = 'force-static';
+
+const CategoryPage = () => {
+  // For static export, show all categories overview
+  const page = 1;
+  const cat = null; // Show all posts
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>{cat}</h1>
+      <h1 className={styles.title}>All Categories</h1>
         <div className={styles.content}>
             <CardList page={page} cat={cat} />
             <Menu />

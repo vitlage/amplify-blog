@@ -154,7 +154,6 @@ export default function HomeClient({ searchParams }) {
           <div className="row">
             <div className="col p-4">
               <nav className="navbar">
-                <div className="container-fluid"></div>
               </nav>
             </div>
           </div>

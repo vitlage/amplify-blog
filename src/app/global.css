@@ -249,7 +249,7 @@ body {
     border-radius: 38px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     background: #206eff;
-    color: white;
+    color: white!important;
     cursor: pointer;
     font-weight: 400;
     text-decoration: none;

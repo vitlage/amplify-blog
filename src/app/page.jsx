@@ -1,8 +1,13 @@
 import './global.css';
 import HomeClient from "@/components/home/HomeClient";
 
-export default function Home({ searchParams }) {
+// Enable static generation for cheapest deployment
+export const dynamic = 'force-static';
+
+export default function Home() {
   // Server component: no client-side state/effects here.
+  // For static export, don't pass searchParams
+  const staticSearchParams = {};
 
   return (
     <div>
@@ -33,7 +38,7 @@ export default function Home({ searchParams }) {
           }),
         }}
       />
-      <HomeClient searchParams={searchParams} />
+      <HomeClient searchParams={staticSearchParams} />
     </div>
   );
 }
