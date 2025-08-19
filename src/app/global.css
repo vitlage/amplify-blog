@@ -841,11 +841,12 @@ body {
     width: 20px;
     height: 20px;
     border-radius: 50%; /* Makes the container circular */
-    border: 2px solid #BCCBCF; /* Border for the circle */
+    border: 1px solid #BCCBCF; /* Border for the circle */
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative; /* For positioning the plus sign */
+    font-weight: 100;
 }
 
 .all_faq_item_plus_inner {
