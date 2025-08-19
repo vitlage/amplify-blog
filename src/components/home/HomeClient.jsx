@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import InputAI from "@/components/inputAI/InputAI";
 import JSAlert from 'js-alert';
+import { FaXTwitter, FaLinkedin } from 'react-icons/fa6';
 
 export default function HomeClient({ searchParams }) {
   const page = parseInt(searchParams?.page) || 1;
@@ -126,10 +127,15 @@ export default function HomeClient({ searchParams }) {
   }
 
   const onSubscribe = () => {
-    fetch(`/api/subscribe`, {
+    const form = new URLSearchParams({
+      api_token: process.env.NEXT_PUBLIC_CONVERTIC_API_TOKEN,
+      list_uid: process.env.NEXT_PUBLIC_CONVERTIC_LIST_UID,
+      EMAIL: subscriberEmail,
+    });
+
+    fetch(`https://app.convertic.ai/public/api/v2/subscribers`, {
       method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: subscriberEmail })
+      body: form,
     })
     .then(response => {
       if (!response.ok) throw new Error('HTTP error: ' + response.status);
@@ -493,6 +499,7 @@ export default function HomeClient({ searchParams }) {
                     <div className="row">
                         <div className="col">
                             <div className="footer_feedback">
+                              <p className="footer_signup_text">Sign up for updates on our latest innovations</p>
                               <div className="footer_feedback_container">
                                 <input className="footer_feedback_input" type="text" placeholder="Subscribe to our news" value={subscriberEmail} onInput={e => setSubscriberEmail(e.target.value)} />
                                 <button className="footer_contact_button" onClick={onSubscribe}>Send</button>
@@ -505,7 +512,13 @@ export default function HomeClient({ searchParams }) {
                     <div className="row">
                         <div className="col">
                             <div className="footer_contact_info">
-                                <div>contact@convertic.ai</div>
+                                <a href="mailto:contact@convertic.ai" className="footer_contact_email">contact@convertic.ai</a>
+                                <a href="https://x.com/convertic_ai" target="_blank" rel="noopener noreferrer" className="footer_social_link">
+                                    <FaXTwitter size={20} />
+                                </a>
+                                <a href="https://www.linkedin.com/company/convertic-ai/" target="_blank" rel="noopener noreferrer" className="footer_social_link">
+                                    <FaLinkedin size={20} />
+                                </a>
                                 {/* <div>+1 (786) 633-11-49</div> */}
                             </div>
                         </div>

@@ -1213,6 +1213,54 @@ button[title="This month"] {
     left: 50%;
 }
 
+/* JSAlert Custom Styles - Target actual DOM structure */
+/* Main overlay */
+div[style*="position: fixed"][style*="z-index: 10001"] {
+    backdrop-filter: blur(15px) !important;
+}
+
+/* Alert container (white box) */
+div[style*="background-color: rgba(255, 255, 255, 0.95)"] {
+    background-color: rgba(28, 29, 32, 0.95) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(20px) !important;
+}
+
+/* Alert text content */
+div[style*="background-color: rgba(255, 255, 255, 0.95)"] div[style*="color: rgb(0, 0, 0)"] {
+    color: white !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+}
+
+/* Close button */
+div[style*="color: rgb(0, 136, 255)"] {
+    background: linear-gradient(135deg, rgba(133,63,250,1) 0%, rgb(222 74 218) 100%) !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding: 12px 24px !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-weight: 500 !important;
+    margin: 10px !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Close button hover effect */
+div[style*="color: rgb(0, 136, 255)"]:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(133, 63, 250, 0.3) !important;
+    background: linear-gradient(135deg, rgba(153,83,270,1) 0%, rgb(242 94 238) 100%) !important;
+}
+
+/* Button container */
+div[style*="border-top: 1px solid rgb(238, 238, 238)"] {
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: transparent !important;
+}
+
 .highlight-text {
     font-family: 'Didact Gothic', sans-serif;
     font-size: 58px;
@@ -1370,8 +1418,20 @@ iframe.all_what_we_can_do_template {
 .footer_feedback {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin-top: 100px;
+    align-items: center;
+    margin-top: 70px;
+    position: relative;
+}
+
+.footer_signup_text {
+    color: #9aa0a6;
+    font-size: 14px;
+    font-weight: 300;
+    margin: 0 0 20px 0;
+    text-align: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .footer_feedback_container {
@@ -1413,6 +1473,47 @@ iframe.all_what_we_can_do_template {
     font-size: 14px;
     margin-right: 0.5em;
     font-weight: 200;
+}
+
+.footer_contact_email {
+    display: inline-block;
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 45px;
+    padding: 25px 50px;
+    font-size: 14px;
+    margin-right: 0.5em;
+    font-weight: 200;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer_contact_email:hover {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.footer_social_link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    margin-right: 0.5em;
+    color: #9aa0a6;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer_social_link:hover {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
 }
 
 .footer_contact_button {
