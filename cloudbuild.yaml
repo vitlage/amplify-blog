@@ -5,18 +5,13 @@ steps:
     entrypoint: 'npm'
     args: ['install']
 
-  # Step 2: Build static site
+  # Step 2: Build static site (generates out folder automatically)
   - name: 'node:18-alpine'
     entrypoint: 'npm'
     args: ['run', 'build']
     env:
       - 'NODE_ENV=production'
       - 'HOST_URL=https://convertic.ai'
-      
-  # Step 2.5: Export static site
-  - name: 'node:18-alpine'
-    entrypoint: 'npm'
-    args: ['run', 'export']
 
   # Step 3: Deploy to Cloud Storage
   - name: 'gcr.io/cloud-builders/gsutil'
