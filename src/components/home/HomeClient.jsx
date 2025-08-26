@@ -91,7 +91,7 @@ export default function HomeClient({ searchParams }) {
     e.preventDefault();
     const mainInputAlert = document.querySelector("#alert-message");
     const mainInputElement = document.querySelector(".all_faq_input");
-    var formData = new FormData(e.target);
+    var formData = new FormData(e.currentTarget);
     var formObject = {};
     formData.forEach(function(value, key) { formObject[key] = value; });
 
@@ -111,7 +111,16 @@ export default function HomeClient({ searchParams }) {
       mainInputElement.value = '';
     }
 
-    fetch(`https://app.convertic.ai/landing/templates/send/${formObject.main_input}/${formObject.template}`)
+    // Ensure we have both required values and encode them for URL safety
+    const email = formObject.main_input?.trim();
+    const template = formObject.template_option || '66c37609b2af3'; // Default to first template if somehow undefined
+    
+    if (!email) {
+      displayAlert({status: 'danger', msg: 'Please enter your email address'});
+      return;
+    }
+
+    fetch(`https://app.convertic.ai/landing/templates/send/${encodeURIComponent(email)}/${encodeURIComponent(template)}`)
       .then(response => {
         if (!response.ok) throw new Error('HTTP error: ' + response.status);
         return response.json();

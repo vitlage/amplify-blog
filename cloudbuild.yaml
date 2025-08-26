@@ -31,7 +31,7 @@ steps:
 
 # Substitution variables
 substitutions:
-  _BUCKET_NAME: 'your-blog-bucket' # Replace with your bucket name
+  _BUCKET_NAME: 'convertic-blog-static'
 
 options:
   logging: CLOUD_LOGGING_ONLY
