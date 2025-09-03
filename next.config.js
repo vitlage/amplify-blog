@@ -10,7 +10,7 @@ const nextConfig = {
     trailingSlash: true,
     skipTrailingSlashRedirect: true,
     // Fix asset paths for GCS static hosting - only in production
-    assetPrefix: process.env.NODE_ENV === 'production' ? 'https://convertic-blog-static.storage.googleapis.com' : '',
+    assetPrefix: process.env.NODE_ENV === 'production' ? 'https://convertic.ai' : '',
     // Ensure proper static file handling
     distDir: '.next',
 }
