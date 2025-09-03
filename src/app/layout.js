@@ -1,10 +1,12 @@
-// import './globals.css'
+import './blog/globals.css'
+import './global.css'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
+  metadataBase: new URL('https://convertic.ai'),
   title: 'Convertic.ai - AI Agentic Email Marketing Software | Automate AMP Emails Boost Engagement & Conversions',
   description: 'Revolutionize your email marketing with our AI-driven software that automates AMP emails and enhances interactivity. Engage your audience with dynamic, interactive content, personalized messaging, and optimized campaigns—all with zero manual effort. Increase open rates, boost conversions, and effortlessly scale your business with advanced email technology!',
   icons: {
@@ -12,6 +14,20 @@ export const metadata = {
   },
   alternates: {
     canonical: 'https://convertic.ai',
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://convertic.ai',
+    siteName: 'Convertic AI',
+    title: 'Convertic.ai — AI Agentic Email Marketing Software',
+    description: 'AI-driven software to automate and optimize AMP email campaigns with interactive content and personalization.',
+    images: [{ url: 'https://convertic.ai/logo.png' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Convertic.ai — AI Agentic Email Marketing Software',
+    description: 'Automate interactive AMP emails to boost engagement and conversions.',
+    images: ['https://convertic.ai/logo.png'],
   },
 }
 
@@ -30,7 +46,6 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200&family=Manrope:wght@200;300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="style.css"></link>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossOrigin="anonymous"></link>
       </head>
       <body className={inter.className}>

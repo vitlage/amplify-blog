@@ -8,7 +8,13 @@ const Footer = () => {
     <div className={styles.container}>
       <div className={styles.info}>
         <div className={styles.logo}>
-          <Image src="/logo.png" alt="convertic blog" width={50} height={50} />
+          <Image 
+            src="/logo.png" 
+            alt="convertic blog" 
+            width={50} 
+            height={50} 
+            className={styles.logoImage}
+          />
           <h1 className={styles.logoText}>Convertic blog</h1>
         </div>
         <p className={styles.desc}><Link href="https://convertic.ai">Convertic.ai</Link> is an AI-powered platform designed to generate emails and automate the entire email marketing workflow. It helps businesses create personalized campaigns, optimize delivery, and streamline their email marketing processes effortlessly.</p>

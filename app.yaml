@@ -1,0 +1,36 @@
+runtime: nodejs20
+service: default
+
+handlers:
+  # Serve the static files from the out directory
+  - url: /_next/static
+    static_dir: out/_next/static
+    secure: always
+
+  - url: /_next/image
+    static_dir: out/_next/image
+    secure: always
+
+  # Serve static assets
+  - url: /(.*\.(js|css|map|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))$
+    static_files: out/\1
+    upload: out/.*\.(js|css|map|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$
+    secure: always
+
+  # Serve HTML files
+  - url: /(.*)
+    static_files: out/\1/index.html
+    upload: out/.*/index.html
+    secure: always
+
+  # Serve index.html for root
+  - url: /
+    static_files: out/index.html
+    upload: out/index.html
+    secure: always
+
+  # Fallback for 404
+  - url: /.*
+    static_files: out/404.html
+    upload: out/404.html
+    secure: always

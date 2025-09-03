@@ -3,17 +3,13 @@ import styles from './cardList.module.css'
 import Pagination from '../pagination/Pagination'
 import Image from 'next/image'
 import Card from '../card/Card'
+import { getStaticPosts } from '@/lib/staticData'
 
+// Use static data for build-time generation (cheapest option)
 const getData = async (page, cat) => {
-  const res = await fetch(`${process.env.HOST_URL}/api/posts?page=${page}&cat=${cat || ""}`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Getting categories failed");
-  }
-
-  return res.json();
+  // Always use static data for static export - cheapest option
+  console.log('Using static data for build-time generation');
+  return getStaticPosts(page, cat);
 };
 
 const CardList = async ({ page, cat }) => {

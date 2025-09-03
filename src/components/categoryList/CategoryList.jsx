@@ -2,30 +2,28 @@ import React from 'react'
 import styles from './categoryList.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
+import { getStaticCategories } from '@/lib/staticData'
 
+// Use static data for build-time generation (cheapest option)
 const getData = async () => {
-  const res = await fetch(`${process.env.HOST_URL}/api/categories`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Getting categories failed");
-  }
-
-  return res.json();
+  console.log('Using static categories for build-time generation');
+  return getStaticCategories();
 };
 
 const CategoryList = async () => {
   const data = await getData();
+  // Static data returns array directly, no need to parse JSON
+  const categories = Array.isArray(data) ? data : JSON.parse(data);
+  
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Popular Categories</h1>
       <div className={styles.categories}>
-        {JSON.parse(data)?.map((item) => (
+        {categories?.map((item) => (
           <Link 
             href={`/blog/category?cat=${item?.slug}`} 
             className={`${styles.category} ${styles[item.slug]}`}
-            key={item._id}
+            key={item.id || item._id}
           >
             {/* {item.img && (<Image 
               src={`/${item.img}`}

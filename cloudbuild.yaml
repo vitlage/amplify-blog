@@ -1,0 +1,32 @@
+# Cloud Build configuration for static site deployment to GCP
+steps:
+  # Step 1: Install dependencies
+  - name: 'node:18-alpine'
+    entrypoint: 'npm'
+    args: ['install']
+
+  # Step 2: Build static site (generates out folder automatically)
+  - name: 'node:18-alpine'
+    entrypoint: 'npm'
+    args: ['run', 'build']
+    env:
+      - 'NODE_ENV=production'
+      - 'HOST_URL=https://convertic.ai'
+
+  # Step 3: Deploy to Cloud Storage
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: ['-m', 'rsync', '-r', '-c', '-d', './out/', 'gs://${_BUCKET_NAME}/']
+
+  # Step 4: Set cache control headers
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: ['-m', 'setmeta', '-h', 'Cache-Control:public,max-age=3600', 'gs://${_BUCKET_NAME}/**/*.html']
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: ['-m', 'setmeta', '-h', 'Cache-Control:public,max-age=31536000', 'gs://${_BUCKET_NAME}/**/*.{css,js,png,jpg,jpeg,gif,ico,svg}']
+
+# Substitution variables
+substitutions:
+  _BUCKET_NAME: 'convertic-blog-static'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
