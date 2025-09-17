@@ -2,16 +2,13 @@
 const nextConfig = {
     images: {
         domains:["lh3.googleusercontent.com","firebasestorage.googleapis.com"],
-        // Required for static export - images served directly from Firebase CDN
-        unoptimized: true
     },
-    // Full static export for cheapest cost - no server needed
-    output: 'export',
+    // Standalone output for Cloud Run - includes all dependencies
+    output: 'standalone',
+    // Keep trailing slash for consistency
     trailingSlash: true,
     skipTrailingSlashRedirect: true,
-    // Fix asset paths for GCS static hosting - only in production
-    assetPrefix: process.env.NODE_ENV === 'production' ? 'https://convertic.ai' : '',
-    // Ensure proper static file handling
+    // Standard Next.js build directory
     distDir: '.next',
 }
 

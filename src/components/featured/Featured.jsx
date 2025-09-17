@@ -26,7 +26,7 @@ const Featured = async ({item}) => {
         <div className={styles.textContainer}>
           <h1 className={styles.postTitle}>{featuredPost.title}</h1>
           <p className={styles.postDesc}>{featuredPost.desc}</p>
-          <Link href={`blog/posts/${featuredPost.slug}`}>
+          <Link href={`/blog/posts/${featuredPost.slug}`}>
             <button className={styles.button}>Read More</button>
           </Link>
         </div>
