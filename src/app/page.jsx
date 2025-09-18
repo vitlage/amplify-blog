@@ -1,8 +1,7 @@
 import './global.css';
 import HomeClient from "@/components/home/HomeClient";
 
-// Enable static generation for cheapest deployment
-export const dynamic = 'force-static';
+// Page will be statically optimized automatically by Next.js
 
 export default function Home() {
   // Server component: no client-side state/effects here.

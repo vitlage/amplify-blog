@@ -36,8 +36,7 @@ export async function generateMetadata() {
   };
 }
 
-// Enable static generation - no server costs but maximum caching
-export const dynamic = 'force-static';
+// Page will be statically optimized automatically by Next.js
 
 export default function Home() {
   // For static export, we show the main blog page (page 1)

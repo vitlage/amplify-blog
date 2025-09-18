@@ -240,8 +240,8 @@ export default function HomeClient({ searchParams }) {
           </div>
           <div className="whole_screen_right">
             <div className="whole_screen_right_top"></div>
-            <video width="670" height="900" src="/vid.mov" type="video/quicktime" autoPlay muted loop playsInline>
-              <source src="/vid.mov" type="video/quicktime" />
+            <video width="670" height="900" src="https://storage.googleapis.com/convertic-videos/vid.mov" autoPlay muted loop playsInline>
+              <source src="https://storage.googleapis.com/convertic-videos/vid.mov" type="video/quicktime" />
               Your browser does not support the video tag.
             </video>
             <div className="whole_screen_right_bottom">
@@ -262,8 +262,8 @@ export default function HomeClient({ searchParams }) {
           </div>
           <div className="whole_screen_right">
             <div className="whole_screen_right_top"></div>
-            <video width="670" height="900" src="/feedback.mov" type="video/quicktime" autoPlay muted loop playsInline>
-              <source src="/feedback.mov" type="video/quicktime" />
+            <video width="670" height="900" src="https://storage.googleapis.com/convertic-videos/feedback.mov" autoPlay muted loop playsInline>
+              <source src="https://storage.googleapis.com/convertic-videos/feedback.mov" type="video/quicktime" />
               Your browser does not support the video tag.
             </video>
             <div className="whole_screen_right_bottom">
@@ -284,8 +284,8 @@ export default function HomeClient({ searchParams }) {
           </div>
           <div className="whole_screen_right">
             <div className="whole_screen_right_top"></div>
-            <video width="670" height="900" src="/upsell.mov" type="video/quicktime" autoPlay muted loop playsInline>
-              <source src="/upsell.mov" type="video/quicktime" />
+            <video width="670" height="900" src="https://storage.googleapis.com/convertic-videos/upsell.mov" autoPlay muted loop playsInline>
+              <source src="https://storage.googleapis.com/convertic-videos/upsell.mov" type="video/quicktime" />
               Your browser does not support the video tag.
             </video>
             <div className="whole_screen_right_bottom">

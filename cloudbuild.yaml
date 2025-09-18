@@ -1,32 +1,45 @@
-# Cloud Build configuration for static site deployment to GCP
+# Cloud Build configuration for Cloud Run deployment
+# This automates build and deployment with authentication support
+
 steps:
-  # Step 1: Install dependencies
-  - name: 'node:18-alpine'
-    entrypoint: 'npm'
-    args: ['install']
-
-  # Step 2: Build static site (generates out folder automatically)
-  - name: 'node:18-alpine'
-    entrypoint: 'npm'
-    args: ['run', 'build']
-    env:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/convertic-ai:latest', '.']
+  
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/convertic-ai:latest']
+  
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'convertic-ai'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/convertic-ai:latest'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--memory'
+      - '256Mi'
+      - '--cpu'
+      - '1'
+      - '--min-instances'
+      - '0'
+      - '--max-instances'
+      - '100'
+      - '--set-env-vars'
       - 'NODE_ENV=production'
-      - 'HOST_URL=https://convertic.ai'
 
-  # Step 3: Deploy to Cloud Storage
-  - name: 'gcr.io/cloud-builders/gsutil'
-    args: ['-m', 'rsync', '-r', '-c', '-d', './out/', 'gs://${_BUCKET_NAME}/']
+# Store images in Container Registry
+images:
+  - 'gcr.io/$PROJECT_ID/convertic-ai:latest'
 
-  # Step 4: Set cache control headers
-  - name: 'gcr.io/cloud-builders/gsutil'
-    args: ['-m', 'setmeta', '-h', 'Cache-Control:public,max-age=3600', 'gs://${_BUCKET_NAME}/**/*.html']
-
-  - name: 'gcr.io/cloud-builders/gsutil'
-    args: ['-m', 'setmeta', '-h', 'Cache-Control:public,max-age=31536000', 'gs://${_BUCKET_NAME}/**/*.{css,js,png,jpg,jpeg,gif,ico,svg}']
-
-# Substitution variables
-substitutions:
-  _BUCKET_NAME: 'convertic-blog-static'
+# Timeout for the entire build
+timeout: '1200s'
 
 options:
   logging: CLOUD_LOGGING_ONLY

@@ -13,6 +13,33 @@ export const authOptions = {
             clientSecret: process.env.GOOGLE_SECRET,
         }),
     ],
+    session: {
+        strategy: "database",
+    },
+    callbacks: {
+        async session({ session, token, user }) {
+            if (session?.user && user) {
+                session.user.id = user.id;
+            }
+            return session;
+        },
+        async jwt({ token, account }) {
+            return token;
+        },
+        async signIn({ user, account, profile, email, credentials }) {
+            console.log('SignIn callback:', { 
+                user: user?.email, 
+                account: account?.provider,
+                profile: profile?.email 
+            });
+            return true;
+        },
+    },
+    pages: {
+        signIn: '/blog/login',
+        error: '/blog/login', // Redirect errors back to login page
+    },
+    debug: true, // Enable debug logs to see what's happening
 };
 
 export const getAuthSession = () => getServerSession(authOptions);
