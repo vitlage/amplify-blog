@@ -27,7 +27,11 @@ export const authOptions = {
             return token;
         },
         async signIn({ user, account, profile, email, credentials }) {
-            console.log('SignIn callback:', { user: user?.email, account: account?.provider });
+            console.log('SignIn callback:', { 
+                user: user?.email, 
+                account: account?.provider,
+                profile: profile?.email 
+            });
             return true;
         },
     },
@@ -35,7 +39,7 @@ export const authOptions = {
         signIn: '/blog/login',
         error: '/blog/login', // Redirect errors back to login page
     },
-    debug: process.env.NODE_ENV === 'development',
+    debug: true, // Enable debug logs to see what's happening
 };
 
 export const getAuthSession = () => getServerSession(authOptions);
