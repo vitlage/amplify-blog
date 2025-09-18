@@ -1,9 +1,9 @@
 import './blog/globals.css'
 import './global.css'
-import { Inter } from 'next/font/google'
+import { DM_Sans } from 'next/font/google'
 import Script from 'next/script'
 
-const inter = Inter({ subsets: ['latin'] })
+const dmSans = DM_Sans({ subsets: ['latin'] })
 
 export const metadata = {
   metadataBase: new URL('https://convertic.ai'),
@@ -48,7 +48,7 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossOrigin="anonymous"></link>
       </head>
-      <body className={inter.className}>
+      <body className={dmSans.className}>
         {children}
         {/* Google Tag */}
         <Script
@@ -115,7 +115,7 @@ export default function RootLayout({ children }) {
           `}
         </Script>
         {/* HubSpot Script */}
-        <Script 
+        <Script
           id="hs-script-loader"
           src="//js-na1.hs-scripts.com/46429058.js"
           strategy="afterInteractive"
@@ -123,23 +123,23 @@ export default function RootLayout({ children }) {
           defer
         />
         {/* Tidio Script */}
-        <Script 
+        <Script
           id="tidio-script"
           src="//code.tidio.co/7ibdpkegkso2ccq3cbvdww88ibwizvsh.js"
           strategy="afterInteractive"
           async
-      />
-      {/* Convertic  */}
+        />
+        {/* Convertic  */}
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-      <script id="ACXConnectScript" type="text/javascript"
-              src="https://app.convertic.ai/websites/66953e3ababf0/connect.js"></script>
-      {/*<Script */}
-      {/*  id="ACXConnectScript"*/}
-      {/*  src="https://app.convertic.ai/websites/66953e3ababf0/connect.js"*/}
-      {/*  strategy="afterInteractive"*/}
-      {/*  crossOrigin="anonymous"*/}
-      {/*  async*/}
-      {/*/>*/}
+        <script id="ACXConnectScript" type="text/javascript"
+          src="https://app.convertic.ai/websites/66953e3ababf0/connect.js"></script>
+        {/*<Script */}
+        {/*  id="ACXConnectScript"*/}
+        {/*  src="https://app.convertic.ai/websites/66953e3ababf0/connect.js"*/}
+        {/*  strategy="afterInteractive"*/}
+        {/*  crossOrigin="anonymous"*/}
+        {/*  async*/}
+        {/*/>*/}
       </body>
     </html>
   )
