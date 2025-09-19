@@ -1429,8 +1429,11 @@ iframe.all_what_we_can_do_template {
     z-index: 1;
 }
 
-/* Ensure all footer children have dark background */
-.footer * {
+/* Ensure footer containers have transparent background */
+.footer .container,
+.footer .row,
+.footer .col,
+.footer .col-12 {
     background-color: transparent !important;
 }
 
@@ -1510,12 +1513,12 @@ iframe.all_what_we_can_do_template {
 }
 
 .footer_feedback_input {
-    background: #181919;
-    border: none;
+    background: #181919 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 36px;
     height: 70px;
     width: 100%;
-    color: #9aa0a6;
+    color: #9aa0a6 !important;
     outline: none;
     font-size: 14px;
     font-weight: 200;
@@ -1582,9 +1585,9 @@ iframe.all_what_we_can_do_template {
     width: 55px;
     height: 55px;
     flex: 0 0 55px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
+    background-color: #007BFF !important;
+    color: white !important;
+    border: none !important;
     border-radius: 50%;
     font-size: 13px;
     cursor: pointer;
