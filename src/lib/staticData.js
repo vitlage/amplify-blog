@@ -59,12 +59,16 @@ export const STATIC_CATEGORIES = [
 
 // Static data fetching functions
 export const getStaticPosts = (page = 1, category = null) => {
+  console.log('getStaticPosts - page:', page, 'category:', category);
   const POST_PER_PAGE = 5;
   let filteredPosts = STATIC_POSTS;
   
   if (category) {
     filteredPosts = STATIC_POSTS.filter(post => post.catSlug === category);
+    console.log('Filtered posts:', filteredPosts.length, 'out of', STATIC_POSTS.length);
   }
+  
+  console.log('Available categories in posts:', [...new Set(STATIC_POSTS.map(p => p.catSlug))]);
   
   const startIndex = (page - 1) * POST_PER_PAGE;
   const endIndex = startIndex + POST_PER_PAGE;

@@ -9,6 +9,7 @@ const getFromLocalStorage = () => {
         const value = localStorage.getItem("theme");
         return value || "light";
     }
+    return "light"; // Default for SSR
 };
 
 export const ThemeContextProvider = ({ children }) => {
@@ -17,11 +18,14 @@ export const ThemeContextProvider = ({ children }) => {
     });
     
     const toggle = () => {
-        setTheme(theme === "light" ? "dark" : "light");
+        const newTheme = theme === "light" ? "dark" : "light";
+        setTheme(newTheme);
     };
 
     useEffect(() => {
-        localStorage.setItem("theme", theme);
+        if (typeof window !== "undefined") {
+            localStorage.setItem("theme", theme);
+        }
     }, [theme]);
 
     return <ThemeContext.Provider value={{ theme, toggle }}>{children}</ThemeContext.Provider>;
