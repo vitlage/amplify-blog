@@ -7,24 +7,24 @@
 
 /* Theme Variables */
 :root {
-  --bg: white;
-  --textColor: black;
-  --softBg: #f0f0f0;
-  --softTextColor: #626262;
+    --bg: white;
+    --textColor: black;
+    --softBg: #f0f0f0;
+    --softTextColor: #626262;
 }
 
 .dark {
-  --bg: #0f172a;
-  --textColor: #ddd;
-  --softBg: #1f273a;
-  --softTextColor: #a6a6a6;
+    --bg: #0f172a;
+    --textColor: #ddd;
+    --softBg: #1f273a;
+    --softTextColor: #a6a6a6;
 }
 
 .light {
-  --bg: white;
-  --textColor: black;
-  --softBg: #ffffff;
-  --softTextColor: #626262;
+    --bg: white;
+    --textColor: black;
+    --softBg: #ffffff;
+    --softTextColor: #626262;
 }
 
 @import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/plus-jakarta-display.min.css");
@@ -827,25 +827,14 @@ body {
 /* Responsive middle text */
 @media screen and (max-width: 768px) {
     .all_middle_text {
-        font-size: 2.5rem;
+        font-size: 50px;
         padding: 2rem;
         margin-bottom: 2rem;
         margin: 0 1rem 2rem 1rem;
     }
 
     .all_middle_text_colorful1 {
-        font-size: 2.5rem;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .all_middle_text {
-        font-size: 2rem;
-        padding: 1.5rem;
-    }
-
-    .all_middle_text_colorful1 {
-        font-size: 2rem;
+        font-size: 50px;
     }
 }
 
@@ -925,6 +914,13 @@ body {
     font-weight: 900;
     font-family: 'DM Sans';
     /* letter-spacing: -3.5px; */
+}
+
+/* Mobile responsive for colorful text */
+@media screen and (max-width: 768px) {
+    .all_middle_text_colorful1 {
+        font-size: 50px !important;
+    }
 }
 
 .all_middle_text_colorful1::after {
@@ -1423,7 +1419,8 @@ iframe.all_what_we_can_do_template {
     width: 200%;
     height: 160px;
     /* Adjust this value to control the curve's depth */
-    background-color: #1C1D20 !important; /* Match the main footer background */
+    background-color: #1C1D20 !important;
+    /* Match the main footer background */
     border-radius: 50%;
     transform: translateY(-50%);
     z-index: 1;
@@ -1579,6 +1576,43 @@ iframe.all_what_we_can_do_template {
     border-color: rgba(255, 255, 255, 0.5);
     background-color: rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
+}
+
+/* Mobile responsive footer contact */
+@media screen and (max-width: 768px) {
+    .footer {
+        height: auto;
+        min-height: 100vh;
+        padding-bottom: 60px;
+    }
+
+    .footer_contact_info {
+        margin-top: 30px;
+        display: block;
+        text-align: center;
+        padding: 0 20px;
+        margin-bottom: 40px;
+    }
+
+    .footer_contact_email {
+        padding: 12px 20px;
+        font-size: 12px;
+        margin: 0 0 20px 0;
+        width: auto;
+        text-align: center;
+        display: block;
+    }
+
+    /* Force social links to display inline-block */
+    .footer_contact_info .footer_social_link {
+        width: 45px;
+        height: 45px;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+        vertical-align: middle;
+    }
 }
 
 .footer_contact_button {
@@ -2022,7 +2056,7 @@ iframe.all_what_we_can_do_template {
         -webkit-media-controls-play-button: none !important;
         -webkit-media-controls-start-playback-button: none !important;
     }
-    
+
     /* Fix for video container in Safari */
     .whole_screen_right {
         background: transparent !important;
@@ -2038,7 +2072,8 @@ iframe.all_what_we_can_do_template {
     background: white;
     position: absolute;
     top: -24px;
-    z-index: 1; /* Ensure it doesn't interfere with video */
+    z-index: 1;
+    /* Ensure it doesn't interfere with video */
 }
 
 .whole_screen_right_bottom {
