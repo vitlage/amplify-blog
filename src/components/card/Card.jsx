@@ -1,11 +1,12 @@
 import Image from "next/image";
 import styles from "./card.module.css";
 import Link from "next/link";
+import { truncateHtml } from "@/lib/staticData";
 
 const Card = ({ key, item }) => {
   return (
     <div className={styles.container} key={key}>
-      {item?.img && (
+      {item?.img && item.img.trim() !== '' && (
         <div className={styles.imageContainer}>
           <Image src={item.img} alt="" fill className={styles.image} />
         </div>
@@ -20,7 +21,9 @@ const Card = ({ key, item }) => {
         <Link href={`/blog/posts/${item?.slug}`}>
           <h1>{item?.title}</h1>
         </Link>
-        <div className={styles.desc} dangerouslySetInnerHTML={{ __html: item?.desc.substring(0,60) }}/>
+        <p className={styles.desc}>
+          {truncateHtml(item?.desc, 100)}
+        </p>
         <Link href={`/blog/posts/${item?.slug}`} className={styles.link}>
           Read More
         </Link>

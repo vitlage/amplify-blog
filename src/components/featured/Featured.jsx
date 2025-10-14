@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './featured.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
-import { getStaticPosts } from '@/lib/staticData'
+import { getStaticPosts, truncateHtml } from '@/lib/staticData'
 
 // Use static data for build-time generation (cheapest option)
 const getData = async (page, cat) => {
@@ -20,12 +20,16 @@ const Featured = async ({item}) => {
         Hey, we are Convertic<span style={{color: "#1C71E8"}}>.</span>ai and we write about marketing, AI, and technology
       </h1>
       <div className={styles.post}>
-        <div className={styles.imgContainer}>
-          <Image src={featuredPost.img} alt="" fill className={styles.image} />
-        </div>
+        {featuredPost.img && featuredPost.img.trim() !== '' && (
+          <div className={styles.imgContainer}>
+            <Image src={featuredPost.img} alt="" fill className={styles.image} />
+          </div>
+        )}
         <div className={styles.textContainer}>
           <h1 className={styles.postTitle}>{featuredPost.title}</h1>
-          <p className={styles.postDesc}>{featuredPost.desc}</p>
+          <p className={styles.postDesc}>
+            {truncateHtml(featuredPost.desc, 200)}
+          </p>
           <Link href={`/blog/posts/${featuredPost.slug}`}>
             <button className={styles.button}>Read More</button>
           </Link>

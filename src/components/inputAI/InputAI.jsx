@@ -77,7 +77,7 @@ const InputAI = () => {
                 <div className="col">
                     <div className="container">
                         <div className="row">
-                            <h2 className={styles.aiInputTitle}>Write a prompt to generate an email:</h2>
+                            <h2 className={styles.aiInputTitle}>Write a prompt to generate an AMP email:</h2>
                         </div>
                     </div>
                 </div>
@@ -167,7 +167,6 @@ const InputAI = () => {
                         </div>
                     </div>
                 </div>
-                <h2 className={styles.aiTryExampleHowEmails}>How interactive emails appear to your target audience</h2>
         </div>
     );
 };
