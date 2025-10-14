@@ -11,20 +11,13 @@
     font-family: "DM Sans";
     font-weight: 300;
     text-align: center;
+    font-size: 48px;
 }
 
 .aiTryExample {
     font-family: "DM Sans";
     font-weight: 300;
     text-align: center;
-}
-
-.aiTryExampleHowEmails {
-    font-family: "DM Sans";
-    font-weight: 300;
-    text-align: center;
-    padding-top: 100px;
-    padding-bottom: 50px;
 }
 
 .stepper_prompt_suggestion {
@@ -63,7 +56,7 @@
         align-items: center;
         gap: 10px;
     }
-    
+
     .stepper_prompt_suggestion_item {
         flex: none;
         width: 100%;
@@ -74,19 +67,19 @@
         font-size: 16px;
         padding: 12px 16px;
     }
-    
+
     .hor_circle_small {
         margin-right: 15px;
         width: 25px;
         height: 25px;
         flex: 0 0 25px;
     }
-    
+
     .hor_circle_inner_small {
         width: 15px;
         height: 15px;
     }
-    
+
     .example_prompt_text {
         font-size: 15px;
         line-height: 1.3;
@@ -100,19 +93,19 @@
         min-height: 70px;
         font-size: 15px;
     }
-    
+
     .hor_circle_small {
         margin-right: 12px;
         width: 22px;
         height: 22px;
         flex: 0 0 22px;
     }
-    
+
     .hor_circle_inner_small {
         width: 12px;
         height: 12px;
     }
-    
+
     .example_prompt_text {
         font-size: 14px;
     }
@@ -126,7 +119,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, rgba(133,63,250,1) 0%, rgb(222 74 218) 100%);
+    background: linear-gradient(135deg, rgba(133, 63, 250, 1) 0%, rgb(222 74 218) 100%);
     margin-right: 20px;
 }
 
@@ -166,7 +159,7 @@
 .aiInputBoxControl {
     padding: 26px 80px 26px 26px;
     border-radius: 45px;
-    border: 1px solid rgba(0,0,0,.1);
+    border: 1px solid rgba(0, 0, 0, .1);
     outline: none;
     width: 100%;
     font-size: 20px;
@@ -216,10 +209,6 @@
 
 .aiInputBoxButtonSpinner {
     color: white;
-}
-
-.aiInputBoxControl:focus {
-    box-shadow: 0 0 0 3px rgba(32, 110, 255, 1);
 }
 
 .placeholderWrapper {

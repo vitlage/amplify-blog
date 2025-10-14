@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import InputAI from "@/components/inputAI/InputAI";
 import JSAlert from 'js-alert';
 import { FaXTwitter, FaLinkedin } from 'react-icons/fa6';
+import SyncSection from '@/components/syncSection/SyncSection';
 
 export default function HomeClient({ searchParams }) {
   const page = parseInt(searchParams?.page) || 1;
@@ -39,7 +40,7 @@ export default function HomeClient({ searchParams }) {
       const currentWord = highLightedWords[wordIndex];
       const currentChar = currentWord.substring(0, charIndex);
       dynamicText.textContent = currentChar;
-      if(!isDeleting && charIndex < currentWord.length) {
+      if (!isDeleting && charIndex < currentWord.length) {
         charIndex++;
         setTimeout(typeEffect, 200);
       } else if (isDeleting && charIndex > 0) {
@@ -54,26 +55,60 @@ export default function HomeClient({ searchParams }) {
     typeEffect();
   }, []);
 
+  const lockScroll = () => {
+    document.body.style.overflow = "hidden";
+    document.body.style.paddingRight = "0px";
+  };
+
+  const unlockScroll = () => {
+    document.body.style.overflow = "";
+    document.body.style.paddingRight = "";
+  };
+
+  const preventBackgroundScroll = (e) => {
+    if (!e.target.closest('.clickable_modal')) {
+      e.preventDefault();
+    }
+  };
+
   const onTryItClickable1 = () => {
     document.querySelector(".clickable_modal1").style.display = "block";
+    lockScroll();
+    document.addEventListener('wheel', preventBackgroundScroll, { passive: false });
+    document.addEventListener('touchmove', preventBackgroundScroll, { passive: false });
     if (window.analytics) window.analytics.track('Try it clickable 1 clicked');
   };
   const onTryItClickable2 = () => {
     document.querySelector(".clickable_modal2").style.display = "block";
+    lockScroll();
+    document.addEventListener('wheel', preventBackgroundScroll, { passive: false });
+    document.addEventListener('touchmove', preventBackgroundScroll, { passive: false });
     if (window.analytics) window.analytics.track('Try it clickable 2 clicked');
   };
   const onTryItClickable3 = () => {
     document.querySelector(".clickable_modal3").style.display = "block";
+    lockScroll();
+    document.addEventListener('wheel', preventBackgroundScroll, { passive: false });
+    document.addEventListener('touchmove', preventBackgroundScroll, { passive: false });
     if (window.analytics) window.analytics.track('Try it clickable 3 clicked');
   };
   const onTryItClickableClose = () => {
     document.querySelector(".clickable_modal1").style.display = "none";
+    unlockScroll();
+    document.removeEventListener('wheel', preventBackgroundScroll);
+    document.removeEventListener('touchmove', preventBackgroundScroll);
   }
   const onTryItClickableClose2 = () => {
     document.querySelector(".clickable_modal2").style.display = "none";
+    unlockScroll();
+    document.removeEventListener('wheel', preventBackgroundScroll);
+    document.removeEventListener('touchmove', preventBackgroundScroll);
   }
   const onTryItClickableClose3 = () => {
     document.querySelector(".clickable_modal3").style.display = "none";
+    unlockScroll();
+    document.removeEventListener('wheel', preventBackgroundScroll);
+    document.removeEventListener('touchmove', preventBackgroundScroll);
   }
 
   const faqItemClick = (item) => {
@@ -93,7 +128,7 @@ export default function HomeClient({ searchParams }) {
     const mainInputElement = document.querySelector(".all_faq_input");
     var formData = new FormData(e.currentTarget);
     var formObject = {};
-    formData.forEach(function(value, key) { formObject[key] = value; });
+    formData.forEach(function (value, key) { formObject[key] = value; });
 
     if (window.analytics) {
       window.analytics.track("User submitted Try it in your inbox: ", { email: mainInputElement.value });
@@ -114,9 +149,9 @@ export default function HomeClient({ searchParams }) {
     // Ensure we have both required values and encode them for URL safety
     const email = formObject.main_input?.trim();
     const template = formObject.template_option || '66c37609b2af3'; // Default to first template if somehow undefined
-    
+
     if (!email) {
-      displayAlert({status: 'danger', msg: 'Please enter your email address'});
+      displayAlert({ status: 'danger', msg: 'Please enter your email address' });
       return;
     }
 
@@ -126,7 +161,7 @@ export default function HomeClient({ searchParams }) {
         return response.json();
       })
       .then(data => displayAlert(data))
-      .catch(error => displayAlert({status: 'danger', 'msg': 'Oops, Something went wrong. Please, try it later'}));
+      .catch(error => displayAlert({ status: 'danger', 'msg': 'Oops, Something went wrong. Please, try it later' }));
   }
 
   const onregisterclick = (param) => {
@@ -146,13 +181,13 @@ export default function HomeClient({ searchParams }) {
       method: "POST",
       body: form,
     })
-    .then(response => {
-      if (!response.ok) throw new Error('HTTP error: ' + response.status);
-      JSAlert.alert("Thank you for subscribing! Stay tuned for the latest updates and exclusive content.");
-    })
-    .catch(error => {
-      JSAlert.alert("Something went wrong. Please try again.");
-    })
+      .then(response => {
+        if (!response.ok) throw new Error('HTTP error: ' + response.status);
+        JSAlert.alert("Thank you for subscribing! Stay tuned for the latest updates and exclusive content.");
+      })
+      .catch(error => {
+        JSAlert.alert("Something went wrong. Please try again.");
+      })
   }
 
   return (
@@ -172,7 +207,7 @@ export default function HomeClient({ searchParams }) {
                 <h1 className="header_title_text">
                   <span>Make every email &nbsp;</span><br />
                   <span className="higlighted_header">interactive</span>
-                  <span> AI agent</span>
+                  {/* <span> AI agent</span> */}
                 </h1>
               </div>
             </div>
@@ -186,6 +221,8 @@ export default function HomeClient({ searchParams }) {
         </div>
       </header>
 
+      <SyncSection />
+
       <div className="row my-5">
         <div className="col above">
           <div className="horizontal_parent">
@@ -197,7 +234,8 @@ export default function HomeClient({ searchParams }) {
                     <div className="hor_circle_inner"></div>
                   </div>
                   <div className="whole_screen_text whole_screen_text_small">
-                    Do you want to increase revenue from <span className="whole_screen_text_color">email marketing?</span>
+                    {/* Do you want to increase revenue from <span className="whole_screen_text_color">email marketing?</span> */}
+                    Take your email marketing to the next level with <span className="whole_screen_text_color">interactive emails</span> that captivate and convert
                   </div>
                 </div>
                 <div className="hor-element first-hor-element"></div>
@@ -206,7 +244,8 @@ export default function HomeClient({ searchParams }) {
                     <div className="hor_circle_inner"></div>
                   </div>
                   <div className="whole_screen_text whole_screen_text_small">
-                    Start to use interactive emails to <span className="whole_screen_text_color">skyrocket</span> sales and customer loyalty for your brand
+                    {/* Start to use interactive emails to <span className="whole_screen_text_color">skyrocket</span> sales and customer loyalty for your brand */}
+                    Create powerful, conversion-driven emails in seconds and turn subscribers into <span className="whole_screen_text_color">loyal customers</span>.
                   </div>
                 </div>
                 <div className="hor-element first-hor-element"></div>
@@ -215,7 +254,8 @@ export default function HomeClient({ searchParams }) {
                     <div className="hor_circle_inner"></div>
                   </div>
                   <div className="whole_screen_text whole_screen_text_small">
-                    Generate <span className="whole_screen_text_color">any email</span> in seconds and see conversions soar to new heights
+                    {/* Generate <span className="whole_screen_text_color">any email</span> in seconds and see conversions soar to new heights */}
+                    Unlock higher sales and <span className="whole_screen_text_color">stronger customer connections</span> with instantly generated, dynamic email campaigns.
                   </div>
                 </div>
               </div>
@@ -225,18 +265,14 @@ export default function HomeClient({ searchParams }) {
       </div>
 
       <div>
-        <div className="row">
-          <div className="col">
-            <div className="container">
-              <div className="row">
-                <InputAI />
-              </div>
-            </div>
-          </div>
-        </div>
+        <h2 className="aiTryExampleHowEmails">How interactive emails appear to your target audience</h2>
         <section className="section whole_screen_text">
           <div>
+            <div className="whole_screen_case_color">Case 1:</div>
             Increase revenue from <span className="whole_screen_text_color">shopping</span> in email
+            <div className="whole_screen_right_bottom">
+              <button onClick={onTryItClickable1} className="all_menu_button try_it_clickable try_it_clickable1">Try it clickable</button>
+            </div>
           </div>
           <div className="whole_screen_right">
             <div className="whole_screen_right_top"></div>
@@ -244,21 +280,22 @@ export default function HomeClient({ searchParams }) {
               <source src="https://storage.googleapis.com/convertic-videos/vid.mov" type="video/quicktime" />
               Your browser does not support the video tag.
             </video>
-            <div className="whole_screen_right_bottom">
-              <button onClick={onTryItClickable1} className="all_menu_button try_it_clickable try_it_clickable1">Try it clickable</button>
-            </div>
           </div>
-          <div className="clickable_modal clickable_modal1">
+          <div className="clickable_modal clickable_modal1" data-lenis-prevent style={{ overflow: 'auto' }}>
             <div className="all_faq_item_plus try_it_clickable_cross try_it_clickable_cross1" onClick={onTryItClickableClose}>
               <div className="all_faq_item_plus_inner">+</div>
             </div>
-            <iframe className="hor_iframe" src="/shop.html"></iframe>
+            <iframe src="/shop.html" style={{ width: '100%', height: '1200px', border: 'none', display: 'block', pointerEvents: 'auto' }}></iframe>
           </div>
         </section>
 
         <section className="section whole_screen_text">
           <div>
+            <div className="whole_screen_case_color">Case 2:</div>
             Get more <span className="whole_screen_text_color3">social proof</span> from in-email review forms
+            <div className="whole_screen_right_bottom">
+              <button onClick={onTryItClickable2} className="all_menu_button try_it_clickable try_it_clickable2">Try it clickable</button>
+            </div>
           </div>
           <div className="whole_screen_right">
             <div className="whole_screen_right_top"></div>
@@ -266,21 +303,22 @@ export default function HomeClient({ searchParams }) {
               <source src="https://storage.googleapis.com/convertic-videos/feedback.mov" type="video/quicktime" />
               Your browser does not support the video tag.
             </video>
-            <div className="whole_screen_right_bottom">
-              <button onClick={onTryItClickable2} className="all_menu_button try_it_clickable try_it_clickable2">Try it clickable</button>
-            </div>
           </div>
-          <div className="clickable_modal clickable_modal2">
+          <div className="clickable_modal clickable_modal2" data-lenis-prevent style={{ overflow: 'auto' }}>
             <div className="all_faq_item_plus try_it_clickable_cross try_it_clickable_cross2" onClick={onTryItClickableClose2}>
               <div className="all_faq_item_plus_inner">+</div>
             </div>
-            <iframe className="hor_iframe" src="/feedback.html"></iframe>
+            <iframe src="/feedback.html" style={{ width: '100%', height: '1000px', border: 'none', display: 'block', pointerEvents: 'auto' }}></iframe>
           </div>
         </section>
 
         <section className="section whole_screen_text">
           <div>
+            <div className="whole_screen_case_color">Case 3:</div>
             Create in-email bundles, subscriptions and measure <span className="whole_screen_text_color">NPS</span>
+            <div className="whole_screen_right_bottom">
+              <button onClick={onTryItClickable3} className="all_menu_button try_it_clickable try_it_clickable3">Try it clickable</button>
+            </div>
           </div>
           <div className="whole_screen_right">
             <div className="whole_screen_right_top"></div>
@@ -288,15 +326,12 @@ export default function HomeClient({ searchParams }) {
               <source src="https://storage.googleapis.com/convertic-videos/upsell.mov" type="video/quicktime" />
               Your browser does not support the video tag.
             </video>
-            <div className="whole_screen_right_bottom">
-              <button onClick={onTryItClickable3} className="all_menu_button try_it_clickable try_it_clickable3">Try it clickable</button>
-            </div>
           </div>
-          <div className="clickable_modal clickable_modal3">
+          <div className="clickable_modal clickable_modal3" data-lenis-prevent style={{ overflow: 'auto' }}>
             <div className="all_faq_item_plus try_it_clickable_cross try_it_clickable_cross3" onClick={onTryItClickableClose3}>
               <div className="all_faq_item_plus_inner">+</div>
             </div>
-            <iframe className="hor_iframe" src="/upsell.html"></iframe>
+            <iframe src="/upsell.html" style={{ width: '100%', height: '1100px', border: 'none', display: 'block', pointerEvents: 'auto' }}></iframe>
           </div>
         </section>
       </div>
@@ -352,6 +387,16 @@ export default function HomeClient({ searchParams }) {
               </form>
 
               <div id="alert-message"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col">
+          <div className="container">
+            <div className="row">
+              <InputAI />
             </div>
           </div>
         </div>
@@ -483,7 +528,7 @@ export default function HomeClient({ searchParams }) {
                 <div className="col">
                   <div className="all_middle_text">
                     <div className="all_middle_text_colorful1">Email experiences of tomorrow.</div>
-                    <div className="all_middle_text_colorful1">Enriched today.</div>
+                    <div className="all_middle_text_colorful1">Delivered today.</div>
                     <a className="all_middle_text_button" href="https://app.convertic.ai/users/register" onClick={() => onregisterclick(6)}>Get started</a>
                   </div>
                 </div>
@@ -494,45 +539,45 @@ export default function HomeClient({ searchParams }) {
       </div>
       <footer className="footer">
         <div className="row mt-5">
-            <div className="col">
-                <div className="container">
-                    <div className="row">
-                        <div className="col">
-                            <h1 className="all_faq_header_bold footer_header_title">Let’s start your email-led</h1>
-                            <h1 className="all_faq_header_bold footer_header_title">growth marketing</h1>
-                        </div>
-                    </div>
+          <div className="col">
+            <div className="container">
+              <div className="row">
+                <div className="col">
+                  <h1 className="all_faq_header_bold footer_header_title">Let’s start your email-led</h1>
+                  <h1 className="all_faq_header_bold footer_header_title">growth marketing</h1>
                 </div>
-                <div className="container">
-                    <div className="row">
-                        <div className="col">
-                            <div className="footer_feedback">
-                              <p className="footer_signup_text">Sign up for updates on our latest innovations</p>
-                              <div className="footer_feedback_container">
-                                <input className="footer_feedback_input" type="text" placeholder="Subscribe to our news" value={subscriberEmail} onInput={e => setSubscriberEmail(e.target.value)} />
-                                <button className="footer_contact_button" onClick={onSubscribe}>Send</button>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="container">
-                    <div className="row">
-                        <div className="col">
-                            <div className="footer_contact_info">
-                                <a href="mailto:contact@convertic.ai" className="footer_contact_email">contact@convertic.ai</a>
-                                <a href="https://x.com/convertic_ai" target="_blank" rel="noopener noreferrer" className="footer_social_link">
-                                    <FaXTwitter size={20} />
-                                </a>
-                                <a href="https://www.linkedin.com/company/convertic-ai/" target="_blank" rel="noopener noreferrer" className="footer_social_link">
-                                    <FaLinkedin size={20} />
-                                </a>
-                                {/* <div>+1 (786) 633-11-49</div> */}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+            <div className="container">
+              <div className="row">
+                <div className="col">
+                  <div className="footer_feedback">
+                    <p className="footer_signup_text">Sign up for updates on our latest innovations</p>
+                    <div className="footer_feedback_container">
+                      <input className="footer_feedback_input" type="text" placeholder="Subscribe to our news" value={subscriberEmail} onInput={e => setSubscriberEmail(e.target.value)} />
+                      <button className="footer_contact_button" onClick={onSubscribe}>Send</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="container">
+              <div className="row">
+                <div className="col">
+                  <div className="footer_contact_info">
+                    <a href="mailto:contact@convertic.ai" className="footer_contact_email">contact@convertic.ai</a>
+                    <a href="https://x.com/convertic_ai" target="_blank" rel="noopener noreferrer" className="footer_social_link">
+                      <FaXTwitter size={20} />
+                    </a>
+                    <a href="https://www.linkedin.com/company/convertic-ai/" target="_blank" rel="noopener noreferrer" className="footer_social_link">
+                      <FaLinkedin size={20} />
+                    </a>
+                    {/* <div>+1 (786) 633-11-49</div> */}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </footer>
     </>

@@ -27,41 +27,43 @@ export async function generateStaticParams() {
 // Enable static generation
 export const dynamic = 'force-static';
 
-// SEO metadata for blog posts
+// SEO metadata for blog posts using metatags
 export async function generateMetadata({ params }) {
   const post = await getData(params.slug);
   const siteUrl = 'https://convertic.ai';
   const url = `${siteUrl}/blog/posts/${params.slug}`;
-  const title = post?.title || 'Article — Convertic AI';
-  // Strip HTML from description safely and trim to ~160 chars
-  const stripHtml = (html) => html?.replace(/<[^>]*>/g, '') || '';
-  const descRaw = stripHtml(post?.desc || '');
-  const description = descRaw.length > 160 ? `${descRaw.slice(0, 157)}...` : descRaw;
-  const image = post?.img || `${siteUrl}/logo.png`;
-  const publishedTime = post?.createdAt || undefined;
-  const modifiedTime = post?.updatedAt || post?.createdAt || undefined;
+  
+  // Use metatags if available, otherwise fallback to defaults
+  const metatags = post?.metatags;
+  const title = metatags?.title || post?.title || 'Article — Convertic AI';
+  const description = metatags?.description || post?.desc?.replace(/<[^>]*>/g, '').substring(0, 160) || '';
+  const canonical = metatags?.canonical || url;
+  const image = metatags?.ogImage || post?.img || `${siteUrl}/logo.png`;
+  const keywords = metatags?.keywords || '';
 
   return {
     title,
     description,
+    keywords,
+    authors: metatags?.author ? [{ name: metatags.author }] : [{ name: 'Convertic AI Team' }],
     alternates: {
-      canonical: url,
+      canonical,
     },
     openGraph: {
-      type: 'article',
+      type: metatags?.ogType || 'article',
       url,
-      title,
-      description,
+      title: metatags?.ogTitle || title,
+      description: metatags?.ogDescription || description,
       siteName: 'Convertic AI',
-      images: image ? [{ url: image }] : undefined,
-      publishedTime,
-      modifiedTime,
+      images: [{ url: image }],
+      publishedTime: post?.createdAt,
+      modifiedTime: post?.updatedAt || post?.createdAt,
     },
     twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: image ? [image] : undefined,
+      card: metatags?.twitterCard || 'summary_large_image',
+      title: metatags?.twitterTitle || title,
+      description: metatags?.twitterDescription || description,
+      images: [metatags?.twitterImage || image],
     },
   };
 }
@@ -77,22 +79,24 @@ const SinglePage = async ({ params }) => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
-            mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-            headline: data?.title || 'Article — Convertic AI',
-            description: plainDesc,
-            image: data?.img ? [data.img] : undefined,
-            datePublished: data?.createdAt || undefined,
-            dateModified: data?.updatedAt || data?.createdAt || undefined,
-            author: data?.user?.name ? { '@type': 'Person', name: data.user.name } : undefined,
-            publisher: {
-              '@type': 'Organization',
-              name: 'Convertic AI',
-              logo: { '@type': 'ImageObject', url: `${siteUrl}/logo.png` },
-            },
-          }),
+          __html: JSON.stringify(
+            data?.metatags?.schema || {
+              '@context': 'https://schema.org',
+              '@type': 'BlogPosting',
+              mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+              headline: data?.title || 'Article — Convertic AI',
+              description: plainDesc,
+              image: data?.img ? [data.img] : undefined,
+              datePublished: data?.createdAt || undefined,
+              dateModified: data?.updatedAt || data?.createdAt || undefined,
+              author: data?.user?.name ? { '@type': 'Person', name: data.user.name } : { '@type': 'Organization', name: 'Convertic AI' },
+              publisher: {
+                '@type': 'Organization',
+                name: 'Convertic AI',
+                logo: { '@type': 'ImageObject', url: `${siteUrl}/logo.png` },
+              },
+            }
+          ),
         }}
       />
       <div className={styles.infoContainer}>
@@ -100,7 +104,7 @@ const SinglePage = async ({ params }) => {
           <h1 className={styles.title}>
             {data?.title}
           </h1>
-          {data?.img && <div className={styles.imageContainer}>
+          {data?.img && data.img.trim() !== '' && <div className={styles.imageContainer}>
             <Image src={data.img} alt={data?.title || 'Article image'} fill className={styles.image} />
           </div>}
           <div className={styles.user}>
