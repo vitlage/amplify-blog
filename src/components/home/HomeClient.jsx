@@ -4,6 +4,7 @@ import InputAI from "@/components/inputAI/InputAI";
 import JSAlert from 'js-alert';
 import { FaXTwitter, FaLinkedin } from 'react-icons/fa6';
 import SyncSection from '@/components/syncSection/SyncSection';
+import Aurora from '@/components/aurora/Aurora';
 
 export default function HomeClient({ searchParams }) {
   const page = parseInt(searchParams?.page) || 1;
@@ -194,6 +195,12 @@ export default function HomeClient({ searchParams }) {
     <>
       {/* Original markup moved from page.jsx below this line. */}
       <header className="row header">
+        <Aurora
+          colorStops={["#8A63FF", "#6366F1", "#3B82F6"]}
+          blend={0.6}
+          amplitude={0.8}
+          speed={0.3}
+        />
         <div className="col-12 above">
           <div className="row">
             <div className="col p-4">
