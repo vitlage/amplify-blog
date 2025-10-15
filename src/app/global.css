@@ -376,6 +376,65 @@ body {
 
 
 
+.header .navbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.header_nav_buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-left: auto;
+}
+
+.header_nav_btn {
+    padding: 16px 30px;
+    border-radius: 36px;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.header_nav_btn_filled {
+    background-color: white;
+    color: black;
+    border: none;
+}
+
+.header_nav_btn_filled:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: scale(1.02);
+}
+
+.header_nav_btn_outline {
+    background-color: transparent;
+    color: white !important;
+    border: 1.5px solid white;
+}
+
+.header_nav_btn_outline:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.02);
+    color: white !important;
+}
+
+@media screen and (max-width: 768px) {
+    .header_nav_buttons {
+        gap: 8px;
+    }
+
+    .header_nav_btn {
+        padding: 8px 18px;
+        font-size: 14px;
+    }
+}
+
 .header .header_title {
     margin-top: 150px;
 }
@@ -413,7 +472,7 @@ body {
     }
 
     .all_menu_button_secondary {
-        margin-left: 0;
+        margin-left: 0 !important;
     }
 }
 
@@ -444,7 +503,7 @@ body {
     }
 
     .all_menu_button_secondary {
-        margin-left: 0;
+        margin-left: 0 !important;
     }
 }
 
@@ -1993,7 +2052,7 @@ iframe.all_what_we_can_do_template {
 /* Responsive styles for whole_screen_text */
 @media screen and (max-width: 768px) {
     .whole_screen_text {
-        font-size: 3.5rem;
+        font-size: 38px;
         padding: 0 1rem;
         letter-spacing: -0.5px;
     }
@@ -2374,6 +2433,8 @@ iframe.all_what_we_can_do_template {
         width: 100%;
         height: auto;
         margin-top: 2rem;
+        display: flex;
+        justify-content: center;
     }
 
     .whole_screen_right video {
@@ -2464,4 +2525,10 @@ iframe.all_what_we_can_do_template {
     padding-top: 100px;
     padding-bottom: 50px;
     font-size: 60px;
+}
+
+@media screen and (max-width: 768px) {
+    .aiTryExampleHowEmails {
+        font-size: 38px;
+    }
 }

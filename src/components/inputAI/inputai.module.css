@@ -167,6 +167,24 @@
     color: #5F6367;
 }
 
+.aiInputBoxControl::placeholder {
+    font-size: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .aiInputBoxControl::placeholder {
+        font-size: 16px;
+    }
+    
+    .aiInputTitle {
+        font-size: 38px;
+    }
+    
+    .placeholderWrapper {
+        font-size: 16px !important;
+    }
+}
+
 .aiTemplateBox {
     position: relative;
     background-color: white;

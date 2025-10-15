@@ -52,6 +52,17 @@ h1, h2 {
   /* letter-spacing: -1.3px; */
 }
 
+strong {
+  font-weight: 500 !important;
+}
+
+@media screen and (min-width: 769px) {
+  h2 {
+    letter-spacing: -1px;
+    color: black !important;
+  }
+}
+
 .dark {
   --bg: #0f172a;
   --textColor: #ddd;
