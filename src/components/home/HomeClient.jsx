@@ -205,6 +205,10 @@ export default function HomeClient({ searchParams }) {
           <div className="row">
             <div className="col p-4">
               <nav className="navbar">
+                <div className="header_nav_buttons">
+                  <a href="https://app.convertic.ai/login" className="header_nav_btn header_nav_btn_outline">Login</a>
+                  <a href="https://app.convertic.ai/users/register" className="header_nav_btn header_nav_btn_filled">Try it</a>
+                </div>
               </nav>
             </div>
           </div>

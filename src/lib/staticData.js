@@ -79,7 +79,7 @@ export const STATIC_POSTS = [
   },
   {
     _id: '5',
-    title: 'Why a Flower Shop Seller Knows the Customer Better than an Email Marketer — And How AMP Emails Can Help',
+    title: 'Why a flower shop seller knows the customer better than an Email Marketer — and how AMP emails can help',
     metatags: {
       title: 'Why a Flower Shop Seller Knows the Customer Better than an Email Marketer | AMP Email Benefits',
       description: 'Discover why flower shop sellers understand their customers better than email marketers and how AMP emails bridge this gap with interactive, real-time engagement.',
