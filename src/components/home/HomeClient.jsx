@@ -5,12 +5,14 @@ import JSAlert from 'js-alert';
 import { FaXTwitter, FaLinkedin } from 'react-icons/fa6';
 import SyncSection from '@/components/syncSection/SyncSection';
 import Aurora from '@/components/aurora/Aurora';
+import TextType from '@/components/textType/TextType';
 
 export default function HomeClient({ searchParams }) {
   const page = parseInt(searchParams?.page) || 1;
 
   const [faqItemOpen, setFaqItemOpen] = useState(0);
   const [subscriberEmail, setSubscriberEmail] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = (e) => {
@@ -30,31 +32,7 @@ export default function HomeClient({ searchParams }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    const dynamicText = document.querySelector(".higlighted_header");
-    if (!dynamicText) return;
-    const highLightedWords = ["interactive", "app-like", "convertic"];
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    const typeEffect = () => {
-      const currentWord = highLightedWords[wordIndex];
-      const currentChar = currentWord.substring(0, charIndex);
-      dynamicText.textContent = currentChar;
-      if (!isDeleting && charIndex < currentWord.length) {
-        charIndex++;
-        setTimeout(typeEffect, 200);
-      } else if (isDeleting && charIndex > 0) {
-        charIndex--;
-        setTimeout(typeEffect, 100);
-      } else {
-        isDeleting = !isDeleting;
-        wordIndex = !isDeleting ? (wordIndex + 1) % highLightedWords.length : wordIndex;
-        setTimeout(typeEffect, 1200);
-      }
-    }
-    typeEffect();
-  }, []);
+
 
   const lockScroll = () => {
     document.body.style.overflow = "hidden";
@@ -205,10 +183,51 @@ export default function HomeClient({ searchParams }) {
           <div className="row">
             <div className="col p-4">
               <nav className="navbar">
+                {/* Burger menu button (mobile only, appears first) */}
+                <button 
+                  className={`burger_menu ${mobileMenuOpen ? 'open' : ''}`}
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  aria-label="Toggle menu"
+                >
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+
+                <div className="header_nav_logo">
+                  {/* <div className="hor_circle2">
+                    <div className="hor_circle_inner"></div>
+                  </div> */}
+                  <a href="/" className="header_nav_logo_link">
+                    Convertic<span style={{ color: "#1C71E8" }}>.</span>ai
+                  </a>
+                </div>
+                
+                {/* Desktop menu */}
+                <div className="header_nav_links">
+                  <a href="/pricing" className="header_nav_link">Pricing</a>
+                  <a href="/blog" className="header_nav_link">Blog</a>
+                </div>
                 <div className="header_nav_buttons">
                   <a href="https://app.convertic.ai/login" className="header_nav_btn header_nav_btn_outline">Login</a>
                   <a href="https://app.convertic.ai/users/register" className="header_nav_btn header_nav_btn_filled">Try it</a>
                 </div>
+
+                {/* Mobile buttons (always visible on mobile) */}
+                <div className="header_nav_mobile_buttons">
+                  <a href="https://app.convertic.ai/login" className="header_nav_btn header_nav_btn_outline">Login</a>
+                  <a href="https://app.convertic.ai/users/register" className="header_nav_btn header_nav_btn_filled">Try it</a>
+                </div>
+
+                {/* Mobile menu overlay */}
+                {mobileMenuOpen && (
+                  <div className="mobile_menu_overlay" onClick={() => setMobileMenuOpen(false)}>
+                    <div className="mobile_menu" onClick={(e) => e.stopPropagation()}>
+                      <a href="/pricing" className="mobile_menu_link" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
+                      <a href="/blog" className="mobile_menu_link" onClick={() => setMobileMenuOpen(false)}>Blog</a>
+                    </div>
+                  </div>
+                )}
               </nav>
             </div>
           </div>
@@ -217,7 +236,14 @@ export default function HomeClient({ searchParams }) {
               <div className="centeredElement">
                 <h1 className="header_title_text">
                   <span>Make every email &nbsp;</span><br />
-                  <span className="higlighted_header">interactive</span>
+                  <TextType
+                    text={["interactive", "app-like", "convertic"]}
+                    typingSpeed={75}
+                    pauseDuration={1500}
+                    showCursor={true}
+                    cursorCharacter="|"
+                    className="higlighted_header"
+                  />
                   {/* <span> AI agent</span> */}
                 </h1>
               </div>
@@ -460,7 +486,7 @@ export default function HomeClient({ searchParams }) {
 
                       <div className="all_faq_item" onClick={() => faqItemClick(2)}>
                         <div className="all_faq_item_question">
-                          <div className="all_faq_item_text">Can you explain the key features of your email marketing software?</div>
+                          <div className="all_faq_item_text">Can you explain the key features of Convertic.ai?</div>
                           <div className="d-block">
                             <div className="all_faq_item_plus">
                               <div className="all_faq_item_plus_inner">

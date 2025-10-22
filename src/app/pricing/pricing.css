@@ -24,15 +24,12 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Ensure container-fluid also gets the theme background */
 .container-fluid {
   background-color: var(--bg) !important;
   color: var(--textColor);
   transition: background-color 0.3s ease, color 0.3s ease;
-  padding-bottom: 60px;
 }
 
-/* Target all Bootstrap containers */
 .container,
 .container-sm,
 .container-md,
@@ -49,21 +46,6 @@ a {
   text-decoration: none!important;
 }
 
-h1, h2 {
-  /* letter-spacing: -1.3px; */
-}
-
-strong {
-  font-weight: 500 !important;
-}
-
-@media screen and (min-width: 769px) {
-  h2 {
-    letter-spacing: -1px;
-    color: var(--textColor) !important;
-  }
-}
-
 .dark {
   --bg: #0f172a;
   --textColor: #ddd;
@@ -78,23 +60,6 @@ strong {
   --softTextColor: #626262;
 }
 
-.light h2 {
-  color: black !important;
-}
-
-.dark h2 {
-  color: #ddd !important;
-}
-
-.light h3 {
-  color: black !important;
-}
-
-.dark h3 {
-  color: #ddd !important;
-}
-
-/* Scope container styles to blog layout only */
 .wrapper .container,
 .wrapper .container-fluid {
   background-color: var(--bg);
@@ -145,12 +110,4 @@ strong {
     .wrapper {
         max-width: 475px;
   }
-}
-
-.ql-container {
-  font-size: 28px!important;
-}
-
-.quill > .ql-container > .ql-editor.ql-blank::before {
-  color: #b3b3b1;
 }

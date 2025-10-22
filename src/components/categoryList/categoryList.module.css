@@ -8,7 +8,7 @@
 .categories {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     gap: 20px;
 }
 
@@ -17,10 +17,10 @@
     align-items: center;
     gap: 10px;
     text-transform: capitalize;
-    width: 15%;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: 50%;
     border: 1px solid #eeeeee;
 }
 
@@ -54,24 +54,24 @@
 
 @media screen and (max-width: 1280px) {
     .category {
-        width: 30%;
+        width: 120px;
     }
 }
 
 @media screen and (max-width: 1024px) {
     .category {
-        width: 25%;
+        width: 120px;
     }
 }
 
 @media screen and (max-width: 768px) {
     .category {
-        width: 45%;
+        width: 120px;
     }
 }
 
 @media screen and (max-width: 640px) {
     .category {
-        width: 100%;
+        width: 120px;
     }
 }

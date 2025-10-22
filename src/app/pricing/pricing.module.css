@@ -1,0 +1,371 @@
+.pricingContainer {
+  padding: 60px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.pricingHeader {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.pricingTitle {
+  font-size: 42px;
+  font-weight: 300;
+  color: var(--softTextColor);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.highlight {
+  color: #4a5fd9;
+  font-weight: 400;
+}
+
+.pricingCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.pricingCard {
+  background: var(--bg);
+  border: 1px solid #e0e0e0;
+  border-radius: 24px;
+  padding: 40px 30px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.pricingCard:hover {
+  border-color: #4a5fd9;
+}
+
+.pricingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(74, 95, 217, 0.15),
+      transparent 40%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.pricingCard:hover .pricingOverlay {
+  opacity: 1;
+}
+
+.pricingCardContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.buttonWrapper {
+  margin-top: auto;
+}
+
+.popular {
+  border: 2px solid #4a5fd9;
+}
+
+.popularBadge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #4a5fd9;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.cardHeader {
+  margin-bottom: 20px;
+}
+
+.planName {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--textColor);
+  margin: 0;
+}
+
+.cardPrice {
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--textColor);
+}
+
+.period {
+  font-size: 20px;
+  color: var(--softTextColor);
+  font-weight: 300;
+}
+
+.contactUs {
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--textColor) !important;
+  margin: 0;
+}
+
+.priceSubtext {
+  font-size: 14px;
+  color: var(--softTextColor);
+  margin-bottom: 30px;
+  min-height: 40px;
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 15px;
+  color: var(--softTextColor);
+  line-height: 1.5;
+}
+
+.checkmark {
+  margin-right: 12px;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background-color: var(--softBg);
+  border: 1px solid #e9ecef;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkmark::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 10px;
+  border: solid #4a5fd9;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -60%) rotate(45deg);
+}
+
+.showMore {
+  background: transparent;
+  border: none;
+  color: #4a5fd9;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px 0;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.showMore:hover {
+  text-decoration: underline;
+}
+
+.ctaButton {
+  width: 100%;
+  background: transparent;
+  border: 2px solid #4a5fd9;
+  color: #4a5fd9;
+  padding: 16px 24px;
+  border-radius: 36px;
+  font-size: 16px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ctaButton:hover {
+  background: #4a5fd9;
+  color: white !important;
+  border-color: #4a5fd9;
+}
+
+@media screen and (max-width: 1024px) {
+  .pricingCards {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .pricingTitle {
+    font-size: 32px;
+  }
+
+  .pricingCard {
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+.spotlightSection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.spotlightCard {
+  position: relative;
+  background: var(--bg);
+  border: 1px solid #e0e0e0;
+  border-radius: 24px;
+  padding: 40px;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.spotlightCard:hover {
+  border-color: #4a5fd9;
+}
+
+.spotlightOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(74, 95, 217, 0.15),
+      transparent 40%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.spotlightCard:hover .spotlightOverlay {
+  opacity: 1;
+}
+
+.spotlightContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.spotlightButtonWrapper {
+  margin-top: auto;
+  text-align: center;
+}
+
+.spotlightTitle {
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--textColor);
+  margin: 0 0 16px 0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.spotlightDescription {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--softTextColor);
+  margin: 0 0 24px 0;
+}
+
+.spotlightButton {
+  display: inline-block;
+  padding: 12px 24px;
+  background: transparent;
+  border: 2px solid #4a5fd9;
+  color: #4a5fd9 !important;
+  border-radius: 36px;
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.spotlightButton:hover {
+  background: #4a5fd9;
+  color: white !important;
+  border-color: #4a5fd9;
+  transform: translateY(-2px);
+}
+
+@media screen and (max-width: 1024px) {
+  .spotlightSection {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .spotlightCard {
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .pricingContainer {
+    padding: 40px 16px;
+  }
+
+  .pricingTitle {
+    font-size: 28px;
+  }
+
+  .price {
+    font-size: 40px;
+  }
+
+  .pricingCard {
+    padding: 30px 24px;
+  }
+
+  .spotlightSection {
+    margin-top: 40px;
+  }
+
+  .spotlightCard {
+    padding: 30px 24px;
+  }
+
+  .spotlightTitle {
+    font-size: 24px;
+  }
+
+  .spotlightDescription {
+    font-size: 15px;
+  }
+}
+
+/* Dark theme specific styles */
+:global(.dark) .pricingCard {
+  border-color: #1f273a;
+}
+
+:global(.dark) .spotlightCard {
+  border-color: #1f273a;
+}

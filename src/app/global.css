@@ -190,6 +190,10 @@ html.lenis body {
     margin-top: 40px;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -197,8 +201,25 @@ body {
     color: var(--textColor);
     font-family: 'DM Sans', sans-serif;
     overflow-x: hidden;
+    max-width: 100vw;
     transition: background-color 0.3s ease, color 0.3s ease;
     /* background-color: #2E2E2E; */
+}
+
+/* Prevent horizontal scroll */
+* {
+    box-sizing: border-box;
+}
+
+.row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100%;
+}
+
+.col, [class*="col-"] {
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 /* Global responsive improvements */
@@ -206,6 +227,18 @@ body {
     .container {
         padding-left: 1rem;
         padding-right: 1rem;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    .col, [class*="col-"] {
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     .row {
@@ -294,7 +327,7 @@ body {
     /* border: 2px solid white; */
     min-height: 60px;
     margin: 0;
-    font-size: 19px;
+    font-size: 16px;
     border: none;
 }
 
@@ -378,16 +411,81 @@ body {
 
 .header .navbar {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
+    gap: 48px;
+}
+
+.header_nav_logo {
+    flex: 1;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header_nav_logo .hor_circle2 {
+    margin: 0;
+    vertical-align: middle;
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+}
+
+.header_nav_logo .hor_circle_inner {
+    background: black;
+    width: 6px;
+    height: 6px;
+}
+
+.header_nav_logo_link {
+    color: white !important;
+    font-size: 36px;
+    font-weight: 300;
+    font-family: "DM Sans";
+    text-decoration: none;
+}
+
+.header_nav_logo_link:hover {
+    color: white !important;
+}
+
+@media screen and (max-width: 1280px) {
+    .header_nav_logo_link {
+        font-size: 32px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header_nav_logo_link {
+        font-size: 24px;
+    }
+}
+
+.header_nav_links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.header_nav_link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 16px;
+    font-weight: 300;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    transition: color 0.3s ease;
+}
+
+.header_nav_link:hover {
+    color: white !important;
 }
 
 .header_nav_buttons {
     display: flex;
     gap: 12px;
     align-items: center;
-    margin-left: auto;
 }
 
 .header_nav_btn {
@@ -405,6 +503,7 @@ body {
     background-color: white;
     color: black;
     border: none;
+    padding: 19px 32px;
 }
 
 .header_nav_btn_filled:hover {
@@ -424,14 +523,148 @@ body {
     color: white !important;
 }
 
+/* Mobile menu styles */
+.header_nav_mobile_buttons {
+    display: none;
+}
+
+.burger_menu {
+    display: none;
+}
+
+.mobile_menu_overlay {
+    display: none;
+}
+
 @media screen and (max-width: 768px) {
-    .header_nav_buttons {
-        gap: 8px;
+    /* Hide desktop menu items */
+    .header_nav_links {
+        display: none !important;
     }
 
-    .header_nav_btn {
-        padding: 8px 18px;
-        font-size: 14px;
+    .header_nav_buttons {
+        display: none !important;
+    }
+
+    /* Adjust navbar layout for mobile */
+    .header .navbar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        gap: 12px;
+    }
+
+    .header_nav_logo {
+        margin-left: 0 !important;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .header_nav_logo_link {
+        font-size: 20px !important;
+        white-space: nowrap;
+    }
+
+    /* Burger menu button */
+    .burger_menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 24px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        z-index: 1001;
+        flex-shrink: 0;
+    }
+
+    /* Show mobile buttons */
+    .header_nav_mobile_buttons {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .header_nav_mobile_buttons .header_nav_btn {
+        padding: 10px 16px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .header_nav_mobile_buttons .header_nav_btn_filled {
+        padding: 13px 17px;
+    }
+
+    .burger_menu span {
+        width: 100%;
+        height: 3px;
+        background: white;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+
+    .burger_menu.open span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .burger_menu.open span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .burger_menu.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* Mobile menu overlay */
+    .mobile_menu_overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .mobile_menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 250px;
+        height: 100vh;
+        background: #0f172a;
+        padding: 80px 30px 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        animation: slideIn 0.3s ease;
+        z-index: 1000;
+    }
+
+    .mobile_menu_link {
+        color: white !important;
+        font-size: 18px;
+        text-decoration: none;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+        from { transform: translateX(100%); }
+        to { transform: translateX(0); }
     }
 }
 
@@ -453,6 +686,7 @@ body {
         font-size: 5rem;
         width: 100%;
         padding: 0 1rem;
+        letter-spacing: -1.5px;
     }
 
     .header {
@@ -482,6 +716,7 @@ body {
         width: 100%;
         padding: 0 1rem;
         line-height: 1.1;
+        letter-spacing: -1.5px;
     }
 
     .header {
@@ -1879,7 +2114,8 @@ iframe.all_what_we_can_do_template {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, rgba(133, 63, 250, 1) 0%, rgb(222 74 218) 100%);
+    /* background: linear-gradient(135deg, rgba(133, 63, 250, 1) 0%, rgb(222 74 218) 100%); */
+    background: linear-gradient(135deg, rgba(133, 63, 250, 1) 0%, #fff 100%);
 }
 
 .hor_circle3 {
@@ -1898,6 +2134,19 @@ iframe.all_what_we_can_do_template {
     height: 40px;
     border-radius: 50%;
     background: white;
+}
+
+/* Navbar logo circles - smaller size */
+.navbar-logo .hor_circle2 {
+    width: 12px !important;
+    height: 12px !important;
+    flex: 0 0 12px !important;
+}
+
+.navbar-logo .hor_circle_inner {
+    width: 6px !important;
+    height: 6px !important;
+    background: black !important;
 }
 
 .hor_element_glass {
@@ -2343,9 +2592,8 @@ iframe.all_what_we_can_do_template {
     left: 0;
 }
 
-.higlighted_header {
-    /* background-color: #ff44ec; */
-    /* background-color: #0a2540; */
+/* Commented out old cursor styles - now using TextType component cursor */
+/* .higlighted_header {
     color: white;
     border-radius: 40px;
     padding-bottom: 8px;
@@ -2361,13 +2609,11 @@ iframe.all_what_we_can_do_template {
     position: absolute;
     height: 120px;
     width: 8px;
-    /* background: #BD53ED; */
     background: #FFFFFF;
     transform: translateY(-45%);
     animation: blink 1s infinite;
 }
 
-/* Responsive cursor for mobile and tablet */
 @media screen and (max-width: 768px) {
     .higlighted_header::before {
         height: 60px;
@@ -2383,6 +2629,25 @@ iframe.all_what_we_can_do_template {
         width: 7px;
         right: 27px;
         transform: translateY(-50%);
+    }
+} */
+
+/* New TextType component styles */
+.higlighted_header {
+    color: white;
+}
+
+.text-type__cursor {
+    color: white;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
     }
 }
 
