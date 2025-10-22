@@ -177,7 +177,7 @@ export default function PricingPage() {
           <div className={styles.spotlightContent}>
             <h3 className={styles.spotlightTitle}>Proof of Concept</h3>
             <p className={styles.spotlightDescription}>
-              Test Convertic with your real data and use cases before committing. We'll help you build a
+              Test Convertic with your real data and use cases before committing. We&apos;ll help you build a
               custom proof of concept tailored to your specific needs, demonstrating the value of interactive
               emails for your business with measurable results.
             </p>

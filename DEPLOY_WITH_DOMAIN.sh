@@ -23,13 +23,9 @@ fi
 echo "✅ gcloud is installed"
 echo ""
 
-# Step 2: Initialize gcloud if needed
-echo "Step 2: Setting up Google Cloud..."
-if [ -z "$(gcloud config get-value project 2>/dev/null)" ]; then
-    echo "No project configured. Running gcloud init..."
-    gcloud init
-fi
-
+# Step 2: Set correct project
+echo "Step 2: Setting correct Google Cloud project..."
+gcloud config set project convertic
 PROJECT_ID=$(gcloud config get-value project)
 echo "✅ Using project: $PROJECT_ID"
 echo ""

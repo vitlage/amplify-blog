@@ -1,130 +1,91 @@
-# Deploy to GCP - Cheapest Static Hosting
+# Deploy to GCP - Cloud Run (Production Method)
 
-Your site is now ready for deployment! Follow these steps for the cheapest GCP hosting.
+This is the correct deployment method for convertic.ai.
 
 ## ✅ What's Ready
 
-- ✅ **Static Export**: Your site builds to `./out` directory
-- ✅ **Zero Server Costs**: No Node.js server needed
+- ✅ **Cloud Run**: Serverless container deployment
+- ✅ **Auto-scaling**: Scales to zero when not in use
 - ✅ **Static Data**: All content pre-generated at build time
 - ✅ **Firebase Images**: Images served from Firebase CDN
 - ✅ **SEO Optimized**: All pages have proper metadata
 
-## 🚀 Deployment Steps
+## 🚀 Quick Deployment
 
-### 1. Create GCP Storage Bucket
+### Simple One-Command Deployment
 
 ```bash
-# Set your project ID
-export PROJECT_ID="your-project-id"
-export BUCKET_NAME="your-blog-bucket"
+# Set correct project
+gcloud config set project convertic
 
-# Create bucket for website hosting
-gsutil mb gs://$BUCKET_NAME
+# Deploy to Cloud Run
+gcloud run deploy convertic-ai \
+  --source . \
+  --platform managed \
+  --region us-central1 \
+  --allow-unauthenticated \
+  --memory 512Mi \
+  --cpu 1 \
+  --min-instances 0 \
+  --max-instances 100 \
+  --set-env-vars NODE_ENV=production
 
-# Make bucket publicly readable
-gsutil iam ch allUsers:objectViewer gs://$BUCKET_NAME
-
-# Enable website configuration
-gsutil web set -m index.html -e 404.html gs://$BUCKET_NAME
 ```
 
-### 2. Deploy Static Files
+This will:
+- Build your Docker container
+- Deploy to Cloud Run
+- Make it publicly accessible
+- Auto-scale based on traffic
+
+## 📊 Deployment Details
+
+- **Project**: `convertic` (IMPORTANT: Use this project, not convertic-4dbfa)
+- **Service**: `convertic-ai`
+- **Region**: `us-central1`
+- **URL**: https://convertic-ai-421564831118.us-central1.run.app
+- **Domain**: https://convertic.ai (via Cloudflare)
+
+## 💰 Cost Breakdown
+
+- **Cloud Run**: Free tier includes 2 million requests/month
+- **Memory**: 512Mi (sufficient for Next.js)
+- **CPU**: 1 vCPU
+- **Min Instances**: 0 (scales to zero = no cost when idle)
+- **Max Instances**: 100 (auto-scales based on traffic)
+
+**Estimated Monthly Cost: $0-5** (within free tier for normal traffic)
+
+## 🔄 Automated Deployment Script
+
+Use the provided script for easier deployment:
 
 ```bash
-# Build your site
-npm run build
-
-# Upload to GCP Storage
-gsutil -m rsync -r -c -d ./out gs://$BUCKET_NAME
-
-# Set cache headers for better performance
-gsutil -m setmeta -h "Cache-Control:public,max-age=3600" "gs://$BUCKET_NAME/**/*.html"
-gsutil -m setmeta -h "Cache-Control:public,max-age=31536000" "gs://$BUCKET_NAME/**/*.{css,js,png,jpg,jpeg,gif,ico,svg,woff,woff2}"
-```
-
-### 3. Setup Cloud CDN (Optional but recommended)
-
-```bash
-# Create load balancer for CDN
-gcloud compute url-maps create your-blog-lb \
-    --default-service=your-blog-backend
-
-# Create backend bucket
-gcloud compute backend-buckets create your-blog-backend \
-    --gcs-bucket-name=$BUCKET_NAME
-
-# Create HTTP(S) load balancer
-gcloud compute target-http-proxies create your-blog-proxy \
-    --url-map=your-blog-lb
-
-# Reserve static IP
-gcloud compute addresses create your-blog-ip --global
-
-# Create forwarding rule
-gcloud compute forwarding-rules create your-blog-rule \
-    --address=your-blog-ip \
-    --global \
-    --target-http-proxy=your-blog-proxy \
-    --ports=80
-```
-
-### 4. Setup Custom Domain (Optional)
-
-```bash
-# Point your domain to the reserved IP
-gcloud compute addresses describe your-blog-ip --global
-
-# Create SSL certificate
-gcloud compute ssl-certificates create your-blog-ssl \
-    --domains=yourdomain.com,www.yourdomain.com
-
-# Update to HTTPS
-gcloud compute target-https-proxies create your-blog-https-proxy \
-    --url-map=your-blog-lb \
-    --ssl-certificates=your-blog-ssl
-```
-
-## 💰 Cost Breakdown (Free Tier)
-
-- **Storage**: 5GB free (your site is ~50MB)
-- **Bandwidth**: 1GB free egress from US
-- **CDN**: 10GB free cache (Cloud CDN)
-- **Load Balancer**: Free for basic HTTP(S)
-
-**Total Monthly Cost: $0** (within free tier limits)
-
-## 🔄 Automated Deployment
-
-Use the provided `cloudbuild.yaml` with Cloud Build:
-
-```bash
-# Enable Cloud Build API
-gcloud services enable cloudbuild.googleapis.com
-
-# Submit build
-gcloud builds submit --config cloudbuild.yaml \
-    --substitutions=_BUCKET_NAME=$BUCKET_NAME
+./DEPLOY_WITH_DOMAIN.sh
 ```
 
 ## 📊 Performance Benefits
 
-- **Static Files**: Served directly from CDN
-- **Global CDN**: Fast worldwide delivery  
-- **Firebase Images**: Optimized image delivery
-- **Zero Server**: No server startup time
-- **Pre-rendered**: All HTML generated at build time
+- **Serverless**: No server management needed
+- **Auto-scaling**: Handles traffic spikes automatically
+- **Global CDN**: Cloudflare CDN for fast delivery
+- **Container**: Consistent environment
+- **Zero downtime**: Rolling updates
 
 ## 🔧 Updates
 
 To update your site:
 
-1. Update content in `src/lib/staticData.js`
-2. Run `npm run build`
-3. Run `gsutil -m rsync -r -c -d ./out gs://$BUCKET_NAME`
+1. Make your code changes
+2. Run: `gcloud config set project convertic`
+3. Run: `gcloud run deploy convertic-ai --source . --platform managed --region us-central1 --allow-unauthenticated --memory 512Mi --cpu 1`
+4. Purge Cloudflare cache if needed
 
-Your site is now live at: `http://[your-bucket-name].storage.googleapis.com`
+Your site is now live at: https://convertic.ai
 
-Or with CDN: `http://[your-ip-address]`
+## ⚠️ Important Notes
 
-Or with custom domain: `https://yourdomain.com`
+- Always use project `convertic` (not convertic-4dbfa)
+- Service name must be `convertic-ai`
+- Region must be `us-central1`
+- After deployment, purge Cloudflare cache to see changes immediately

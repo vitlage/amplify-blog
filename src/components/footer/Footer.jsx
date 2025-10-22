@@ -35,7 +35,7 @@ const Footer = () => {
           <div className="container">
             <div className="row">
               <div className="col">
-                <h1 className="all_faq_header_bold footer_header_title">Let's start your email-led</h1>
+                <h1 className="all_faq_header_bold footer_header_title">Let&apos;s start your email-led</h1>
                 <h1 className="all_faq_header_bold footer_header_title">growth marketing</h1>
               </div>
             </div>
