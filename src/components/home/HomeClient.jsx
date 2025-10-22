@@ -184,7 +184,7 @@ export default function HomeClient({ searchParams }) {
             <div className="col p-4">
               <nav className="navbar">
                 {/* Burger menu button (mobile only, appears first) */}
-                <button 
+                <button
                   className={`burger_menu ${mobileMenuOpen ? 'open' : ''}`}
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   aria-label="Toggle menu"
@@ -202,7 +202,7 @@ export default function HomeClient({ searchParams }) {
                     Convertic<span style={{ color: "#1C71E8" }}>.</span>ai
                   </a>
                 </div>
-                
+
                 {/* Desktop menu */}
                 <div className="header_nav_links">
                   <a href="/pricing" className="header_nav_link">Pricing</a>
