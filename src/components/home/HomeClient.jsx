@@ -149,6 +149,18 @@ export default function HomeClient({ searchParams }) {
     }
   }
 
+  const handleDemoRequest = () => {
+    if (window.analytics) {
+      window.analytics.track('Demo/Contact requested', { button: 'Request a Demo', page: 'home' });
+    }
+    // Trigger Convertic popup
+    if (window.ACX && window.ACX.openPopup) {
+      window.ACX.openPopup();
+    } else if (window.openAcellePopup) {
+      window.openAcellePopup();
+    }
+  }
+
   const onSubscribe = () => {
     const form = new URLSearchParams({
       api_token: process.env.NEXT_PUBLIC_CONVERTIC_API_TOKEN,
@@ -205,6 +217,7 @@ export default function HomeClient({ searchParams }) {
 
                 {/* Desktop menu */}
                 <div className="header_nav_links">
+                  {/* <a href="/use-cases" className="header_nav_link">Use Cases</a> */}
                   <a href="/pricing" className="header_nav_link">Pricing</a>
                   <a href="/blog" className="header_nav_link">Blog</a>
                 </div>
@@ -223,6 +236,7 @@ export default function HomeClient({ searchParams }) {
                 {mobileMenuOpen && (
                   <div className="mobile_menu_overlay" onClick={() => setMobileMenuOpen(false)}>
                     <div className="mobile_menu" onClick={(e) => e.stopPropagation()}>
+                      <a href="/use-cases" className="mobile_menu_link" onClick={() => setMobileMenuOpen(false)}>Use Cases</a>
                       <a href="/pricing" className="mobile_menu_link" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
                       <a href="/blog" className="mobile_menu_link" onClick={() => setMobileMenuOpen(false)}>Blog</a>
                     </div>
@@ -237,7 +251,7 @@ export default function HomeClient({ searchParams }) {
                 <h1 className="header_title_text">
                   <span>Make every email &nbsp;</span><br />
                   <TextType
-                    text={["interactive", "app-like", "convertic"]}
+                    text={["interactive", "app-like", "engaging", "convertic"]}
                     typingSpeed={75}
                     pauseDuration={1500}
                     showCursor={true}
@@ -251,7 +265,7 @@ export default function HomeClient({ searchParams }) {
           </div>
           <div className="all_first_cta">
             <a href="https://app.convertic.ai/users/register" onClick={() => onregisterclick(1)} className="all_menu_button">Get started</a>
-            <div onClick={() => onregisterclick(1)} id="request_demo_btn" className="all_menu_button all_menu_button_secondary">
+            <div onClick={handleDemoRequest} id="request_demo_btn" className="all_menu_button all_menu_button_secondary">
               Request a demo
             </div>
           </div>

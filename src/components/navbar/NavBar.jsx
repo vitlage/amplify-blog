@@ -20,6 +20,7 @@ const NavBar = () => {
       <div className={styles.links}>
         <ThemeToggle />
         {/* <Link href="/blog/login" className={styles.navLink}>Login</Link> */}
+        {/* <Link href="/use-cases" className={styles.navLink}>Use Cases</Link> */}
         <Link href="/pricing" className={styles.navLink}>Pricing</Link>
         <Link href="/blog" className={styles.navLink}>Blog</Link>
         <a href="https://app.convertic.ai/login" className={styles.navBtn + ' ' + styles.navBtnOutline}>Login</a>

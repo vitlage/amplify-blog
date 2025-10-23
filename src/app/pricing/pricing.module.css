@@ -14,11 +14,40 @@
   font-weight: 300;
   color: var(--softTextColor);
   font-family: 'DM Sans', sans-serif;
+  margin-bottom: 16px;
 }
 
 .highlight {
   color: #4a5fd9;
   font-weight: 400;
+}
+
+.headerSubtext {
+  font-size: 18px;
+  color: var(--softTextColor);
+  margin-bottom: 24px;
+  font-weight: 300;
+}
+
+.demoButton {
+  display: inline-block;
+  padding: 14px 32px;
+  background: #4a5fd9;
+  border: 2px solid #4a5fd9;
+  color: white !important;
+  border-radius: 36px;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.demoButton:hover {
+  background: transparent;
+  color: #4a5fd9 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 95, 217, 0.2);
 }
 
 .pricingCards {
@@ -191,13 +220,18 @@
   width: 100%;
   background: transparent;
   border: 2px solid #4a5fd9;
-  color: #4a5fd9;
+  color: #4a5fd9 !important;
   padding: 16px 24px;
   border-radius: 36px;
   font-size: 16px;
   font-weight: 300;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .ctaButton:hover {
@@ -305,6 +339,9 @@
   transition: all 0.3s ease;
   cursor: pointer;
   font-family: 'DM Sans', sans-serif;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 .spotlightButton:hover {

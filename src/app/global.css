@@ -332,6 +332,9 @@ body {
     margin: 0;
     font-size: 16px;
     border: none;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
 }
 
 .all_menu_button_new {
@@ -758,6 +761,20 @@ body {
 
 .above {
     z-index: 2;
+}
+
+/* Ensure Convertic popups are above all content */
+#acelle-popup-container,
+[id*="acelle"],
+[class*="acelle"] {
+    z-index: 99999 !important;
+    pointer-events: auto !important;
+}
+
+#acelle-popup-container iframe,
+[id*="acelle"] iframe,
+[class*="acelle"] iframe {
+    pointer-events: auto !important;
 }
 
 .all_header_block {
@@ -1660,6 +1677,8 @@ div[style*="border-top: 1px solid rgb(238, 238, 238)"] {
     display: flex;
     justify-content: center;
     margin-top: 70px;
+    position: relative;
+    z-index: 10;
 }
 
 .all_what_we {
