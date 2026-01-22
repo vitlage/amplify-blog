@@ -1,0 +1,392 @@
+.navbarWrapper {
+  position: relative;
+  z-index: 100;
+}
+
+.navbarWrapper :global(.container-fluid),
+.navbarWrapper :global(.container) {
+  background: transparent !important;
+}
+
+.wrapper {
+  padding: 60px 0px;
+  position: relative;
+}
+
+.benefitsFeaturesContainer {
+  display: grid;
+  grid-template-columns: 30% 1fr;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding-top: 40px;
+}
+
+.icon {
+  font-size: 80px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 400;
+  color: var(--textColor);
+  font-family: 'DM Sans', sans-serif;
+  margin-bottom: 24px;
+}
+
+.description {
+  font-size: 20px;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+
+  color: #5F6367 !important;
+  /* font-size: 18px; */
+  font-weight: 300;
+  line-height: 1.8rem;
+  margin-top: 20px;
+  transition: visibility 0s, opacity 0.5s linear;
+  /* color: rgb(165, 165, 165); */
+  /* color: #2E2E2E; */
+  /* color: #BCCBCF; */
+  opacity: 0.8;
+}
+
+.section {
+  margin-bottom: 60px;
+}
+
+.sectionTitle {
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--textColor);
+  font-family: 'DM Sans', sans-serif;
+  margin-bottom: 32px;
+}
+
+.benefitsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 800px;
+}
+
+.benefit {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  font-size: 18px;
+  color: var(--softTextColor);
+  line-height: 1.6;
+}
+
+.checkmark {
+  color: #4a5fd9;
+  font-weight: bold;
+  margin-right: 12px;
+  flex-shrink: 0;
+  font-size: 20px;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.featureCard {
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 32px;
+  transition: all 0.3s ease;
+}
+
+.featureCard:hover {
+  border-color: #4a5fd9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 95, 217, 0.1);
+}
+
+.featureTitle {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--textColor);
+  margin: 0 0 12px 0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.featureDescription {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--softTextColor);
+  margin: 0;
+}
+
+.ampSubtitle {
+  font-size: 16px;
+  color: var(--softTextColor);
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.ampElementsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ampElementCard {
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.ampElementCard:hover {
+  border-color: #4a5fd9;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(74, 95, 217, 0.15);
+}
+
+.ampElementIcon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ampElementIcon img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.ampElementTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--textColor);
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ctaSection {
+  text-align: center;
+  padding: 60px 40px;
+  border-radius: 24px;
+  border: 1px solid #e0e0e0;
+  margin-top: 80px;
+}
+
+.ctaTitle {
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--textColor);
+  margin: 0 0 16px 0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ctaText {
+  font-size: 18px;
+  color: var(--softTextColor);
+  margin: 0 0 32px 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.primaryButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 32px;
+  background: #4a5fd9;
+  border: 2px solid #4a5fd9;
+  color: white !important;
+  border-radius: 36px;
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.primaryButton:hover {
+  background: transparent;
+  color: #4a5fd9 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 95, 217, 0.2);
+}
+
+.secondaryButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 32px;
+  background: transparent;
+  border: 2px solid #4a5fd9;
+  color: #4a5fd9 !important;
+  border-radius: 36px;
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.secondaryButton:hover {
+  background: #4a5fd9;
+  color: white !important;
+  transform: translateY(-2px);
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    padding: 40px 0px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+
+  .sectionTitle {
+    font-size: 24px;
+  }
+
+  .featuresGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .featureCard {
+    padding: 24px;
+  }
+
+  .ctaSection {
+    padding: 40px 24px;
+  }
+
+  .ctaTitle {
+    font-size: 24px;
+  }
+
+  .ctaText {
+    font-size: 16px;
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+  }
+
+  .ampElementsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .ampElementCard {
+    padding: 20px;
+  }
+
+  .ampElementIcon {
+    font-size: 32px;
+  }
+
+  .ampElementTitle {
+    font-size: 14px;
+  }
+}
+
+/* Dark theme specific styles */
+:global(.dark) .featureCard {
+  border-color: #1f273a;
+}
+
+:global(.dark) .ampElementCard {
+  border-color: #1f273a;
+}
+
+:global(.dark) .ctaSection {
+  border-color: #1f273a;
+}
+
+@media screen and (max-width: 768px) {
+  .benefitsFeaturesContainer {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.benefitsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.benefit {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  font-size: 18px;
+  color: var(--softTextColor);
+  line-height: 1.6;
+}
+
+.checkmark {
+  margin-right: 8px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 12px;
+  height: 1.5em;
+}
+
+.checkmark svg {
+  width: 12px;
+  height: 11px;
+  display: block;
+}
