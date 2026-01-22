@@ -255,9 +255,9 @@ export default function PricingPage() {
         <div className={`${styles.pricingCard} ${styles.popular}`}>
           <div className={styles.pricingOverlay}></div>
           <div className={styles.pricingCardContent}>
-            <div className={styles.popularBadge}>Popular</div>
             <div className={styles.cardHeader}>
               <h3 className={styles.planName}>PRO</h3>
+              <div className={styles.popularBadge}>Popular</div>
             </div>
             <div className={styles.cardPrice}>
               <span className={styles.price}>$35</span>
@@ -277,6 +277,10 @@ export default function PricingPage() {
               <li className={styles.feature}>
                 <div className={styles.checkmark}></div>
                 Vibe marketing generation with AI
+              </li>
+              <li className={styles.feature}>
+                <div className={styles.checkmark}></div>
+                Ability to remove Convertic.ai branding
               </li>
             </ul>
 

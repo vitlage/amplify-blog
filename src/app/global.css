@@ -1990,6 +1990,46 @@ iframe.all_what_we_can_do_template {
     }
 }
 
+.footer_legal_links {
+    margin-top: 40px;
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.footer_legal_link {
+    color: #9aa0a6;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    transition: color 0.3s ease;
+}
+
+.footer_legal_link:hover {
+    color: white;
+}
+
+.footer_legal_separator {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 16px;
+}
+
+@media screen and (max-width: 768px) {
+    .footer_legal_links {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 30px;
+        padding-top: 20px;
+    }
+
+    .footer_legal_separator {
+        display: none;
+    }
+}
+
 .footer_contact_button {
     width: 55px;
     height: 55px;

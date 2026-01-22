@@ -74,6 +74,17 @@ const Footer = () => {
               </div>
             </div>
           </div>
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <div className="footer_legal_links">
+                  <Link href="/terms-and-conditions" className="footer_legal_link">Terms and Conditions</Link>
+                  <span className="footer_legal_separator">•</span>
+                  <Link href="/privacy-policy" className="footer_legal_link">Privacy Policy</Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

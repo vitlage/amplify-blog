@@ -6,6 +6,7 @@ import { FaXTwitter, FaLinkedin } from 'react-icons/fa6';
 import SyncSection from '@/components/syncSection/SyncSection';
 import Aurora from '@/components/aurora/Aurora';
 import TextType from '@/components/textType/TextType';
+import CookieConsent from '@/components/cookieConsent/CookieConsent';
 
 export default function HomeClient({ searchParams }) {
   const page = parseInt(searchParams?.page) || 1;
@@ -217,7 +218,7 @@ export default function HomeClient({ searchParams }) {
 
                 {/* Desktop menu */}
                 <div className="header_nav_links">
-                  {/* <a href="/use-cases" className="header_nav_link">Use Cases</a> */}
+                  <a href="/use-cases" className="header_nav_link">Use Cases</a>
                   <a href="/pricing" className="header_nav_link">Pricing</a>
                   <a href="/blog" className="header_nav_link">Blog</a>
                 </div>
@@ -631,6 +632,7 @@ export default function HomeClient({ searchParams }) {
           </div>
         </div>
       </footer>
+      <CookieConsent />
     </>
   );
 }
