@@ -17,10 +17,16 @@ export default function PricingSlider({
   headline = 'How big is your email list?',
   subtext = "We'll match you to the right PRO tier",
 }) {
-  const tierIndex = defaultIndex;
+  const [tierIndex, setTierIndex] = React.useState(defaultIndex);
   const max = tiers.length - 1;
   const percent = (tierIndex / max) * 100;
   const current = tiers[tierIndex];
+
+  const handleChange = (e) => {
+    const next = Number(e.target.value);
+    setTierIndex(next);
+    if (onTierChange) onTierChange(tiers[next], next);
+  };
 
   return (
     <div className={styles.section}>
@@ -46,7 +52,7 @@ export default function PricingSlider({
           max={max}
           step={1}
           value={tierIndex}
-          readOnly
+          onChange={handleChange}
           className={styles.rangeInput}
           aria-label="Email list size"
           aria-valuetext={current.label}
