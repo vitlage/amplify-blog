@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import styles from './pricing.module.css';
+import PricingSlider from '@/components/pricingSlider/PricingSlider';
 
 export default function PricingPage() {
   // Define AFormPopup class if not available
@@ -215,6 +216,8 @@ export default function PricingPage() {
       <div className={styles.pricingHeader}>
         <h1 className={styles.pricingTitle}>Choose the Right Plan for <span className={styles.highlight}>Your Needs</span></h1>
       </div>
+
+      <PricingSlider />
 
       <div className={styles.pricingCards}>
         {/* Standard Plan */}
