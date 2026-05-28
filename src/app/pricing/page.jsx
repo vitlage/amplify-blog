@@ -1,9 +1,12 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './pricing.module.css';
-import PricingSlider from '@/components/pricingSlider/PricingSlider';
+import PricingSlider, { TIERS } from '@/components/pricingSlider/PricingSlider';
 
 export default function PricingPage() {
+  const [tierIndex, setTierIndex] = useState(1);
+  const proTier = TIERS[tierIndex];
+
   // Define AFormPopup class if not available
   useEffect(() => {
     if (typeof window.AFormPopup === 'undefined') {
@@ -217,7 +220,10 @@ export default function PricingPage() {
         <h1 className={styles.pricingTitle}>Choose the Right Plan for <span className={styles.highlight}>Your Needs</span></h1>
       </div>
 
-      <PricingSlider />
+      <PricingSlider
+        defaultIndex={tierIndex}
+        onTierChange={(_tier, index) => setTierIndex(index)}
+      />
 
       <div className={styles.pricingCards}>
         {/* Standard Plan */}
@@ -263,10 +269,16 @@ export default function PricingPage() {
               <div className={styles.popularBadge}>Popular</div>
             </div>
             <div className={styles.cardPrice}>
-              <span className={styles.price}>$35</span>
-              <span className={styles.period}>/month</span>
+              {proTier.contact ? (
+                <h2 className={styles.contactUs}>Contact Us</h2>
+              ) : (
+                <>
+                  <span className={styles.price}>{proTier.proPrice}</span>
+                  <span className={styles.period}>/month</span>
+                </>
+              )}
             </div>
-            <p className={styles.priceSubtext}>2,500 credits</p>
+            <p className={styles.priceSubtext}>{proTier.credits}</p>
 
             <ul className={styles.featureList}>
               <li className={styles.feature}>
@@ -288,7 +300,11 @@ export default function PricingPage() {
             </ul>
 
             <div className={styles.buttonWrapper}>
-              <a href="https://app.convertic.ai/users/register" className={styles.ctaButton}>Get Started</a>
+              {proTier.contact ? (
+                <button onClick={() => handleDemoRequest('Contact Sales - PRO')} className={styles.ctaButton}>Contact Sales</button>
+              ) : (
+                <a href="https://app.convertic.ai/users/register" className={styles.ctaButton}>Get Started</a>
+              )}
             </div>
           </div>
         </div>
