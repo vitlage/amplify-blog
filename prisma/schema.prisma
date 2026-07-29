@@ -120,3 +120,35 @@ model Comment {
   postSlug  String
   post      Post     @relation(fields: [postSlug], references: [slug])
 }
+
+// Personalized lead landing pages
+model LeadPage {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  token       String   @unique
+  hubspotId   String?
+  firstName   String?
+  lastName    String?
+  company     String?
+  email       String?
+  templateId  String
+  previewHtml String?
+  videoUrl    String?
+  subjectLine String?
+  senderName  String?
+  senderEmail String?
+  snippet     String?
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model LeadEvent {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  leadToken String
+  type      String
+  meta      Json?
+  sessionId String?
+  createdAt DateTime @default(now())
+
+  @@index([leadToken])
+}
