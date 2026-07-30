@@ -72,32 +72,37 @@ function hostBase() {
   return (process.env.HOST_URL || "").replace(/\/+$/, "");
 }
 
-// Map a lead + its full event set to the HubSpot contact properties we write.
-// Property names must exist in HubSpot (created manually by the account owner).
+const MONTHS = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+];
+
+function formatDate(ts) {
+  const d = new Date(ts);
+  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
+}
+
+// Roll a lead's whole engagement into ONE HubSpot property: a readable multi-line
+// summary, overwritten on every event. `amp_engagement` must exist in HubSpot as a
+// multi-line text contact property (created manually by the account owner).
 export function buildContactProperties(lead, events) {
   const summary = summarizeEvents(lead, events);
   const sorted = [...events].sort(
     (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
   );
   const last = sorted[sorted.length - 1];
+  const url = hostBase() ? `${hostBase()}/l/${lead.token}` : "";
 
-  const props = {
-    amp_stopped_at: summary.stoppedAt,
-    amp_engagement_score: computeEngagementScore(events),
-    amp_landing_url: hostBase() ? `${hostBase()}/l/${lead.token}` : "",
-  };
+  const lines = [
+    `Score: ${computeEngagementScore(events)}`,
+    `Furthest: ${summary.stoppedAt}`,
+  ];
   if (last) {
-    props.amp_last_event = last.type;
-    // A manually-created HubSpot "Date picker" property must receive a midnight-UTC
-    // epoch (ms) or the API rejects it. Normalize to the event's UTC date.
-    const d = new Date(last.createdAt);
-    props.amp_last_event_at = Date.UTC(
-      d.getUTCFullYear(),
-      d.getUTCMonth(),
-      d.getUTCDate()
-    );
+    lines.push(`Last event: ${last.type} (${formatDate(last.createdAt)})`);
   }
-  return props;
+  if (url) lines.push(`Page: ${url}`);
+
+  return { amp_engagement: lines.join("\n") };
 }
 
 // Recompute + push. Returns silently for leads without a hubspotId. Any HubSpot

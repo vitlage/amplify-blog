@@ -19,31 +19,41 @@ After changing scopes, HubSpot may issue a new token — update the env var if s
 
 ---
 
-## 2. Create 5 contact properties
+## 2. Create 1 contact property
 
 Settings → Data Management → **Properties** → Contact properties → **Create property**.
-Create each of these. The **internal name must match exactly** (HubSpot lowercases and
-underscores automatically, but verify the internal name after saving):
+Create a single property. The **internal name must match exactly** (HubSpot lowercases
+and underscores automatically, but verify the internal name after saving):
 
-| Label                    | Internal name           | Field type      |
-|--------------------------|-------------------------|-----------------|
-| AMP Last Event           | `amp_last_event`        | Single-line text |
-| AMP Last Event Date      | `amp_last_event_at`     | Date picker      |
-| AMP Furthest Milestone   | `amp_stopped_at`        | Single-line text |
-| AMP Engagement Score     | `amp_engagement_score`  | Number           |
-| AMP Landing URL          | `amp_landing_url`       | Single-line text |
+| Label          | Internal name    | Field type          |
+|----------------|------------------|---------------------|
+| AMP Engagement | `amp_engagement` | Multi-line text     |
 
-Notes:
-- `amp_last_event_at` is a **Date picker** (date only). The code sends midnight-UTC to
-  match HubSpot's requirement — that's expected.
-- `amp_stopped_at` values mirror the admin dashboard: `Opened page`, `Opened inbox
-  email`, `Clicked in AMP email`, `Viewed video`, `Played video`, `Submitted email`,
-  `Clicked in real email`, `Submitted in real email`.
-- `amp_engagement_score` is an absolute weighted score recomputed on every event
+On every tracked event the code overwrites this property with a readable summary:
+
+```
+Score: 38
+Furthest: Clicked in real email
+Last event: real_amp_click (Jul 30, 2026)
+Page: https://convertic.ai/l/abc123
+```
+
+What each line means:
+- **Score** — absolute weighted engagement score, recomputed from all events
   (page_view 1, inbox_open 3, amp_click 5 ×capped-at-5, video_view 2, video_play 4,
-  email_submit 10, real_amp_click 8, real_amp_submit 12). Use it for lists / lead scoring.
+  email_submit 10, real_amp_click 8, real_amp_submit 12).
+- **Furthest** — furthest milestone reached; mirrors the admin dashboard (`Opened page`,
+  `Opened inbox email`, `Clicked in AMP email`, `Viewed video`, `Played video`,
+  `Submitted email`, `Clicked in real email`, `Submitted in real email`).
+- **Last event** — most recent event type and its date.
+- **Page** — the lead's personalized landing page.
 
 That's all that's required for property sync to work.
+
+> Note: because everything lives in one text property, you can't build HubSpot list
+> filters on the numeric score or the date individually. If you later want to segment on
+> those, split them back into separate properties (see git history for the 5-property
+> version).
 
 ---
 
@@ -90,7 +100,7 @@ properties are written — no errors.
 | Variable                       | Required | Purpose                                  |
 |--------------------------------|----------|------------------------------------------|
 | `HUBSPOT_TOKEN`                | yes      | Private app token (read + write scopes)  |
-| `HOST_URL`                     | yes*     | Site base URL for `amp_landing_url` + real-email tracking links (already set) |
+| `HOST_URL`                     | yes*     | Site base URL for the landing link in `amp_engagement` + real-email tracking links (already set) |
 | `HUBSPOT_TIMELINE_TEMPLATE_ID` | no       | Enables timeline milestone events        |
 
 \* `HOST_URL` is already configured for this app.
@@ -109,11 +119,11 @@ without a linked contact are still tracked in the dashboard — they're just not
 
 1. Create a lead page linked to a test HubSpot contact.
 2. Open the lead's `/l/<token>` page, open the inbox email, click inside the preview.
-3. In HubSpot, open the test contact → the `amp_*` properties should populate within a
-   couple of seconds; with a timeline template configured, milestone entries appear on
-   the activity timeline.
+3. In HubSpot, open the test contact → the `amp_engagement` property should populate
+   within a couple of seconds (score, furthest milestone, last event, page); with a
+   timeline template configured, milestone entries also appear on the activity timeline.
 4. For the real-email test: use "Send it to your own inbox", open the delivered email,
-   click a link → a `Clicked in real email` shows up (property `amp_stopped_at`, plus a
-   timeline entry).
+   click a link → `amp_engagement` updates to `Furthest: Clicked in real email` (plus a
+   timeline entry if configured).
 
 Failures are logged server-side (`hubspot sync error …`) and never affect the visitor.
