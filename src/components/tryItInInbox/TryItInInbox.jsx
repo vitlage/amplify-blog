@@ -20,7 +20,10 @@ export default function TryItInInbox({
   // into the lead's own AMP HTML before forwarding it to the delivery service.
   mode = "campaign",
   token = "",
+  templateKey = "",
 }) {
+  const [loading, setLoading] = React.useState(false);
+
   const onTryItInputFocus = () => {
     document
       .querySelector(".all_faq_input_send")
@@ -75,9 +78,14 @@ export default function TryItInInbox({
 
     const handle = (promise) =>
       promise
-        .then((response) => {
+        .then(async (response) => {
+          // Read the JSON body even on non-2xx: the API returns a meaningful
+          // { status, msg } for validation / invalid-link errors, and that reason
+          // is far more useful than a generic "something went wrong".
+          const data = await response.json().catch(() => null);
+          if (data && (data.status || data.msg)) return data;
           if (!response.ok) throw new Error("HTTP error: " + response.status);
-          return response.json();
+          return data || {};
         })
         .then((data) => displayAlert(data))
         .catch(() =>
@@ -85,16 +93,19 @@ export default function TryItInInbox({
             status: "danger",
             msg: "Oops, Something went wrong. Please, try it later",
           })
-        );
+        )
+        .finally(() => setLoading(false));
 
     if (mode === "lead") {
       if (!token) {
         displayAlert({ status: "danger", msg: "This link is no longer valid." });
         return;
       }
-      // Send via this app's proxy: it reads the lead's AMP HTML server-side, bakes
+      // Send via this app's proxy: it reads the chosen AMP HTML server-side, bakes
       // in click/submit tracking, then forwards to the delivery service.
       const body = new URLSearchParams({ email });
+      if (templateKey) body.set("template", templateKey);
+      setLoading(true);
       handle(
         fetch(`/api/lead/${encodeURIComponent(token)}/send`, {
           method: "POST",
@@ -104,6 +115,7 @@ export default function TryItInInbox({
       return;
     }
 
+    setLoading(true);
     handle(
       fetch(
         `https://app.convertic.ai/landing/templates/send/${encodeURIComponent(
@@ -181,19 +193,28 @@ export default function TryItInInbox({
           required
           placeholder="Leave your email address here to check out how it works in your inbox"
         />
-        <button type="submit" className="all_faq_input_send">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="none"
-            className="h-4 w-4 m-1 md:m-0"
-            strokeWidth="2"
-          >
-            <path
-              d="M.5 1.163A1 1 0 0 1 1.97.28l12.868 6.837a1 1 0 0 1 0 1.766L1.969 15.72A1 1 0 0 1 .5 14.836V10.33a1 1 0 0 1 .816-.983L8.5 8 1.316 6.653A1 1 0 0 1 .5 5.67V1.163Z"
-              fill="currentColor"
-            ></path>
-          </svg>
+        <button
+          type="submit"
+          className="all_faq_input_send"
+          disabled={loading}
+          aria-busy={loading}
+        >
+          {loading ? (
+            <span className="all_faq_input_spinner" aria-hidden="true"></span>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="none"
+              className="h-4 w-4 m-1 md:m-0"
+              strokeWidth="2"
+            >
+              <path
+                d="M.5 1.163A1 1 0 0 1 1.97.28l12.868 6.837a1 1 0 0 1 0 1.766L1.969 15.72A1 1 0 0 1 .5 14.836V10.33a1 1 0 0 1 .816-.983L8.5 8 1.316 6.653A1 1 0 0 1 .5 5.67V1.163Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          )}
         </button>
       </form>
 
