@@ -451,6 +451,16 @@ body {
     font-weight: 300;
     font-family: "DM Sans";
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header_nav_logo_icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    object-fit: contain;
 }
 
 .header_nav_logo_link:hover {
@@ -1057,6 +1067,28 @@ body {
     margin-left: 6px;
 }
 
+/* Rolling loader shown inside the send button while a submit is in flight. The
+   button is a flex box centered both axes, so the spinner sits dead center. */
+.all_faq_input_send:disabled {
+    cursor: progress;
+    opacity: 1;
+}
+
+.all_faq_input_spinner {
+    width: 22px;
+    height: 22px;
+    border: 2.5px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: all_faq_input_spin 0.6s linear infinite;
+}
+
+@keyframes all_faq_input_spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .all_request_arrow svg {
     width: 25px;
     height: 25px;
@@ -1087,7 +1119,7 @@ body {
 
 .all_faq_input::placeholder {
     font-weight: 400;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 @media screen and (max-width: 700px) {
@@ -2402,9 +2434,12 @@ iframe.all_what_we_can_do_template {
 
 .whole_screen_text_small {
     font-size: 60px;
-    /* letter-spacing: -1.5px; */
+    font-weight: 300;
+    letter-spacing: -1.5px;
+    line-height: 1.25;
     height: auto;
     font-family: 'DM Sans', sans-serif;
+    color: #b8c4ce;
 }
 
 .whole_screen_case_color {

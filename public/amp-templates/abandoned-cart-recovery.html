@@ -1,0 +1,633 @@
+<!doctype html>
+<html amp4email data-css-strict>
+<head>
+    <meta charset="utf-8">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    
+    <style amp4email-boilerplate>body{visibility:hidden}</style>
+    
+    <style amp-custom>
+/* Hidden preheader: the inbox preview snippet (Gmail derives it from the email
+   text). Kept out of the visible layout but present in the text so it leads. */
+.preheader { display: none; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #ffffff; opacity: 0; }
+/* --- 1. BASE TYPOGRAPHY & LAYOUT --- */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #ffffff; /* White background */
+    margin: 0;
+    padding: 0;
+    color: #111827;
+}
+
+/* --- 2. THE MAIN CARD (Modern Tech Style) --- */
+.tech-card {
+    background: #ffffff;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 24px;
+    /* Твоя улюблена тінь */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+/* --- 3. HEADER & HERO --- */
+.card-header {
+    padding: 24px 32px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.brand-name {
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+.timer-pill {
+    background-color: #fdf2f8;
+    color: #e11d48;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px 24px;
+    border-radius: 50px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.hero-image-wrapper {
+    padding: 0 32px;
+    position: relative;
+    text-align: center;
+}
+
+.hero-img {
+    border-radius: 12px;
+    background: #f9f9f9;
+    max-width: 70%;
+    margin: 0 auto;
+}
+
+.hero-img img,
+.upsell-thumb img {
+    object-fit: cover;
+    object-position: center;
+}
+
+/* --- 4. PRODUCT DETAILS & CONTROLS --- */
+.product-details {
+    padding: 24px 32px;
+}
+
+.product-title {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Selectors */
+.control-label {
+    font-size: 11px;
+    font-weight: 400;
+    color: #6B7280;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+/* Color Swatches */
+.swatch-container { 
+    display: flex; 
+    gap: 12px; 
+    margin-bottom: 24px; 
+    justify-content: center;
+}
+
+.swatch {
+    width: 44px; 
+    height: 44px; 
+    border-radius: 50%; 
+    cursor: pointer;
+    position: relative; 
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.swatch.selected {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #111;
+}
+
+/* Size Grid */
+.size-grid { 
+    display: flex; 
+    flex-wrap: wrap;
+    gap: 8px; 
+    margin-bottom: 32px; 
+    justify-content: center;
+}
+
+.size-box {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; 
+    border: 1px solid #E5E7EB; 
+    border-radius: 50%;
+    font-size: 13px; 
+    font-weight: 600; 
+    cursor: pointer;
+    background: #fff; 
+}
+
+.size-box.selected {
+    background: #111; 
+    color: #fff; 
+    border-color: #111;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* --- 5. THE NEGOTIATION BLOCK (Hybrid Super-Block) --- */
+.smart-offer-card {
+    background: white;
+    border: 1px solid #F3F4F6;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 24px; /* Space before upsell */
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+}
+
+.smart-offer-card.active {
+    background: #ECFDF5;
+    border-color: #34D399;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.offer-icon {
+    width: 40px; 
+    height: 40px; 
+    background: #fff; 
+    border-radius: 50%;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+    flex-shrink: 0;
+}
+
+.strike-price { 
+    text-decoration: line-through; 
+    color: #9CA3AF; 
+    font-size: 16px; 
+    font-weight: 400; 
+    margin-right: 8px;
+}
+
+/* --- 6. UPSELL ROW (Shipping Swap) --- */
+.upsell-container {
+    background: #FAFAFA;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    min-height: 74px;
+    box-sizing: border-box;
+}
+
+.free-shipping-tag {
+    background: #D1FAE5; 
+    color: #059669;
+    font-size: 9px; 
+    font-weight: 700; 
+    padding: 2px 6px;
+    border-radius: 4px; 
+    margin-left: 6px; 
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* IOS Toggle */
+.toggle {
+    width: 44px; 
+    height: 24px; 
+    background: #E5E7EB; 
+    border-radius: 99px;
+    position: relative; 
+    cursor: pointer; 
+}
+
+.toggle.active { 
+    background: #111; 
+}
+
+.toggle-knob {
+    width: 20px; 
+    height: 20px; 
+    background: #fff; 
+    border-radius: 50%;
+    position: absolute; 
+    top: 2px; 
+    left: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2); 
+}
+
+.toggle.active .toggle-knob { 
+    transform: translateX(20px); 
+}
+
+/* --- 7. FOOTER --- */
+.footer-panel {
+    padding: 20px 32px 32px 32px;
+}
+
+.math-row {
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 8px; 
+    font-size: 14px; 
+    color: #6B7280;
+}
+
+.total-row {
+    display: flex; 
+    justify-content: space-between; 
+    margin-top: 16px; 
+    margin-bottom: 24px;
+    font-size: 20px; 
+    font-weight: 400; 
+    color: #111;
+}
+
+.green-text { 
+    color: #059669; 
+    font-weight: 600; 
+}
+
+.checkout-btn {
+    display: inline-block; 
+    background: #000; 
+    color: #fff;
+    text-decoration: none; 
+    padding: 18px 32px;
+    border: none;
+    border-radius: 12px; 
+    text-align: center;
+    font-weight: 300; 
+    font-size: 16px; 
+    letter-spacing: 0.5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+
+.checkout-btn:active { 
+    transform: scale(0.98); 
+}
+
+.checkout-btn.disabled {
+    opacity: 0.6;
+}
+
+.success-message {
+    text-align: center;
+    padding: 24px;
+    background: #ECFDF5;
+    border-radius: 12px;
+    margin-top: 16px;
+}
+
+.success-message h3 {
+    color: #059669;
+    margin: 0 0 8px 0;
+    font-size: 18px;
+}
+
+.success-message p {
+    color: #374151;
+    margin: 0 0 16px 0;
+    font-size: 14px;
+}
+
+.continue-btn {
+    display: inline-block;
+    background: #059669;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* --- 8. "ADDED TO CHECKOUT" EXPLAINER (demo reveal) --- */
+.checkout-explainer {
+    text-align: center;
+    padding: 8px 4px 0;
+    margin-top: 4px;
+}
+
+.explainer-badge {
+    font-size: 22px;
+    font-weight: 400;
+    color: #111;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+}
+
+.explainer-lead {
+    font-size: 15px;
+    font-weight: 300;
+    color: #111;
+    line-height: 1.6;
+    margin: 0 0 14px 0;
+}
+
+.explainer-note {
+    font-size: 13px;
+    color: #111;
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 300;
+}
+    </style>
+</head>
+<body>
+    <div class="preheader">Your cart is still saved. Finish checkout right inside this email.</div>
+
+<amp-state id="cart">
+    <script type="application/json">
+    {
+        "basePrice": 99,
+        "discountPrice": 89,
+        "price": 99,
+        "baseShipping": 15,
+        "shipping": 15,
+        "upsellPrice": 25,
+        "color": "Stone",
+        "size": "8",
+        "offerUnlocked": false,
+        "upsellActive": false
+    }
+    </script>
+</amp-state>
+
+<amp-state id="checkoutFormState">
+    <script type="application/json">
+    {
+        "status": ""
+    }
+    </script>
+</amp-state>
+
+<div style="padding: 20px;">
+<div class="tech-card">
+    <div class="card-header" [hidden]="checkoutFormState.status == 'done'">
+        <div class="timer-pill">
+            <span>Reserved for you for 15 min</span>
+        </div>
+    </div>
+
+    <div class="hero-image-wrapper" [hidden]="checkoutFormState.status == 'done'">
+        <amp-img 
+            src="/photos_of_products_in_amp/1.webp"
+            width="416" 
+            height="416" 
+            layout="responsive" 
+            class="hero-img"
+            [hidden]="cart.color != 'Stone'">
+        </amp-img>
+        <amp-img 
+            src="/photos_of_products_in_amp/2.webp"
+            width="416" 
+            height="416" 
+            layout="responsive" 
+            class="hero-img" 
+            hidden
+            [hidden]="cart.color != 'White'">
+        </amp-img>
+        <amp-img 
+            src="/photos_of_products_in_amp/3.webp"
+            width="416" 
+            height="416" 
+            layout="responsive" 
+            class="hero-img"
+            hidden
+            [hidden]="cart.color != 'Black'">
+        </amp-img>
+        <amp-img
+            src="/photos_of_products_in_amp/4.webp"
+            width="416"
+            height="416"
+            layout="responsive"
+            class="hero-img"
+            hidden
+            [hidden]="cart.color != 'Slate'">
+        </amp-img>
+    </div>
+
+    <div class="product-details" [hidden]="checkoutFormState.status == 'done'">
+        <div style="margin-bottom: 20px; text-align: center;">
+            <h1 class="product-title" data-product-title>New Balance Fresh Foam X 1080v14</h1>
+            <div style="display: flex; align-items: baseline; justify-content: center;">
+                <span class="strike-price" hidden [hidden]="!cart.offerUnlocked">
+                    $<span [text]="cart.basePrice" data-product-price>99</span>
+                </span>
+                <span style="font-size: 24px; font-weight: 500; color: #111; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+                    $<span [text]="cart.price" data-product-price>99</span>
+                </span>
+            </div>
+        </div>
+
+        <div id="variant-block">
+            <p class="control-label">Select Color</p>
+            <div class="swatch-container">
+                <div class="swatch selected" 
+                     data-color="Stone"
+                     style="background: #B8B0A2;"
+                     [class]="cart.color == 'Stone' ? 'swatch selected' : 'swatch'"
+                     on="tap:AMP.setState({cart: {basePrice: 99, discountPrice: 89, price: 99, baseShipping: 15, shipping: 15, upsellPrice: 25, color: 'Stone', size: cart.size, offerUnlocked: cart.offerUnlocked, upsellActive: cart.upsellActive}})" 
+                     role="button" 
+                     tabindex="0">
+                </div>
+                <div class="swatch" 
+                     data-color="White"
+                     style="background: #FFFFFF; border: 1px solid #E5E7EB;"
+                     [class]="cart.color == 'White' ? 'swatch selected' : 'swatch'"
+                     on="tap:AMP.setState({cart: {basePrice: 99, discountPrice: 89, price: 99, baseShipping: 15, shipping: 15, upsellPrice: 25, color: 'White', size: cart.size, offerUnlocked: cart.offerUnlocked, upsellActive: cart.upsellActive}})" 
+                     role="button" 
+                     tabindex="0">
+                </div>
+                <div class="swatch"
+                     data-color="Black"
+                     style="background: #000000;"
+                     [class]="cart.color == 'Black' ? 'swatch selected' : 'swatch'"
+                     on="tap:AMP.setState({cart: {basePrice: 99, discountPrice: 89, price: 99, baseShipping: 15, shipping: 15, upsellPrice: 25, color: 'Black', size: cart.size, offerUnlocked: cart.offerUnlocked, upsellActive: cart.upsellActive}})"
+                     role="button"
+                     tabindex="0">
+                </div>
+                <div class="swatch"
+                     data-color="Slate"
+                     style="background: #64748B;"
+                     [class]="cart.color == 'Slate' ? 'swatch selected' : 'swatch'"
+                     on="tap:AMP.setState({cart: {basePrice: 99, discountPrice: 89, price: 99, baseShipping: 15, shipping: 15, upsellPrice: 25, color: 'Slate', size: cart.size, offerUnlocked: cart.offerUnlocked, upsellActive: cart.upsellActive}})"
+                     role="button"
+                     tabindex="0">
+                </div>
+            </div>
+        </div>
+
+        <div id="size-block">
+            <p class="control-label">Select Size</p>
+            <div class="size-grid">
+                <!-- SIZE_BOXES_START -->
+                <div class="size-box"
+                     data-size="6"
+                     [class]="cart.size == '6' ? 'size-box selected' : 'size-box'"
+                     on="tap:AMP.setState({cart: {basePrice: 99, discountPrice: 89, price: 99, baseShipping: 15, shipping: 15, upsellPrice: 25, color: cart.color, size: '6', offerUnlocked: cart.offerUnlocked, upsellActive: cart.upsellActive}})" 
+                     role="button" 
+                     tabindex="0">6</div>
+                <div class="size-box" 
+                     data-size="7"
+                     [class]="cart.size == '7' ? 'size-box selected' : 'size-box'"
+                     on="tap:AMP.setState({cart: {basePrice: 99, discountPrice: 89, price: 99, baseShipping: 15, shipping: 15, upsellPrice: 25, color: cart.color, size: '7', offerUnlocked: cart.offerUnlocked, upsellActive: cart.upsellActive}})" 
+                     role="button" 
+                     tabindex="0">7</div>
+                <div class="size-box selected" 
+                     data-size="8"
+                     [class]="cart.size == '8' ? 'size-box selected' : 'size-box'"
+                     on="tap:AMP.setState({cart: {basePrice: 99, discountPrice: 89, price: 99, baseShipping: 15, shipping: 15, upsellPrice: 25, color: cart.color, size: '8', offerUnlocked: cart.offerUnlocked, upsellActive: cart.upsellActive}})" 
+                     role="button" 
+                     tabindex="0">8</div>
+                <div class="size-box" 
+                     data-size="9"
+                     [class]="cart.size == '9' ? 'size-box selected' : 'size-box'"
+                     on="tap:AMP.setState({cart: {basePrice: 99, discountPrice: 89, price: 99, baseShipping: 15, shipping: 15, upsellPrice: 25, color: cart.color, size: '9', offerUnlocked: cart.offerUnlocked, upsellActive: cart.upsellActive}})" 
+                     role="button" 
+                     tabindex="0">9</div>
+                <div class="size-box" 
+                     data-size="10"
+                     [class]="cart.size == '10' ? 'size-box selected' : 'size-box'"
+                     on="tap:AMP.setState({cart: {basePrice: 99, discountPrice: 89, price: 99, baseShipping: 15, shipping: 15, upsellPrice: 25, color: cart.color, size: '10', offerUnlocked: cart.offerUnlocked, upsellActive: cart.upsellActive}})" 
+                     role="button"
+                     tabindex="0">10</div>
+                <!-- SIZE_BOXES_END -->
+            </div>
+        </div>
+
+        <!-- DISCOUNT_BLOCK_START -->
+        <div class="smart-offer-card"
+             id="offer-card"
+             style="display: none;"
+             [class]="cart.offerUnlocked ? 'smart-offer-card active' : 'smart-offer-card'"
+             on="tap:AMP.setState({cart: {basePrice: 99, discountPrice: 89, price: cart.offerUnlocked ? 99 : 89, baseShipping: 15, shipping: 15, upsellPrice: 25, color: 'Stone', size: '8', offerUnlocked: !cart.offerUnlocked, upsellActive: false}})"
+             role="button" 
+             tabindex="0">
+            <div class="offer-icon">
+                <span [text]="cart.offerUnlocked ? '⚡️' : '🔒'">🔒</span>
+            </div>
+            <div>
+                <div style="font-weight: 600; font-size: 14px; color: #111; margin-bottom: 2px;">
+                    <span [text]="cart.offerUnlocked ? 'Private Deal Applied' : 'Is price holding you back?'" style="font-weight: 400;">Is price holding you back?</span>
+                </div>
+                <div style="font-size: 12px; color: #666;">
+                    <span [hidden]="cart.offerUnlocked">Tap to unlock exclusive cart benefit.</span>
+                    <span hidden [hidden]="!cart.offerUnlocked" style="color: #059669; font-weight: 400;">-10% OFF Price Unlocked!</span>
+                </div>
+            </div>
+        </div>
+        <!-- DISCOUNT_BLOCK_END -->
+
+        <!-- UPSELL_BLOCK_START -->
+        <div class="upsell-container" id="upsell-card" style="display: none;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div>
+                    <div style="font-weight: 400; font-size: 14px; display: flex; align-items: center;">
+                        Add Gift Packaging
+                        <span class="free-shipping-tag" hidden [hidden]="cart.upsellActive">GET FREE SHIPPING</span>
+                    </div>
+                    <div style="font-size: 12px; color: #666;">
+                        +$25.00 
+                        <span [hidden]="cart.upsellActive">(Waives shipping fee)</span>
+                        <span hidden [hidden]="!cart.upsellActive" style="color: #059669; font-weight: 600;">✓ Shipping Waived</span>
+                    </div>
+                </div>
+            </div>
+            <div class="toggle" 
+                 id="upsell-toggle"
+                 [class]="cart.upsellActive ? 'toggle active' : 'toggle'"
+                 on="tap:AMP.setState({cart: {basePrice: 99, discountPrice: 89, price: cart.offerUnlocked ? 89 : 99, baseShipping: 15, shipping: !cart.upsellActive ? 0 : 15, upsellPrice: 25, color: cart.color, size: cart.size, offerUnlocked: cart.offerUnlocked, upsellActive: !cart.upsellActive}})" 
+                 role="button" 
+                 tabindex="0">
+                <div class="toggle-knob"></div>
+            </div>
+        </div>
+        <!-- UPSELL_BLOCK_END -->
+
+        <div class="footer-panel">
+            <div class="math-row">
+                <span>Subtotal</span>
+                <span>$<span [text]="cart.price">99</span></span>
+            </div>
+            <div class="math-row" hidden [hidden]="!cart.upsellActive">
+                <span>Gift Packaging</span>
+                <span>+$25</span>
+            </div>
+            <div class="math-row">
+                <span>Shipping</span>
+                <span [class]="cart.shipping == 0 ? 'green-text' : ''" style="font-weight: 500;">
+                    <span [text]="cart.shipping == 0 ? 'FREE' : '$' + cart.shipping">$15</span>
+                </span>
+            </div>
+            <div class="total-row">
+                <span>Total</span>
+                <span>$<span [text]="cart.price + (cart.upsellActive ? cart.upsellPrice : 0) + cart.shipping">114</span></span>
+            </div>
+            <div [hidden]="checkoutFormState.status == 'done'">
+                <div style="text-align: center;">
+                    <div id="checkout-link"
+                         class="checkout-btn"
+                         role="button"
+                         tabindex="0"
+                         on="tap:AMP.setState({checkoutFormState: {status: 'done'}})"
+                         style="display: inline-block; padding: 22px 32px; width: auto; border-radius: 36px;">Secure checkout</div>
+                </div>
+                <div style="text-align: center; margin-top: 16px; font-size: 11px; color: #9CA3AF;">
+                    Processed via Shopify Secure Checkout.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="checkout-explainer" hidden [hidden]="checkoutFormState.status != 'done'" style="padding: 40px 32px 48px;">
+        <div class="explainer-badge">
+            Added to checkout - <!-- CHECKOUT_SUMMARY -->
+        </div>
+        <p class="explainer-lead">
+            In the real flow, the buyer lands on Shopify's secure payment page with this exact item already in the cart. No re-browsing, no re-selecting - just pay.
+        </p>
+        <p class="explainer-note">
+            That's the difference: a standard email needs 5+ steps (open site → find product → pick size → add to cart → checkout). This email needs one.
+        </p>
+    </div>
+</div>
+</div>
+
+</body>
+
+</html>
