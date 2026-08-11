@@ -80,6 +80,11 @@ export async function POST(req, { params }) {
       subject: demo?.subject || lead.subjectLine || "",
       from_name: storeName || demo?.sender || lead.senderName || "",
     });
+    // Inbox preview line. The delivery backend otherwise defaults the plain-text
+    // part (which Gmail shows as the snippet) to a placeholder, so pass an explicit
+    // per-template preview and let the backend use it verbatim.
+    const preview = demo?.preview || lead.snippet || "";
+    if (preview) body.set("preview", preview);
 
     const upstream = await fetch(SEND_ENDPOINT, { method: "POST", body });
     const data = await upstream.json().catch(() => ({

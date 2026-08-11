@@ -9,6 +9,9 @@
     <style amp4email-boilerplate>body{visibility:hidden}</style>
 
     <style amp-custom>
+/* Hidden preheader: the inbox preview snippet (Gmail derives it from the email
+   text). Kept out of the visible layout but present in the text so it leads. */
+.preheader { display: none; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #ffffff; opacity: 0; }
 /* --- 1. BASE TYPOGRAPHY & LAYOUT --- */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -797,6 +800,7 @@ body {
     </style>
 </head>
 <body>
+    <div class="preheader">Subscribe and save 20%. Pick your delivery cadence right inside this email.</div>
 
 <amp-state id="cart">
     <script type="application/json">

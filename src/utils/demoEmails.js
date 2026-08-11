@@ -11,6 +11,9 @@ export const DEMO_EMAILS = [
     sender: "Your store",
     subject: "You left something in your cart 🛒",
     snippet: "Finish checkout right here — no need to leave your inbox.",
+    // Inbox preview line (email preheader). Kept in sync with the template's
+    // hidden .preheader and sent to the delivery backend as `preview`.
+    preview: "Your cart is still saved. Finish checkout right inside this email.",
   },
   {
     key: "upsell",
@@ -18,6 +21,7 @@ export const DEMO_EMAILS = [
     sender: "Your store",
     subject: "You might also like these ✨",
     snippet: "Handpicked to pair with your order. Add in one tap.",
+    preview: "Hand-picked add-ons for your order. Tap to add any in seconds.",
   },
   {
     key: "subscription",
@@ -25,6 +29,7 @@ export const DEMO_EMAILS = [
     sender: "Your store",
     subject: "Subscribe & save 20%",
     snippet: "Pick your delivery cadence right inside this email.",
+    preview: "Subscribe and save 20%. Pick your delivery cadence right inside this email.",
   },
 ];
 

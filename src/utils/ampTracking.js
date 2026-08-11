@@ -51,6 +51,34 @@ export function wrapForms(html, token) {
   );
 }
 
+// Rewrite root-relative src="/x" / href="/x" to absolute ${base}/x. AMP4EMAIL
+// disallows relative URLs, and a delivered email has no origin to resolve them
+// against, so every asset/link must be an absolute https URL. Only touches
+// root-relative values (a single leading "/"), never absolute, protocol-relative
+// ("//"), anchor, or scheme URLs (mailto:, tel:, https:, data:, etc.). Done as a
+// send-time step so the same-origin on-page inbox preview keeps using relatives.
+export function absolutizeUrls(html, base) {
+  const clean = (base || "").replace(/\/+$/, "");
+  if (!clean || !html) return html;
+
+  return html.replace(
+    /\b(src|href)=(["'])(\/[^/][^"']*)\2/gi,
+    (match, attr, quote, url) => `${attr}=${quote}${clean}${url}${quote}`
+  );
+}
+
+// Public https base for absolutizing template assets/links in delivered email.
+// Must be https and publicly reachable (localhost/http would fail AMP validation
+// and never load in a real inbox), so it's independent of HOST_URL.
+function assetBase() {
+  return (process.env.PUBLIC_ASSET_BASE || "https://convertic.ai").replace(
+    /\/+$/,
+    ""
+  );
+}
+
 export function instrumentAmpHtml(html, token) {
-  return wrapForms(wrapLinks(html, token), token);
+  // Absolutize first so link-wrapping sees final absolute hrefs, then instrument.
+  const absolute = absolutizeUrls(html, assetBase());
+  return wrapForms(wrapLinks(absolute, token), token);
 }

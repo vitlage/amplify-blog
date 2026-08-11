@@ -373,6 +373,19 @@ function personalizeSubscription(html, catalog) {
     `<!-- SUB_FREQ_START -->\n${buttons}\n                <!-- SUB_FREQ_END -->`
   );
 
+  // 4b) Sync the *visible* default numbers to the initial (month) state. AMP does
+  // NOT evaluate [text] bindings on page load — it shows the literal HTML content
+  // until the first user tap. Without this the email opens on the template's
+  // placeholder prices (119/101/…) and only snaps to the real values after a tap,
+  // which reads as an inconsistent price.
+  const defPrice = perDelivery(def.save);
+  const defTotal = defPrice + cartState.shipping;
+  html = html
+    .replace(/(\[text\]="cart\.oneTime">)\d+(<)/, `$1${oneTime}$2`)
+    .replace(/(\[text\]="cart\.savePct">)\d+(<)/, `$1${def.save}$2`)
+    .replace(/(\[text\]="cart\.price \+ cart\.shipping">)\d+(<)/, `$1${defTotal}$2`)
+    .replace(/(\[text\]="cart\.price"[^>]*>)\d+(<)/g, `$1${defPrice}$2`);
+
   // 5) Launch line — only for durable niches, where the kit is a "what you could
   // launch" pitch rather than a product they already sell.
   html = html.replace("<!-- SUB_LAUNCH_LINE -->", isFuture ? SUB_LAUNCH_BANNER : "");
