@@ -1,12 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import InputAI from "@/components/inputAI/InputAI";
 import JSAlert from 'js-alert';
 import { FaXTwitter, FaLinkedin } from 'react-icons/fa6';
 import SyncSection from '@/components/syncSection/SyncSection';
+import ScrollFillText from '@/components/scrollFillText/ScrollFillText';
 import Aurora from '@/components/aurora/Aurora';
+import BidWinDeliver from '@/components/bidWinDeliver/BidWinDeliver';
+import AuralisHero from '@/components/auralisHero/AuralisHero';
+// import BrandIntro from '@/components/brandIntro/BrandIntro';
 import TextType from '@/components/textType/TextType';
 import CookieConsent from '@/components/cookieConsent/CookieConsent';
+import TryItInInbox from '@/components/tryItInInbox/TryItInInbox';
 
 export default function HomeClient({ searchParams }) {
   const page = parseInt(searchParams?.page) || 1;
@@ -95,55 +101,6 @@ export default function HomeClient({ searchParams }) {
     setFaqItemOpen(item);
   };
 
-  const onTryItInputFocus = () => {
-    document.querySelector(".all_faq_input_send").classList.add("all_faq_input_send_focus");
-  };
-  const onTryItInputBlur = () => {
-    document.querySelector(".all_faq_input_send").classList.remove("all_faq_input_send_focus");
-  };
-
-  const submitForm = (e) => {
-    e.preventDefault();
-    const mainInputAlert = document.querySelector("#alert-message");
-    const mainInputElement = document.querySelector(".all_faq_input");
-    var formData = new FormData(e.currentTarget);
-    var formObject = {};
-    formData.forEach(function (value, key) { formObject[key] = value; });
-
-    if (window.analytics) {
-      window.analytics.track("User submitted Try it in your inbox: ", { email: mainInputElement.value });
-    }
-
-    const displayAlert = (r) => {
-      mainInputAlert.innerHTML = `<div class="alert alert-${r.status} animate__animated animate__fadeIn">${r.msg}</div>`;
-      if (window.analytics) {
-        if (r.status === 'danger') {
-          window.analytics.track("Email NOT sent to Try it in your inbox: ", { email: mainInputElement.value });
-        } else {
-          window.analytics.track("Email sent to Try it in your inbox: ", { email: mainInputElement.value });
-        }
-      }
-      mainInputElement.value = '';
-    }
-
-    // Ensure we have both required values and encode them for URL safety
-    const email = formObject.main_input?.trim();
-    const template = formObject.template_option || '66c37609b2af3'; // Default to first template if somehow undefined
-
-    if (!email) {
-      displayAlert({ status: 'danger', msg: 'Please enter your email address' });
-      return;
-    }
-
-    fetch(`https://app.convertic.ai/landing/templates/send/${encodeURIComponent(email)}/${encodeURIComponent(template)}`)
-      .then(response => {
-        if (!response.ok) throw new Error('HTTP error: ' + response.status);
-        return response.json();
-      })
-      .then(data => displayAlert(data))
-      .catch(error => displayAlert({ status: 'danger', 'msg': 'Oops, Something went wrong. Please, try it later' }));
-  }
-
   const onregisterclick = (param) => {
     if (window.analytics) {
       window.analytics.track('Landing page button clicked', { buttonNumber: param });
@@ -212,7 +169,15 @@ export default function HomeClient({ searchParams }) {
                     <div className="hor_circle_inner"></div>
                   </div> */}
                   <a href="/" className="header_nav_logo_link">
-                    Convertic<span style={{ color: "#1C71E8" }}>.</span>ai
+                    <Image
+                      src="/logo-mark-universal.png"
+                      alt="Convertic"
+                      width={48}
+                      height={48}
+                      priority
+                      className="header_nav_logo_icon"
+                    />
+                    <span>Convertic<span style={{ color: "#1C71E8" }}>.</span>ai</span>
                   </a>
                 </div>
 
@@ -275,186 +240,14 @@ export default function HomeClient({ searchParams }) {
 
       <SyncSection />
 
-      <div className="row my-5">
-        <div className="col above">
-          <div className="horizontal_parent">
-            <div className="horizontal-sticky">
-              <div className="horizontal-block">
-                <div className="hor-element first-hor-element"></div>
-                <div className="hor-element">
-                  <div className="hor_circle2">
-                    <div className="hor_circle_inner"></div>
-                  </div>
-                  <div className="whole_screen_text whole_screen_text_small">
-                    {/* Do you want to increase revenue from <span className="whole_screen_text_color">email marketing?</span> */}
-                    Take your email marketing to the next level with <span className="whole_screen_text_color">interactive emails</span> that captivate and convert
-                  </div>
-                </div>
-                <div className="hor-element first-hor-element"></div>
-                <div className="hor-element">
-                  <div className="hor_circle">
-                    <div className="hor_circle_inner"></div>
-                  </div>
-                  <div className="whole_screen_text whole_screen_text_small">
-                    {/* Start to use interactive emails to <span className="whole_screen_text_color">skyrocket</span> sales and customer loyalty for your brand */}
-                    Create powerful, conversion-driven emails in seconds and turn subscribers into <span className="whole_screen_text_color">loyal customers</span>.
-                  </div>
-                </div>
-                <div className="hor-element first-hor-element"></div>
-                <div className="hor-element">
-                  <div className="hor_circle3">
-                    <div className="hor_circle_inner"></div>
-                  </div>
-                  <div className="whole_screen_text whole_screen_text_small">
-                    {/* Generate <span className="whole_screen_text_color">any email</span> in seconds and see conversions soar to new heights */}
-                    Unlock higher sales and <span className="whole_screen_text_color">stronger customer connections</span> with instantly generated, dynamic email campaigns.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <BidWinDeliver />
 
-      <div>
-        <h2 className="aiTryExampleHowEmails">How interactive emails appear to your target audience</h2>
-        <section className="section whole_screen_text">
-          <div>
-            <div className="whole_screen_case_color">Case 1:</div>
-            Increase revenue from <span className="whole_screen_text_color">shopping</span> in email
-            <div className="whole_screen_right_bottom">
-              <button onClick={onTryItClickable1} className="all_menu_button try_it_clickable try_it_clickable1">Try it clickable</button>
-            </div>
-          </div>
-          <div className="whole_screen_right">
-            <div className="whole_screen_right_top"></div>
-            <video width="670" height="900" src="https://storage.googleapis.com/convertic-videos/vid.mov" autoPlay muted loop playsInline>
-              <source src="https://storage.googleapis.com/convertic-videos/vid.mov" type="video/quicktime" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div className="clickable_modal clickable_modal1" data-lenis-prevent style={{ overflow: 'auto' }}>
-            <div className="all_faq_item_plus try_it_clickable_cross try_it_clickable_cross1" onClick={onTryItClickableClose}>
-              <div className="all_faq_item_plus_inner">+</div>
-            </div>
-            <iframe src="/shop.html" style={{ width: '100%', height: '1200px', border: 'none', display: 'block', pointerEvents: 'auto' }}></iframe>
-          </div>
-        </section>
+      <AuralisHero
+        onGetStarted={() => onregisterclick(7)}
+        onRequestDemo={handleDemoRequest}
+      />
 
-        <section className="section whole_screen_text">
-          <div>
-            <div className="whole_screen_case_color">Case 2:</div>
-            Get more <span className="whole_screen_text_color3">social proof</span> from in-email review forms
-            <div className="whole_screen_right_bottom">
-              <button onClick={onTryItClickable2} className="all_menu_button try_it_clickable try_it_clickable2">Try it clickable</button>
-            </div>
-          </div>
-          <div className="whole_screen_right">
-            <div className="whole_screen_right_top"></div>
-            <video width="670" height="900" src="https://storage.googleapis.com/convertic-videos/feedback.mov" autoPlay muted loop playsInline>
-              <source src="https://storage.googleapis.com/convertic-videos/feedback.mov" type="video/quicktime" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div className="clickable_modal clickable_modal2" data-lenis-prevent style={{ overflow: 'auto' }}>
-            <div className="all_faq_item_plus try_it_clickable_cross try_it_clickable_cross2" onClick={onTryItClickableClose2}>
-              <div className="all_faq_item_plus_inner">+</div>
-            </div>
-            <iframe src="/feedback.html" style={{ width: '100%', height: '1000px', border: 'none', display: 'block', pointerEvents: 'auto' }}></iframe>
-          </div>
-        </section>
-
-        <section className="section whole_screen_text">
-          <div>
-            <div className="whole_screen_case_color">Case 3:</div>
-            Create in-email bundles, subscriptions and measure <span className="whole_screen_text_color">NPS</span>
-            <div className="whole_screen_right_bottom">
-              <button onClick={onTryItClickable3} className="all_menu_button try_it_clickable try_it_clickable3">Try it clickable</button>
-            </div>
-          </div>
-          <div className="whole_screen_right">
-            <div className="whole_screen_right_top"></div>
-            <video width="670" height="900" src="https://storage.googleapis.com/convertic-videos/upsell.mov" autoPlay muted loop playsInline>
-              <source src="https://storage.googleapis.com/convertic-videos/upsell.mov" type="video/quicktime" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div className="clickable_modal clickable_modal3" data-lenis-prevent style={{ overflow: 'auto' }}>
-            <div className="all_faq_item_plus try_it_clickable_cross try_it_clickable_cross3" onClick={onTryItClickableClose3}>
-              <div className="all_faq_item_plus_inner">+</div>
-            </div>
-            <iframe src="/upsell.html" style={{ width: '100%', height: '1100px', border: 'none', display: 'block', pointerEvents: 'auto' }}></iframe>
-          </div>
-        </section>
-      </div>
-
-      <div className="row my-5">
-        <div className="col above">
-          <div className="container">
-            <div className="row">
-              <form className="all_build" onSubmit={(e) => submitForm(e)}>
-                <div className="col-12">
-                  <div className="row">
-                    <div className="col-12 col-lg-6 all_faq_header_flex">
-                      <h1 className="all_faq_header_bold all_faq_header_container">
-                        Try it &nbsp;
-                        <span className="all_faq_header_gradient"></span>
-                      </h1>
-                      <h1 className="all_faq_header_bold"> in your inbox:</h1>
-                    </div>
-                    <div className="col-12 col-lg-6 d-flex button_radio_container">
-                      <div className="button_radio_wrapper">
-                        <label className="button_radio" htmlFor="first_option">
-                          <input type="radio" name="template_option" id="first_option" value="66c37609b2af3" defaultChecked />
-                          <span>First template</span>
-                        </label>
-                        <label className="button_radio" htmlFor="second_option">
-                          <input type="radio" name="template_option" id="second_option" value="66c373e4562c5" />
-                          <span>Second template</span>
-                        </label>
-                        <label className="button_radio" htmlFor="third_option">
-                          <input type="radio" name="template_option" id="third_option" value="66c37695e547d" />
-                          <span>Third template</span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <h2 className="all_faq_question_header"></h2>
-                <input
-                  className="all_faq_input"
-                  onFocus={onTryItInputFocus}
-                  onBlur={onTryItInputBlur}
-                  id="main_input"
-                  name="main_input"
-                  type="email"
-                  required
-                  placeholder="Leave your email address here to check out how it works in your inbox"
-                  onChange={(e) => setSubscriberEmail(e.target.value)}
-                />
-                <button type="submit" className="all_faq_input_send">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" className="h-4 w-4 m-1 md:m-0" strokeWidth="2"><path d="M.5 1.163A1 1 0 0 1 1.97.28l12.868 6.837a1 1 0 0 1 0 1.766L1.969 15.72A1 1 0 0 1 .5 14.836V10.33a1 1 0 0 1 .816-.983L8.5 8 1.316 6.653A1 1 0 0 1 .5 5.67V1.163Z" fill="currentColor"></path></svg>
-                </button>
-              </form>
-
-              <div id="alert-message"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="col">
-          <div className="container">
-            <div className="row">
-              <InputAI />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="row">
+      <div className="row" style={{ marginTop: "clamp(5rem, 12vw, 11rem)" }}>
         <div className="col">
           <div className="container">
             <div className="row">
@@ -571,6 +364,144 @@ export default function HomeClient({ searchParams }) {
           </div>
         </div>
       </div>
+
+      {/* <BrandIntro /> */}
+
+      {false && (
+      <div className="row my-5">
+        <div className="col above">
+          <div className="horizontal_parent">
+            <div className="horizontal-sticky">
+              <div className="horizontal-block">
+                <div className="hor-element first-hor-element"></div>
+                <div className="hor-element">
+                  <div className="hor_circle2">
+                    <div className="hor_circle_inner"></div>
+                  </div>
+                  <ScrollFillText className="whole_screen_text whole_screen_text_small">
+                    Take your email marketing to the next level with <span className="whole_screen_text_color">interactive emails</span> that captivate and convert
+                  </ScrollFillText>
+                </div>
+                <div className="hor-element first-hor-element"></div>
+                <div className="hor-element">
+                  <div className="hor_circle">
+                    <div className="hor_circle_inner"></div>
+                  </div>
+                  <ScrollFillText className="whole_screen_text whole_screen_text_small">
+                    Create powerful, conversion-driven emails in seconds and turn subscribers into <span className="whole_screen_text_color">loyal customers</span>.
+                  </ScrollFillText>
+                </div>
+                <div className="hor-element first-hor-element"></div>
+                <div className="hor-element">
+                  <div className="hor_circle3">
+                    <div className="hor_circle_inner"></div>
+                  </div>
+                  <ScrollFillText className="whole_screen_text whole_screen_text_small">
+                    Unlock higher sales and <span className="whole_screen_text_color">stronger customer connections</span> with instantly generated, dynamic email campaigns.
+                  </ScrollFillText>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      )}
+
+      {false && (
+      <div>
+        <h2 className="aiTryExampleHowEmails">How interactive emails appear to your target audience</h2>
+        <section className="section whole_screen_text">
+          <div>
+            <div className="whole_screen_case_color">Case 1:</div>
+            Increase revenue from <span className="whole_screen_text_color">shopping</span> in email
+            <div className="whole_screen_right_bottom">
+              <button onClick={onTryItClickable1} className="all_menu_button try_it_clickable try_it_clickable1">Try it clickable</button>
+            </div>
+          </div>
+          <div className="whole_screen_right">
+            <div className="whole_screen_right_top"></div>
+            <video width="670" height="900" src="https://storage.googleapis.com/convertic-videos/vid.mov" autoPlay muted loop playsInline>
+              <source src="https://storage.googleapis.com/convertic-videos/vid.mov" type="video/quicktime" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div className="clickable_modal clickable_modal1" data-lenis-prevent style={{ overflow: 'auto' }}>
+            <div className="all_faq_item_plus try_it_clickable_cross try_it_clickable_cross1" onClick={onTryItClickableClose}>
+              <div className="all_faq_item_plus_inner">+</div>
+            </div>
+            <iframe src="/shop.html" style={{ width: '100%', height: '1200px', border: 'none', display: 'block', pointerEvents: 'auto' }}></iframe>
+          </div>
+        </section>
+
+        <section className="section whole_screen_text">
+          <div>
+            <div className="whole_screen_case_color">Case 2:</div>
+            Get more <span className="whole_screen_text_color3">social proof</span> from in-email review forms
+            <div className="whole_screen_right_bottom">
+              <button onClick={onTryItClickable2} className="all_menu_button try_it_clickable try_it_clickable2">Try it clickable</button>
+            </div>
+          </div>
+          <div className="whole_screen_right">
+            <div className="whole_screen_right_top"></div>
+            <video width="670" height="900" src="https://storage.googleapis.com/convertic-videos/feedback.mov" autoPlay muted loop playsInline>
+              <source src="https://storage.googleapis.com/convertic-videos/feedback.mov" type="video/quicktime" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div className="clickable_modal clickable_modal2" data-lenis-prevent style={{ overflow: 'auto' }}>
+            <div className="all_faq_item_plus try_it_clickable_cross try_it_clickable_cross2" onClick={onTryItClickableClose2}>
+              <div className="all_faq_item_plus_inner">+</div>
+            </div>
+            <iframe src="/feedback.html" style={{ width: '100%', height: '1000px', border: 'none', display: 'block', pointerEvents: 'auto' }}></iframe>
+          </div>
+        </section>
+
+        <section className="section whole_screen_text">
+          <div>
+            <div className="whole_screen_case_color">Case 3:</div>
+            Create in-email bundles, subscriptions and measure <span className="whole_screen_text_color">NPS</span>
+            <div className="whole_screen_right_bottom">
+              <button onClick={onTryItClickable3} className="all_menu_button try_it_clickable try_it_clickable3">Try it clickable</button>
+            </div>
+          </div>
+          <div className="whole_screen_right">
+            <div className="whole_screen_right_top"></div>
+            <video width="670" height="900" src="https://storage.googleapis.com/convertic-videos/upsell.mov" autoPlay muted loop playsInline>
+              <source src="https://storage.googleapis.com/convertic-videos/upsell.mov" type="video/quicktime" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div className="clickable_modal clickable_modal3" data-lenis-prevent style={{ overflow: 'auto' }}>
+            <div className="all_faq_item_plus try_it_clickable_cross try_it_clickable_cross3" onClick={onTryItClickableClose3}>
+              <div className="all_faq_item_plus_inner">+</div>
+            </div>
+            <iframe src="/upsell.html" style={{ width: '100%', height: '1100px', border: 'none', display: 'block', pointerEvents: 'auto' }}></iframe>
+          </div>
+        </section>
+      </div>
+      )}
+
+      <div className="row my-5">
+        <div className="col above">
+          <div className="container">
+            <div className="row">
+              <TryItInInbox showTemplateOptions={true} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {false && (
+      <div className="row">
+        <div className="col">
+          <div className="container">
+            <div className="row">
+              <InputAI />
+            </div>
+          </div>
+        </div>
+      </div>
+      )}
 
       <div className="container-fluid">
         <div className="row mt-5">

@@ -1119,7 +1119,7 @@ body {
 
 .all_faq_input::placeholder {
     font-weight: 400;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 @media screen and (max-width: 700px) {
