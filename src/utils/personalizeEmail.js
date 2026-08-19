@@ -215,14 +215,9 @@ function personalizeUpsell(html, others, currency, main) {
     return real != null ? `cart.price ${op} ${real}` : m;
   });
 
-  // The Subtotal starts at the cart's base price (demo 50). Base it on the real
-  // main product the upsells complement, so Subtotal = main + added upsells.
-  const base = toNumber(main?.price);
-  if (base != null) {
-    html = html
-      .replace(/("?basePrice"?\s*:\s*)50\b/g, `$1${base}`)
-      .replace(/(\bprice"?\s*:\s*)50\b/g, `$1${base}`);
-  }
+  // The upsell cart starts EMPTY in the template (amp-state price 0, Subtotal/Total
+  // fallbacks 0, Shipping hidden until an item is added), so there's no base to set
+  // here — personalization only injects the real product prices above.
 
   // Normalize any remaining currency symbols (running totals etc.) to the store's.
   if (currency) html = html.replace(/\$/g, symbol(currency));
