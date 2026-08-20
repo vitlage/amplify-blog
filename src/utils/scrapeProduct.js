@@ -174,6 +174,45 @@ function extractSizes(html, products) {
   return cleanSizes(selSizes);
 }
 
+const UA =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
+
+// Shopify exposes a product's full record (whole image gallery, variants, option
+// values) at `<product-url>.json`. A plain page scrape only sees the single JSON-LD/
+// OG image, so for Shopify stores this is how we get all photos + real sizes.
+// Returns the raw Shopify `product` object, or null (non-Shopify / blocked / error).
+export async function fetchShopifyProduct(url) {
+  let jsonUrl;
+  try {
+    const u = new URL(url);
+    if (!/\/products\/[^/]+/.test(u.pathname)) return null;
+    const path = u.pathname.replace(/\/+$/, "").replace(/\.json$/i, "");
+    jsonUrl = `${u.origin}${path}.json`;
+  } catch {
+    return null;
+  }
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 12000);
+  try {
+    const res = await fetch(jsonUrl, {
+      headers: { "User-Agent": UA, Accept: "application/json" },
+      redirect: "follow",
+      cache: "no-store",
+      signal: controller.signal,
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data && typeof data.product === "object" ? data.product : null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+const SHOPIFY_SIZE_OPTION_RE =
+  /\b(size|sizes|taille|gr[oö]sse|größe|talla|pointure|misura|tama[nñ]o)\b/i;
+
 export async function scrapeProduct(url) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 15000);
@@ -289,12 +328,37 @@ export async function scrapeProduct(url) {
     return true;
   });
 
+  let finalTitle = decodeEntities(title);
+  let finalPrice = String(price).trim().replace(/[^\d.,]/g, "") || String(price).trim();
+  let finalImages = uniqueImages;
+  let finalSizes = extractSizes(html, products);
+
+  // Shopify: pull the full gallery + real size option + variant price from the
+  // product JSON — a page scrape only exposes one image and often no sizes.
+  const shop = await fetchShopifyProduct(url);
+  if (shop) {
+    const shopImgs = (shop.images || [])
+      .map((i) => absolutize(i && i.src, url))
+      .filter(Boolean);
+    if (shopImgs.length) finalImages = shopImgs;
+    if (shop.title) finalTitle = decodeEntities(shop.title);
+    const v0 = Array.isArray(shop.variants) ? shop.variants[0] : null;
+    if (v0 && v0.price != null && v0.price !== "") finalPrice = String(v0.price);
+    const sizeOpt = (shop.options || []).find(
+      (o) => o && SHOPIFY_SIZE_OPTION_RE.test(o.name || "")
+    );
+    if (sizeOpt && Array.isArray(sizeOpt.values)) {
+      const s = cleanSizes(sizeOpt.values);
+      if (s.length) finalSizes = s;
+    }
+  }
+
   return {
-    title: decodeEntities(title),
-    price: String(price).trim().replace(/[^\d.,]/g, "") || String(price).trim(),
+    title: finalTitle,
+    price: finalPrice,
     currency: String(currency).trim(),
     description: decodeEntities(description).slice(0, 500),
-    images: uniqueImages.slice(0, 10),
-    sizes: extractSizes(html, products),
+    images: finalImages.slice(0, 10),
+    sizes: finalSizes,
   };
 }

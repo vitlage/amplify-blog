@@ -131,6 +131,14 @@ function personalizeAbandonedCart(html, main) {
       .replace(/\?\s*99\s*:\s*89\b/g, `? ${P} : ${D}`)
       .replace(/\?\s*89\s*:\s*99\b/g, `? ${D} : ${P}`)
       .replace(/(data-product-price[^>]*>)\s*99\s*/g, `$1${P}`)
+      // Summary fallbacks: amp-bind doesn't evaluate [text] until the first tap, so
+      // these literals are what shows on open. The abandoned item IS in the cart, so
+      // Subtotal = product price and Total = price + shipping (15).
+      .replace(/(\[text\]="cart\.price">)\s*99\s*(<)/g, (m, g1, g2) => `${g1}${P}${g2}`)
+      .replace(
+        /(\+ cart\.shipping">)\s*114\s*(<)/g,
+        (m, g1, g2) => `${g1}${P + 15}${g2}`
+      )
       .replace(/\$/g, symbol(main.currency));
   }
 
@@ -295,10 +303,11 @@ const SUB_LAUNCH_BANNER =
   `recurring revenue, right from the inbox.</div>`;
 
 function personalizeSubscription(html, catalog) {
-  // Consumable niche -> their real product (already subscription-ready).
-  // Durable niche (no consumable found) -> a plausible "Monthly Care Kit" built from
-  // their own photo, framed as the recurring model they could launch.
-  const consumable = pickSubscriptionProduct(catalog);
+  // Prefer the replenishable product the scraper already picked from the whole store
+  // catalog (e.g. socks for a sneaker brand); fall back to scanning main/others.
+  // Durable niche (nothing replenishable found) -> a plausible "Monthly Care Kit"
+  // built from their own photo, framed as the recurring model they could launch.
+  const consumable = catalog?.subscription || pickSubscriptionProduct(catalog);
   let product;
   let isFuture = false;
   if (consumable) {
