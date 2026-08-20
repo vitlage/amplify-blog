@@ -36,13 +36,13 @@ export async function generateMetadata({ searchParams }) {
       title,
       description,
       siteName: 'Convertic AI',
-      images: [{ url: `${siteUrl}/logo.png` }],
+      images: [{ url: `${siteUrl}/logo-mark-universal.png` }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: [`${siteUrl}/logo.png`],
+      images: [`${siteUrl}/logo-mark-universal.png`],
     },
   };
 }

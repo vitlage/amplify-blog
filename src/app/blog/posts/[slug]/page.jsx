@@ -38,7 +38,7 @@ export async function generateMetadata({ params }) {
   const title = metatags?.title || post?.title || 'Article — Convertic AI';
   const description = metatags?.description || post?.desc?.replace(/<[^>]*>/g, '').substring(0, 160) || '';
   const canonical = metatags?.canonical || url;
-  const image = metatags?.ogImage || post?.img || `${siteUrl}/logo.png`;
+  const image = metatags?.ogImage || post?.img || `${siteUrl}/logo-mark-universal.png`;
   const keywords = metatags?.keywords || '';
 
   return {
@@ -93,7 +93,7 @@ const SinglePage = async ({ params }) => {
               publisher: {
                 '@type': 'Organization',
                 name: 'Convertic AI',
-                logo: { '@type': 'ImageObject', url: `${siteUrl}/logo.png` },
+                logo: { '@type': 'ImageObject', url: `${siteUrl}/logo-mark-universal.png` },
               },
             }
           ),

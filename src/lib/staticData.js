@@ -5,6 +5,405 @@
 // Replace this with your actual static data source
 export const STATIC_POSTS = [
   {
+    _id: '8',
+    title: 'AMP email for DTC agencies: when it pays off, and when it does not',
+    metatags: {
+      title: 'AMP email for DTC agencies: when it pays off, and when it does not',
+      description: 'An honest guide for DTC agencies weighing AMP for Email. The client profile that fits, the economics of a build, and the cases where AMP is the wrong call.',
+      keywords: 'AMP email for agencies, DTC email agency, AMP for email ROI, interactive email economics, when to use AMP email, agency email services, AMP email client fit, Convertic.ai',
+      author: 'Convertic AI Team',
+      ogTitle: 'AMP email for DTC agencies: when it pays off, and when it does not',
+      ogDescription: 'A candid look at AMP for Email from the agency side. Which clients qualify, what a build actually costs, and when static email wins.',
+      ogType: 'article',
+      twitterCard: 'summary_large_image',
+      twitterTitle: 'AMP email for DTC agencies: when it pays off, and when it does not',
+      twitterDescription: 'The client profile that fits AMP, the rough economics of a build, and the cases where AMP is the wrong call for a DTC agency.',
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "AMP email for DTC agencies: when it pays off, and when it does not",
+        "description": "An honest guide for DTC agencies weighing AMP for Email, covering client fit, build economics, and the cases where static email is the better choice.",
+        "author": {
+          "@type": "Organization",
+          "name": "Convertic.ai"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Convertic.ai",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://convertic.ai/logo-mark-universal.png"
+          }
+        },
+        "datePublished": "2026-07-01",
+        "dateModified": "2026-07-01",
+        "mainEntityOfPage": "https://convertic.ai/blog/posts/amp-email-for-dtc-agencies-when-it-pays-off"
+      }
+    },
+    desc: `
+        <article>
+          <header>
+            <p style="color:#7A828F;font-size:15px;margin-bottom:24px;"><time datetime="2026-07-01">July 1, 2026</time> &middot; Written by Convertic.ai</p>
+          </header>
+
+          <p>Most content about AMP for Email is written to sell you on it. This one is written to help you decide. If you run a DTC email agency, AMP is a real lever, but it is not a universal upgrade. It pays off cleanly for some clients and quietly loses money on others. Knowing the difference before you pitch it is the whole game.</p>
+
+          <p>The goal here is to give you the client profile that fits, a rough sense of the economics, and an honest list of the cases where you should leave AMP on the shelf. If a guide only ever tells you to say yes, it is a brochure, not a guide.</p>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">What AMP actually changes for a DTC program</h2>
+
+          <p>AMP for Email lets the message do work that normally happens on a landing page. The subscriber can browse a product carousel, pick a size, leave a review, answer a one question survey, or reorder a staple, all without leaving the inbox. The action moves closer to the intent, and every step you remove between wanting and doing tends to lift conversion.</p>
+
+          <p>That is the upside in one sentence: fewer clicks between the email and the outcome. The rest of this guide is about when that upside is large enough to be worth the build, and when it is not.</p>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">The client profile that fits AMP</h2>
+
+          <p>AMP rewards volume, repeat behavior, and a live catalog. The clients where it pays off tend to share most of these traits.</p>
+
+          <ul style="list-style:none;padding:0;margin:20px 0;">
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;"><svg width="14" height="13" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00378 0.445204L3.80248 6.06595L1.9908 3.694C1.80952 3.45846 1.54314 3.30542 1.25029 3.26852C0.957432 3.23163 0.66208 3.31391 0.429207 3.49727C0.196333 3.68063 0.0450134 3.95004 0.00853663 4.24624C-0.0279401 4.54244 0.0534138 4.84117 0.234701 5.0767L2.93554 8.57281C3.04021 8.70678 3.17368 8.81488 3.32582 8.8889C3.47796 8.96291 3.64477 9.0009 3.81359 8.99998C3.98333 8.99957 4.15072 8.95984 4.30293 8.88385C4.45513 8.80785 4.5881 8.6976 4.69164 8.56156L9.771 1.81667C9.95082 1.57815 10.0296 1.27716 9.98998 0.979906C9.95038 0.682651 9.79564 0.413482 9.55982 0.231615C9.324 0.0497478 9.02641 -0.0299211 8.73251 0.0101345C8.43861 0.0501901 8.17248 0.20669 7.99267 0.445204H8.00378Z" fill="#ED5370"/></svg></span><span>A list above roughly 50,000 engaged subscribers. AMP has a fixed build cost, so it needs reach to earn back.</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;"><svg width="14" height="13" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00378 0.445204L3.80248 6.06595L1.9908 3.694C1.80952 3.45846 1.54314 3.30542 1.25029 3.26852C0.957432 3.23163 0.66208 3.31391 0.429207 3.49727C0.196333 3.68063 0.0450134 3.95004 0.00853663 4.24624C-0.0279401 4.54244 0.0534138 4.84117 0.234701 5.0767L2.93554 8.57281C3.04021 8.70678 3.17368 8.81488 3.32582 8.8889C3.47796 8.96291 3.64477 9.0009 3.81359 8.99998C3.98333 8.99957 4.15072 8.95984 4.30293 8.88385C4.45513 8.80785 4.5881 8.6976 4.69164 8.56156L9.771 1.81667C9.95082 1.57815 10.0296 1.27716 9.98998 0.979906C9.95038 0.682651 9.79564 0.413482 9.55982 0.231615C9.324 0.0497478 9.02641 -0.0299211 8.73251 0.0101345C8.43861 0.0501901 8.17248 0.20669 7.99267 0.445204H8.00378Z" fill="#ED5370"/></svg></span><span>Repeat purchase behavior. Replenishables, apparel, beauty, food and beverage. Reorders and restocks give AMP something to do every month.</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;"><svg width="14" height="13" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00378 0.445204L3.80248 6.06595L1.9908 3.694C1.80952 3.45846 1.54314 3.30542 1.25029 3.26852C0.957432 3.23163 0.66208 3.31391 0.429207 3.49727C0.196333 3.68063 0.0450134 3.95004 0.00853663 4.24624C-0.0279401 4.54244 0.0534138 4.84117 0.234701 5.0767L2.93554 8.57281C3.04021 8.70678 3.17368 8.81488 3.32582 8.8889C3.47796 8.96291 3.64477 9.0009 3.81359 8.99998C3.98333 8.99957 4.15072 8.95984 4.30293 8.88385C4.45513 8.80785 4.5881 8.6976 4.69164 8.56156L9.771 1.81667C9.95082 1.57815 10.0296 1.27716 9.98998 0.979906C9.95038 0.682651 9.79564 0.413482 9.55982 0.231615C9.324 0.0497478 9.02641 -0.0299211 8.73251 0.0101345C8.43861 0.0501901 8.17248 0.20669 7.99267 0.445204H8.00378Z" fill="#ED5370"/></svg></span><span>A product catalog that changes. New drops, restocks, seasonal lines. Live data inside the email is only worth it if the data moves.</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;"><svg width="14" height="13" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00378 0.445204L3.80248 6.06595L1.9908 3.694C1.80952 3.45846 1.54314 3.30542 1.25029 3.26852C0.957432 3.23163 0.66208 3.31391 0.429207 3.49727C0.196333 3.68063 0.0450134 3.95004 0.00853663 4.24624C-0.0279401 4.54244 0.0534138 4.84117 0.234701 5.0767L2.93554 8.57281C3.04021 8.70678 3.17368 8.81488 3.32582 8.8889C3.47796 8.96291 3.64477 9.0009 3.81359 8.99998C3.98333 8.99957 4.15072 8.95984 4.30293 8.88385C4.45513 8.80785 4.5881 8.6976 4.69164 8.56156L9.771 1.81667C9.95082 1.57815 10.0296 1.27716 9.98998 0.979906C9.95038 0.682651 9.79564 0.413482 9.55982 0.231615C9.324 0.0497478 9.02641 -0.0299211 8.73251 0.0101345C8.43861 0.0501901 8.17248 0.20669 7.99267 0.445204H8.00378Z" fill="#ED5370"/></svg></span><span>A team willing to whitelist. AMP only renders for approved senders, so the client has to commit to the Gmail and Yahoo application before a single interactive email ships.</span></li>
+          </ul>
+
+          <div style="border-left:4px solid #4a5fd9;background:#F7F8FB;padding:16px 20px;margin:24px 0;border-radius:0 8px 8px 0;color:#3a3f47;font-size:18px;line-height:1.6;">If a client hits three of these four, AMP is worth a serious pitch. If they hit one, you are selling a technology, not solving a problem.</div>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">The rough economics</h2>
+
+          <p>Numbers vary by market and by how much you build in house, so treat these as a shape rather than a quote. The point is to show you how the math tends to work, not to set your rate card.</p>
+
+          <p>On the cost side you have three buckets. The one time setup, which is the whitelisting application plus the reusable AMP framework and fallback for the client. The per campaign build, since an AMP email is a designed asset with a live data source behind it, so it runs above a static build. And the maintenance, which is keeping the data feed and the fallback in sync as the catalog changes.</p>
+
+          <p>On the return side, the useful mental model is incremental revenue per send. AMP does not usually raise your open rate. It raises the rate at which an opener takes the action you wanted, because the action got easier. If a client sends to 80,000 people twice a week and an interactive flow lifts action rate by even a point or two on the sends where it fits, the incremental revenue compounds fast against a fixed build cost.</p>
+
+          <p>The honest version of the pitch is this. AMP is a fixed cost that buys a variable return, and the return scales with list size, send frequency, and how naturally the offer maps to an in email action. Big engaged list plus frequent sends plus a clear action equals a fast payback. Take any one of those away and the payback stretches.</p>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">When AMP is the wrong call</h2>
+
+          <p>This is the part the brochures skip. There are clients where recommending AMP is the wrong move, and saying so is how you keep the account for years instead of months.</p>
+
+          <ul style="list-style:none;padding:0;margin:20px 0;">
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;color:#ED5370;font-weight:700;font-size:18px;">&times;</span><span>Small or low frequency lists. If the client sends once a month to 8,000 people, the fixed build cost never gets enough sends to earn back.</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;color:#ED5370;font-weight:700;font-size:18px;">&times;</span><span>One time or considered purchases. Furniture, mattresses, high ticket electronics. When people buy once every few years, there is no repeat action for AMP to shorten.</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;color:#ED5370;font-weight:700;font-size:18px;">&times;</span><span>A broken foundation. If deliverability is shaky or the static program has never been optimized, fix that first. AMP on top of a weak base just adds cost to a leaky system.</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;color:#ED5370;font-weight:700;font-size:18px;">&times;</span><span>No appetite for whitelisting. If the client will not commit to the sender approval process, AMP will fall back to plain HTML for most of the inbox and you have paid for a feature nobody sees.</span></li>
+          </ul>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">How to pitch it without overpromising</h2>
+
+          <p>Lead with a single use case, not the whole category. Pick the one flow where the client's data and the in email action line up most cleanly, a reorder for a replenishable, a size and add to cart for apparel, a review request after delivery. Ship that, measure the incremental action rate against the static version, and let the number decide whether you expand.</p>
+
+          <p>This does two things. It keeps your first build small enough to prove out fast, and it trains the client to judge AMP on incremental revenue rather than novelty. A win you can point to is worth more than a deck full of what if.</p>
+
+          <p>Used this way, AMP stops being a shiny upsell and becomes what it should be for an agency: a sharper tool you reach for on the accounts that fit, and leave alone on the ones that do not. That judgment, applied honestly, is the thing that separates you from the agency that pitches the same feature to everyone.</p>
+
+          <p style="margin-top:32px;">If you want more breakdowns like this one, the kind that tell you where a tactic stops working as well as where it starts, subscribe to the Convertic.ai blog. We publish the parts most vendors leave out.</p>
+        </article>
+      `,
+    catSlug: 'marketing',
+    slug: 'amp-email-for-dtc-agencies-when-it-pays-off',
+    img: '/blog-covers/amp-email-for-dtc-agencies-when-it-pays-off.png',
+    createdAt: '2026-07-01'
+  },
+  {
+    _id: '7',
+    title: "Why AMP Email Is Not the Future, It Is Already Here (And Why Agencies Keep Missing the Moment)",
+    metatags: {
+      title: "Why AMP Email Is Not the Future, It Is Already Here (And Why Agencies Keep Missing the Moment)",
+      description: 'AMP for Email shipped years ago and runs in billions of inboxes today. Here is why most agencies still treat it as the future, and what moving on it now looks like.',
+      keywords: 'AMP email, AMP for email, interactive email, email agencies, Gmail AMP, interactive email marketing, future of email, email marketing 2026, Convertic.ai',
+      author: 'Convertic AI Team',
+      ogTitle: "Why AMP Email Is Not the Future, It Is Already Here",
+      ogDescription: 'A thought leadership take on why AMP for Email is already live in billions of inboxes, and why most agencies keep calling it the future.',
+      ogType: 'article',
+      twitterCard: 'summary_large_image',
+      twitterTitle: "Why AMP Email Is Not the Future, It Is Already Here",
+      twitterDescription: 'AMP for Email is already live in billions of inboxes. Here is why agencies keep missing the moment.',
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Why AMP Email Is Not the Future, It Is Already Here (And Why Agencies Keep Missing the Moment)",
+        "description": "A thought leadership argument that AMP for Email is a present day channel, not a future one, and an honest look at why agencies keep treating it as later.",
+        "author": {
+          "@type": "Organization",
+          "name": "Convertic.ai"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Convertic.ai",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://convertic.ai/logo-mark-universal.png"
+          }
+        },
+        "datePublished": "2026-07-01",
+        "dateModified": "2026-07-01",
+        "mainEntityOfPage": "https://convertic.ai/blog/posts/why-amp-email-is-not-the-future-but-now"
+      }
+    },
+    desc: `
+        <article>
+          <header>
+            <p style="color:#7A828F;font-size:15px;margin-bottom:24px;"><time datetime="2026-07-01">July 1, 2026</time> &middot; Written by Convertic.ai</p>
+          </header>
+
+          <p>Every few months an agency ships a trends deck, and somewhere on slide fourteen there is a line about AMP email being part of the future of the inbox. It is a safe thing to say. It sounds forward looking, it commits nobody to anything, and it quietly files the whole topic under later.</p>
+
+          <p>There is one problem. AMP for Email is not part of the future. It shipped in Gmail in 2019. It runs in Yahoo Mail, in Mail.ru, and in the Gmail app on hundreds of millions of phones. The people you email are already opening inboxes that can render interactive content today. The technology is not waiting on anything. In almost every case, the sender is.</p>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">Later is a business decision, not a technical one</h2>
+
+          <p>When a channel has been live for years and most brands still have not touched it, the reason is rarely the technology. It is that adopting it asks something of the people who would have to build it. AMP asks for three things a normal email program does not: sender whitelisting, a live data source behind the message, and a fallback version for clients that do not render it. None of that is exotic. All of it is work.</p>
+
+          <p>So the honest internal sentence, we are not set up to do this yet, gets translated into the client friendly sentence, this is still early. The word future does a lot of quiet labor in that translation. It turns a staffing gap into a market condition.</p>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">What is actually true in the inbox right now</h2>
+
+          <p>Strip away the framing and look at what a subscriber with a modern Gmail or Yahoo account can do inside an email today, with no new app and no click out to a browser:</p>
+
+          <ul style="list-style:none;padding:0;margin:20px 0;">
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;"><svg width="14" height="13" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00378 0.445204L3.80248 6.06595L1.9908 3.694C1.80952 3.45846 1.54314 3.30542 1.25029 3.26852C0.957432 3.23163 0.66208 3.31391 0.429207 3.49727C0.196333 3.68063 0.0450134 3.95004 0.00853663 4.24624C-0.0279401 4.54244 0.0534138 4.84117 0.234701 5.0767L2.93554 8.57281C3.04021 8.70678 3.17368 8.81488 3.32582 8.8889C3.47796 8.96291 3.64477 9.0009 3.81359 8.99998C3.98333 8.99957 4.15072 8.95984 4.30293 8.88385C4.45513 8.80785 4.5881 8.6976 4.69164 8.56156L9.771 1.81667C9.95082 1.57815 10.0296 1.27716 9.98998 0.979906C9.95038 0.682651 9.79564 0.413482 9.55982 0.231615C9.324 0.0497478 9.02641 -0.0299211 8.73251 0.0101345C8.43861 0.0501901 8.17248 0.20669 7.99267 0.445204H8.00378Z" fill="#ED5370"/></svg></span><span>Browse a product carousel and open details without leaving the message.</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;"><svg width="14" height="13" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00378 0.445204L3.80248 6.06595L1.9908 3.694C1.80952 3.45846 1.54314 3.30542 1.25029 3.26852C0.957432 3.23163 0.66208 3.31391 0.429207 3.49727C0.196333 3.68063 0.0450134 3.95004 0.00853663 4.24624C-0.0279401 4.54244 0.0534138 4.84117 0.234701 5.0767L2.93554 8.57281C3.04021 8.70678 3.17368 8.81488 3.32582 8.8889C3.47796 8.96291 3.64477 9.0009 3.81359 8.99998C3.98333 8.99957 4.15072 8.95984 4.30293 8.88385C4.45513 8.80785 4.5881 8.6976 4.69164 8.56156L9.771 1.81667C9.95082 1.57815 10.0296 1.27716 9.98998 0.979906C9.95038 0.682651 9.79564 0.413482 9.55982 0.231615C9.324 0.0497478 9.02641 -0.0299211 8.73251 0.0101345C8.43861 0.0501901 8.17248 0.20669 7.99267 0.445204H8.00378Z" fill="#ED5370"/></svg></span><span>Pick a size, color, or plan and add it to a cart in a couple of taps.</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;"><svg width="14" height="13" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00378 0.445204L3.80248 6.06595L1.9908 3.694C1.80952 3.45846 1.54314 3.30542 1.25029 3.26852C0.957432 3.23163 0.66208 3.31391 0.429207 3.49727C0.196333 3.68063 0.0450134 3.95004 0.00853663 4.24624C-0.0279401 4.54244 0.0534138 4.84117 0.234701 5.0767L2.93554 8.57281C3.04021 8.70678 3.17368 8.81488 3.32582 8.8889C3.47796 8.96291 3.64477 9.0009 3.81359 8.99998C3.98333 8.99957 4.15072 8.95984 4.30293 8.88385C4.45513 8.80785 4.5881 8.6976 4.69164 8.56156L9.771 1.81667C9.95082 1.57815 10.0296 1.27716 9.98998 0.979906C9.95038 0.682651 9.79564 0.413482 9.55982 0.231615C9.324 0.0497478 9.02641 -0.0299211 8.73251 0.0101345C8.43861 0.0501901 8.17248 0.20669 7.99267 0.445204H8.00378Z" fill="#ED5370"/></svg></span><span>Answer a one question survey or leave a star rating that submits in place.</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;"><svg width="14" height="13" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00378 0.445204L3.80248 6.06595L1.9908 3.694C1.80952 3.45846 1.54314 3.30542 1.25029 3.26852C0.957432 3.23163 0.66208 3.31391 0.429207 3.49727C0.196333 3.68063 0.0450134 3.95004 0.00853663 4.24624C-0.0279401 4.54244 0.0534138 4.84117 0.234701 5.0767L2.93554 8.57281C3.04021 8.70678 3.17368 8.81488 3.32582 8.8889C3.47796 8.96291 3.64477 9.0009 3.81359 8.99998C3.98333 8.99957 4.15072 8.95984 4.30293 8.88385C4.45513 8.80785 4.5881 8.6976 4.69164 8.56156L9.771 1.81667C9.95082 1.57815 10.0296 1.27716 9.98998 0.979906C9.95038 0.682651 9.79564 0.413482 9.55982 0.231615C9.324 0.0497478 9.02641 -0.0299211 8.73251 0.0101345C8.43861 0.0501901 8.17248 0.20669 7.99267 0.445204H8.00378Z" fill="#ED5370"/></svg></span><span>See live pricing or stock, pulled at open time rather than baked in at send.</span></li>
+          </ul>
+
+          <p>Every one of those is shipping in production right now for brands that decided not to wait. This is not a preview build behind a flag. It is a channel with a spec, a validator, and years of real sends behind it.</p>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">Why agencies keep calling it the future</h2>
+
+          <p>Two incentives keep the label stuck. The first is production. Static HTML templates are the product agencies know how to price, reproduce, and hand to a junior designer. AMP looks like engineering: whitelisting, a live feed, a fallback. Most email teams are staffed for design and copy, not backend work, so the path of least resistance is to admire the channel from a distance and call it emerging.</p>
+
+          <p>The second incentive is measurement, and it is the sneaky one. Agencies are judged on open rate and click through rate. AMP moves the action inside the email, where a click out to a landing page never happens. The very thing that makes it powerful makes it invisible to the dashboard the agency reports on. If your scoreboard cannot see the win, you do not chase the win. So the channel that quietly converts better gets ignored in favor of the one that produces a tidy click number.</p>
+
+          <div style="border-left:4px solid #4a5fd9;background:#F7F8FB;padding:16px 20px;margin:24px 0;border-radius:0 8px 8px 0;color:#3a3f47;font-size:18px;line-height:1.6;">The future is a comfortable word. It lets you sound aware of a trend without changing anything about how you work this quarter.</div>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">The window is open, and it will not stay that way</h2>
+
+          <p>Here is the part that should make an email lead sit up. The gap between knowing AMP exists and actually sending it is exactly where the advantage lives. While most of a category files the channel under later, the brands sending it now are training their audience. When a subscriber opens one email that lets them pick a size, reorder in two taps, or rate a product in place, every static email that lands after it feels a step slower. That expectation does not reset.</p>
+
+          <p>Early to a live channel is not the same as early to an idea. There is no research risk left here and no waiting on adoption. The only thing standing between a normal program and an interactive one is the decision to do the work while it still counts as being ahead.</p>
+
+          <p>If you are the person on the email team who already suspected the trends deck was stalling, you were right. The category is not early. You are simply early to it, which for a little while longer is the same thing as being ahead.</p>
+
+          <p style="margin-top:32px;">We write about the parts of email most decks skip. If that is your kind of reading, subscribe to the Convertic.ai blog and we will keep them coming.</p>
+        </article>
+      `,
+    catSlug: 'amp',
+    slug: 'why-amp-email-is-not-the-future-but-now',
+    img: '/blog-covers/why-amp-email-is-not-the-future-but-now.png',
+    createdAt: '2026-07-01'
+  },
+  {
+    _id: '6',
+    title: 'How to apply for AMP whitelisting from Gmail and Yahoo',
+    metatags: {
+      title: 'How to apply for AMP whitelisting from Gmail and Yahoo',
+      description: 'Step by step guide to applying for AMP for Email sender whitelisting with Gmail and Yahoo. Real form fields, real timelines, and what to do if you do not hear back.',
+      keywords: 'AMP for email whitelisting, Gmail AMP approval, Yahoo AMP whitelisting, apply for AMP for email, AMP sender registration, interactive email approval, Convertic.ai',
+      author: 'Convertic AI Team',
+      ogTitle: 'How to apply for AMP whitelisting from Gmail and Yahoo',
+      ogDescription: 'A practical walkthrough of the Google AMP for Email registration: prerequisites, the test campaign, the form fields, and how to confirm approval.',
+      ogType: 'article',
+      twitterCard: 'summary_large_image',
+      twitterTitle: 'How to apply for AMP whitelisting from Gmail and Yahoo',
+      twitterDescription: 'A practical walkthrough of the Google AMP for Email registration. Prerequisites, the test campaign, form fields, and approval signals.',
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "How to apply for AMP whitelisting from Gmail and Yahoo",
+        "description": "Step by step guide to applying for AMP for Email sender whitelisting with Gmail and Yahoo, with real form fields, timelines, and troubleshooting.",
+        "author": {
+          "@type": "Organization",
+          "name": "Convertic.ai"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Convertic.ai",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://convertic.ai/logo-mark-universal.png"
+          }
+        },
+        "datePublished": "2026-05-07",
+        "dateModified": "2026-05-07",
+        "mainEntityOfPage": "https://convertic.ai/blog/posts/applying-for-amp-whitelisting-from-gmail-and-yahoo"
+      }
+    },
+    desc: `
+        <article>
+          <header>
+            <p style="color:#7A828F;font-size:15px;margin-bottom:24px;"><time datetime="2026-05-07">May 7, 2026</time> &middot; Written by Convertic.ai</p>
+          </header>
+
+          <p>AMP for Email lets you send interactive content right inside the inbox: forms, carousels, accordions, live product data. The catch is that Gmail and Yahoo will not render AMP from a sender they have not reviewed. Until your address is whitelisted, those mailboxes fall back to the plain HTML version of your email.</p>
+
+          <p>This guide covers the application from start to finish. Most senders hear back from Google within 5 to 10 business days. If you send through Convertic.ai, we run the application for you once you give us the right access. If you send through another platform, the same steps work, you just file the form yourself.</p>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">Why Gmail and Yahoo require whitelisting</h2>
+
+          <p>Whitelisting exists because AMP can fetch and update content from your servers in real time. Google reviews each sender to confirm the domain is established, the templates pass AMP validation, and the use cases match what the spec actually allows.</p>
+
+          <p>Approval is granted per sender address, not per domain. If you send from <code style="background:#F1F3F7;padding:2px 6px;border-radius:4px;font-size:15px;">team@example.com</code> and also from <code style="background:#F1F3F7;padding:2px 6px;border-radius:4px;font-size:15px;">offers@example.com</code>, both need their own application. The upside is that approval is permanent. There is no annual renewal.</p>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">Before you apply: prerequisites</h2>
+
+          <p>You need all of the following before you submit the form. Skipping any one of them is the most common reason applications get bounced back.</p>
+
+          <ul style="list-style:none;padding:0;margin:20px 0;">
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;"><svg width="14" height="13" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00378 0.445204L3.80248 6.06595L1.9908 3.694C1.80952 3.45846 1.54314 3.30542 1.25029 3.26852C0.957432 3.23163 0.66208 3.31391 0.429207 3.49727C0.196333 3.68063 0.0450134 3.95004 0.00853663 4.24624C-0.0279401 4.54244 0.0534138 4.84117 0.234701 5.0767L2.93554 8.57281C3.04021 8.70678 3.17368 8.81488 3.32582 8.8889C3.47796 8.96291 3.64477 9.0009 3.81359 8.99998C3.98333 8.99957 4.15072 8.95984 4.30293 8.88385C4.45513 8.80785 4.5881 8.6976 4.69164 8.56156L9.771 1.81667C9.95082 1.57815 10.0296 1.27716 9.98998 0.979906C9.95038 0.682651 9.79564 0.413482 9.55982 0.231615C9.324 0.0497478 9.02641 -0.0299211 8.73251 0.0101345C8.43861 0.0501901 8.17248 0.20669 7.99267 0.445204H8.00378Z" fill="#ED5370"/></svg></span><span>An AMP-capable email built and validated against the AMP for Email spec.</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;"><svg width="14" height="13" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00378 0.445204L3.80248 6.06595L1.9908 3.694C1.80952 3.45846 1.54314 3.30542 1.25029 3.26852C0.957432 3.23163 0.66208 3.31391 0.429207 3.49727C0.196333 3.68063 0.0450134 3.95004 0.00853663 4.24624C-0.0279401 4.54244 0.0534138 4.84117 0.234701 5.0767L2.93554 8.57281C3.04021 8.70678 3.17368 8.81488 3.32582 8.8889C3.47796 8.96291 3.64477 9.0009 3.81359 8.99998C3.98333 8.99957 4.15072 8.95984 4.30293 8.88385C4.45513 8.80785 4.5881 8.6976 4.69164 8.56156L9.771 1.81667C9.95082 1.57815 10.0296 1.27716 9.98998 0.979906C9.95038 0.682651 9.79564 0.413482 9.55982 0.231615C9.324 0.0497478 9.02641 -0.0299211 8.73251 0.0101345C8.43861 0.0501901 8.17248 0.20669 7.99267 0.445204H8.00378Z" fill="#ED5370"/></svg></span><span>A verified sending domain with SPF, DKIM, and DMARC passing on every send.</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;"><svg width="14" height="13" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00378 0.445204L3.80248 6.06595L1.9908 3.694C1.80952 3.45846 1.54314 3.30542 1.25029 3.26852C0.957432 3.23163 0.66208 3.31391 0.429207 3.49727C0.196333 3.68063 0.0450134 3.95004 0.00853663 4.24624C-0.0279401 4.54244 0.0534138 4.84117 0.234701 5.0767L2.93554 8.57281C3.04021 8.70678 3.17368 8.81488 3.32582 8.8889C3.47796 8.96291 3.64477 9.0009 3.81359 8.99998C3.98333 8.99957 4.15072 8.95984 4.30293 8.88385C4.45513 8.80785 4.5881 8.6976 4.69164 8.56156L9.771 1.81667C9.95082 1.57815 10.0296 1.27716 9.98998 0.979906C9.95038 0.682651 9.79564 0.413482 9.55982 0.231615C9.324 0.0497478 9.02641 -0.0299211 8.73251 0.0101345C8.43861 0.0501901 8.17248 0.20669 7.99267 0.445204H8.00378Z" fill="#ED5370"/></svg></span><span>Access to your sending platform. Convertic.ai users can grant editor access to <code style="background:#F1F3F7;padding:2px 6px;border-radius:4px;font-size:15px;">support@convertic.ai</code>. Klaviyo, Mailchimp, and other ESPs follow the same flow inside their own tool.</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;"><svg width="14" height="13" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00378 0.445204L3.80248 6.06595L1.9908 3.694C1.80952 3.45846 1.54314 3.30542 1.25029 3.26852C0.957432 3.23163 0.66208 3.31391 0.429207 3.49727C0.196333 3.68063 0.0450134 3.95004 0.00853663 4.24624C-0.0279401 4.54244 0.0534138 4.84117 0.234701 5.0767L2.93554 8.57281C3.04021 8.70678 3.17368 8.81488 3.32582 8.8889C3.47796 8.96291 3.64477 9.0009 3.81359 8.99998C3.98333 8.99957 4.15072 8.95984 4.30293 8.88385C4.45513 8.80785 4.5881 8.6976 4.69164 8.56156L9.771 1.81667C9.95082 1.57815 10.0296 1.27716 9.98998 0.979906C9.95038 0.682651 9.79564 0.413482 9.55982 0.231615C9.324 0.0497478 9.02641 -0.0299211 8.73251 0.0101345C8.43861 0.0501901 8.17248 0.20669 7.99267 0.445204H8.00378Z" fill="#ED5370"/></svg></span><span>Ability to suppress test addresses from regular campaigns. The two test inboxes should only ever receive the test message.</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:#3a3f47;font-size:17px;line-height:1.5;"><span style="flex:0 0 18px;margin-top:4px;"><svg width="14" height="13" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00378 0.445204L3.80248 6.06595L1.9908 3.694C1.80952 3.45846 1.54314 3.30542 1.25029 3.26852C0.957432 3.23163 0.66208 3.31391 0.429207 3.49727C0.196333 3.68063 0.0450134 3.95004 0.00853663 4.24624C-0.0279401 4.54244 0.0534138 4.84117 0.234701 5.0767L2.93554 8.57281C3.04021 8.70678 3.17368 8.81488 3.32582 8.8889C3.47796 8.96291 3.64477 9.0009 3.81359 8.99998C3.98333 8.99957 4.15072 8.95984 4.30293 8.88385C4.45513 8.80785 4.5881 8.6976 4.69164 8.56156L9.771 1.81667C9.95082 1.57815 10.0296 1.27716 9.98998 0.979906C9.95038 0.682651 9.79564 0.413482 9.55982 0.231615C9.324 0.0497478 9.02641 -0.0299211 8.73251 0.0101345C8.43861 0.0501901 8.17248 0.20669 7.99267 0.445204H8.00378Z" fill="#ED5370"/></svg></span><span>A Gmail inbox you control. Google sends the approval reply to the contact address you put on the form.</span></li>
+          </ul>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">Gmail whitelisting, step by step</h2>
+
+          <p>Six steps. Plan on a couple of hours of focused work, plus the 5 to 10 day wait at the end.</p>
+
+          <div style="display:flex;gap:18px;padding:24px;background:#F7F8FB;border-radius:12px;margin:0 0 20px 0;align-items:flex-start;">
+            <div style="flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#4a5fd9;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;">1</div>
+            <div style="flex:1;">
+              <h3 style="font-size:20px;margin:0 0 10px 0;color:#1a1a1a;font-weight:400;">Confirm AMP support is on in your sending platform</h3>
+              <p style="margin:0 0 12px 0;">Convertic.ai turns AMP on by default. Klaviyo requires you to email their support team to enable AMP templates on your account. Mailchimp and most other ESPs vary, so check their documentation. Whatever you use, you should be able to build, preview, and send an AMP version of an email before you continue.</p>
+              <div style="border-left:4px solid #ED5370;background:#FEF6F8;padding:14px 18px;margin:14px 0 0 0;border-radius:0 8px 8px 0;">
+                <div style="font-weight:700;color:#ED5370;margin-bottom:4px;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">Convertic.ai tip</div>
+                <div style="color:#3a3f47;">Sign up at app.convertic.ai and the AMP template editor and validator are turned on for every account. No support ticket needed.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:18px;padding:24px;background:#F7F8FB;border-radius:12px;margin:0 0 20px 0;align-items:flex-start;">
+            <div style="flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#4a5fd9;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;">2</div>
+            <div style="flex:1;">
+              <h3 style="font-size:20px;margin:0 0 10px 0;color:#1a1a1a;font-weight:400;">Build a test list with three contacts</h3>
+              <p style="margin:0 0 12px 0;">Create a fresh list in your platform with these three addresses, in this order:</p>
+              <ul style="margin:0 0 12px 18px;color:#3a3f47;">
+                <li style="margin-bottom:6px;">Your own Gmail (the inbox where you will check the rendered AMP)</li>
+                <li style="margin-bottom:6px;"><code style="background:#EEF0F4;padding:2px 6px;border-radius:4px;font-size:15px;">ampforemail.whitelisting@gmail.com</code> (Google review address)</li>
+                <li style="margin-bottom:6px;"><code style="background:#EEF0F4;padding:2px 6px;border-radius:4px;font-size:15px;">ampverification@yahoo.com</code> (Yahoo review address)</li>
+              </ul>
+              <p style="margin:0;">Keep this list separate from any other list. The two review addresses should only ever receive the test campaign in step 3.</p>
+              <div class="screenshot-placeholder" data-screenshot-id="step-2-test-list" style="aspect-ratio:16/9;width:100%;background:#EEF0F4;border:2px dashed #C9CFD8;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;color:#7A828F;font-size:14px;padding:24px;margin:16px 0 0 0;">Screenshot: the test list with the three contacts visible</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:18px;padding:24px;background:#F7F8FB;border-radius:12px;margin:0 0 20px 0;align-items:flex-start;">
+            <div style="flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#4a5fd9;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;">3</div>
+            <div style="flex:1;">
+              <h3 style="font-size:20px;margin:0 0 10px 0;color:#1a1a1a;font-weight:400;">Send a production-quality test campaign</h3>
+              <p style="margin:0 0 12px 0;">Use a real subject line, a real from name, a real preheader, and your finished AMP template. Reviewers grade the campaign as if it were going to a paying customer. A blank subject like "amp test" is the most common reason an application gets rejected on the first pass.</p>
+              <div style="border-left:4px solid #E8A93B;background:#FFF8EB;padding:14px 18px;margin:14px 0 0 0;border-radius:0 8px 8px 0;">
+                <div style="font-weight:700;color:#B97608;margin-bottom:4px;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">Heads up</div>
+                <div style="color:#3a3f47;">Send the campaign once. Do not resend it after small edits. The reviewers see every send to those two addresses.</div>
+              </div>
+              <div class="screenshot-placeholder" data-screenshot-id="step-3-test-campaign" style="aspect-ratio:16/9;width:100%;background:#EEF0F4;border:2px dashed #C9CFD8;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;color:#7A828F;font-size:14px;padding:24px;margin:16px 0 0 0;">Screenshot: campaign editor with the AMP template loaded and a real subject line</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:18px;padding:24px;background:#F7F8FB;border-radius:12px;margin:0 0 20px 0;align-items:flex-start;">
+            <div style="flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#4a5fd9;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;">4</div>
+            <div style="flex:1;">
+              <h3 style="font-size:20px;margin:0 0 10px 0;color:#1a1a1a;font-weight:400;">Suppress the test addresses from your regular sends</h3>
+              <p style="margin:0;">Add the Google and Yahoo review addresses to your platform's suppression list immediately after step 3. They should only ever get that one test message. If they start receiving your weekly newsletter or transactional sends, the application gets delayed.</p>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:18px;padding:24px;background:#F7F8FB;border-radius:12px;margin:0 0 20px 0;align-items:flex-start;">
+            <div style="flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#4a5fd9;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;">5</div>
+            <div style="flex:1;">
+              <h3 style="font-size:20px;margin:0 0 10px 0;color:#1a1a1a;font-weight:400;">Submit the Google AMP for Email registration form</h3>
+              <p style="margin:0 0 12px 0;">Open the official form at <a href="https://developers.google.com/workspace/gmail/ampemail/register" target="_blank" rel="noopener" style="color:#4a5fd9;text-decoration:underline;">developers.google.com/workspace/gmail/ampemail/register</a>. Work through these sections:</p>
+              <ul style="margin:0 0 12px 18px;color:#3a3f47;">
+                <li style="margin-bottom:8px;"><strong>Sender details.</strong> The exact email address you sent the test from, plus your sending domain.</li>
+                <li style="margin-bottom:8px;"><strong>Use cases.</strong> Pick what you actually do. Common picks are abandoned cart, newsletters, product updates, surveys, and feedback collection. Do not check boxes for use cases you do not actually use, reviewers do verify.</li>
+                <li style="margin-bottom:8px;"><strong>Yahoo questions.</strong> A short list about your unsubscribe practices and list hygiene. Yahoo and Google share the same form, so answer truthfully and you cover both providers at once.</li>
+                <li style="margin-bottom:8px;"><strong>Mail.ru section.</strong> Skip unless you actively send into the Russian market. Most senders leave it blank.</li>
+                <li style="margin-bottom:8px;"><strong>Sample test.</strong> Paste the message ID or the from-address you used in step 3 so reviewers can find the message they already received.</li>
+              </ul>
+              <div class="screenshot-placeholder" data-screenshot-id="step-5-google-form-sender" style="aspect-ratio:16/9;width:100%;background:#EEF0F4;border:2px dashed #C9CFD8;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;color:#7A828F;font-size:14px;padding:24px;margin:16px 0 0 0;">Screenshot: Google AMP registration form, sender details section</div>
+              <div class="screenshot-placeholder" data-screenshot-id="step-5-google-form-usecases" style="aspect-ratio:16/9;width:100%;background:#EEF0F4;border:2px dashed #C9CFD8;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;color:#7A828F;font-size:14px;padding:24px;margin:12px 0 0 0;">Screenshot: use cases checkboxes</div>
+              <div class="screenshot-placeholder" data-screenshot-id="step-5-google-form-yahoo" style="aspect-ratio:16/9;width:100%;background:#EEF0F4;border:2px dashed #C9CFD8;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;color:#7A828F;font-size:14px;padding:24px;margin:12px 0 0 0;">Screenshot: Yahoo questions section of the Google form</div>
+              <div style="border-left:4px solid #ED5370;background:#FEF6F8;padding:14px 18px;margin:16px 0 0 0;border-radius:0 8px 8px 0;">
+                <div style="font-weight:700;color:#ED5370;margin-bottom:4px;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">Convertic.ai tip</div>
+                <div style="color:#3a3f47;">We fill this form out for our customers. Grant editor access to <code style="background:#F7E2E8;padding:2px 6px;border-radius:4px;font-size:15px;">support@convertic.ai</code> on your sending platform and our deliverability team handles the submission, monitors the reply, and emails you the moment approval lands.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:18px;padding:24px;background:#F7F8FB;border-radius:12px;margin:0 0 20px 0;align-items:flex-start;">
+            <div style="flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#4a5fd9;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;">6</div>
+            <div style="flex:1;">
+              <h3 style="font-size:20px;margin:0 0 10px 0;color:#1a1a1a;font-weight:400;">Wait for the reply from noreply@google.com</h3>
+              <p style="margin:0;">Google sends the answer to the contact address on the form. Most senders hear back in 5 to 10 business days. The reply is short, two or three lines, with either an approval, a request for more info, or a rejection along with the reason. Save the email either way, you may need it later.</p>
+            </div>
+          </div>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">Yahoo whitelisting</h2>
+
+          <p>Yahoo does not run a separate form. The Google form covers both providers. The Yahoo-specific questions inside it ask about unsubscribe handling, complaint rates, and list-acquisition practices. Answer them honestly and your Yahoo application moves forward at the same time as Gmail. The confirmation email usually mentions both providers in the same reply.</p>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">A note on Mail.ru</h2>
+
+          <p>Mail.ru runs a separate AMP program for senders into the Russian market. The Google form has a Mail.ru section that hands the application off, but most senders should leave that section blank. If you do send into Russia, fill it in and expect a separate confirmation from Mail.ru on its own timeline.</p>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">How to confirm you have been approved</h2>
+
+          <p>Three signals tell you the address is live:</p>
+
+          <ul style="margin:0 0 20px 18px;color:#3a3f47;">
+            <li style="margin-bottom:8px;">A reply from <code style="background:#F1F3F7;padding:2px 6px;border-radius:4px;font-size:15px;">noreply@google.com</code> confirming approval. Save it. If you ever switch ESPs and need to prove the address is approved, this email is your evidence.</li>
+            <li style="margin-bottom:8px;">A small lightning-bolt icon next to your sender name in the Gmail message header. If the icon is there, AMP is rendering for that recipient.</li>
+            <li style="margin-bottom:8px;">A second test send (to your own Gmail, with no developer settings turned on) renders the interactive version, not the HTML fallback.</li>
+          </ul>
+
+          <div class="screenshot-placeholder" data-screenshot-id="approved-lightning-bolt" style="aspect-ratio:16/9;width:100%;background:#EEF0F4;border:2px dashed #C9CFD8;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;color:#7A828F;font-size:14px;padding:24px;margin:16px 0 24px 0;">Screenshot: Gmail message header showing the lightning-bolt icon</div>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">Previewing AMP before approval</h2>
+
+          <p>While the application is in review you can still render AMP in your own Gmail. Add yourself as an allowed developer:</p>
+
+          <ol style="margin:0 0 20px 18px;color:#3a3f47;">
+            <li style="margin-bottom:8px;">Open Gmail in a browser. Click the gear icon, then "See all settings".</li>
+            <li style="margin-bottom:8px;">Open the General tab and scroll to the "Dynamic email" section.</li>
+            <li style="margin-bottom:8px;">Click "Developer settings" and add the from-address you are testing.</li>
+          </ol>
+
+          <p>This only renders AMP for you. It does not whitelist the address for anyone else, and it does not replace the official application.</p>
+
+          <div class="screenshot-placeholder" data-screenshot-id="gmail-developer-settings" style="aspect-ratio:16/9;width:100%;background:#EEF0F4;border:2px dashed #C9CFD8;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;color:#7A828F;font-size:14px;padding:24px;margin:16px 0 24px 0;">Screenshot: Gmail Developer settings panel with a sender address added</div>
+
+          <h2 style="font-size:28px;margin:40px 0 16px 0;color:#1a1a1a;font-weight:400;">Troubleshooting and FAQ</h2>
+
+          <h3 style="font-size:20px;margin:24px 0 8px 0;color:#1a1a1a;font-weight:600;">What happens if I send AMP before I'm approved?</h3>
+          <p>Nothing breaks. Gmail and Yahoo render the HTML fallback you bundle with the AMP version. Apple Mail, Outlook desktop, and clients that ignore AMP entirely use HTML anyway. You can keep sending interactive emails to your full list while the application is in review, the AMP version just will not render for Gmail and Yahoo recipients yet.</p>
+
+          <h3 style="font-size:20px;margin:24px 0 8px 0;color:#1a1a1a;font-weight:600;">I have not heard back after 10 days, what now?</h3>
+          <p>Check the inbox of the contact email you put on the form. Replies sometimes land in the spam folder. If the reply is not there after 14 days, send a polite follow-up to <code style="background:#F1F3F7;padding:2px 6px;border-radius:4px;font-size:15px;">amp-for-email-support@google.com</code> referencing your sender address. Convertic.ai customers do not need to do this themselves, our team handles follow-ups.</p>
+
+          <h3 style="font-size:20px;margin:24px 0 8px 0;color:#1a1a1a;font-weight:600;">Do I need to re-apply if I switch ESPs?</h3>
+          <p>Not if the sender address stays the same. Approval is tied to the from-address, not to the platform that sends from it. You can move from Mailchimp to Convertic.ai, or from Klaviyo to Mailchimp, without touching your AMP approval.</p>
+
+          <h3 style="font-size:20px;margin:24px 0 8px 0;color:#1a1a1a;font-weight:600;">Can multiple sender addresses share one approval?</h3>
+          <p>No. Each address is approved on its own. <code style="background:#F1F3F7;padding:2px 6px;border-radius:4px;font-size:15px;">team@example.com</code> and <code style="background:#F1F3F7;padding:2px 6px;border-radius:4px;font-size:15px;">offers@example.com</code> need two separate applications. If you send AMP from both, plan for two test campaigns and two form submissions.</p>
+
+          <h3 style="font-size:20px;margin:24px 0 8px 0;color:#1a1a1a;font-weight:600;">Does whitelisting expire?</h3>
+          <p>No. Once Google approves a sender, the approval stands. The exception is if the address gets flagged for abuse, in which case it can be revoked. Keep your complaint rate low and your unsubscribe handling clean and you will not see this happen.</p>
+
+          <h3 style="font-size:20px;margin:24px 0 8px 0;color:#1a1a1a;font-weight:600;">Is the process the same for Yahoo?</h3>
+          <p>Yes. Yahoo uses the Google form. The Yahoo-specific questions live on the same page as the Gmail questions. There is no separate Yahoo application.</p>
+
+          <p style="margin-top:32px;">If filing the application yourself sounds like more work than you want to take on, that is what we are here for. Sign up at <a href="https://app.convertic.ai/users/register" target="_blank" rel="noopener" style="color:#4a5fd9;text-decoration:underline;">app.convertic.ai/users/register</a>, grant editor access to <code style="background:#F1F3F7;padding:2px 6px;border-radius:4px;font-size:15px;">support@convertic.ai</code> on your sending platform, and we run the test campaign, file the form, and email you the moment approval lands. Most of our customers go from sign-up to interactive AMP in one or two weeks.</p>
+        </article>
+      `,
+    catSlug: 'amp',
+    slug: 'applying-for-amp-whitelisting-from-gmail-and-yahoo',
+    img: '/blog-covers/applying-for-amp-whitelisting-from-gmail-and-yahoo.png',
+    createdAt: '2026-05-07'
+  },
+  {
     _id: '1',
     title: 'AI Can Deliver Your Website Directly to Your Customers with AMP Emails',
     metatags: {
@@ -35,7 +434,7 @@ export const STATIC_POSTS = [
           "name": "Convertic.ai",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://convertic.ai/logo.png"
+            "url": "https://convertic.ai/logo-mark-universal.png"
           }
         },
         "datePublished": "2025-10-21",
@@ -152,7 +551,7 @@ export const STATIC_POSTS = [
       `,
     catSlug: 'amp',
     slug: 'ai-delivers-website-with-amp-emails',
-    img: '',
+    img: '/blog-covers/ai-delivers-website-with-amp-emails.png',
     createdAt: '2025-10-21'
   },
   {
@@ -186,7 +585,7 @@ export const STATIC_POSTS = [
           "name": "Convertic.ai",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://convertic.ai/logo.png"
+            "url": "https://convertic.ai/logo-mark-universal.png"
           }
         },
         "datePublished": "2025-10-21",
@@ -303,7 +702,7 @@ export const STATIC_POSTS = [
 `,
     catSlug: 'email',
     slug: 'learn-how-to-achieve-cac-equals-zero',
-    img: '',
+    img: '/blog-covers/learn-how-to-achieve-cac-equals-zero.png',
     createdAt: '2025-10-21'
   },
   {
@@ -337,7 +736,7 @@ export const STATIC_POSTS = [
           "name": "Convertic.ai",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://convertic.ai/logo.png"
+            "url": "https://convertic.ai/logo-mark-universal.png"
           }
         },
         "datePublished": "2025-10-20",
@@ -467,7 +866,7 @@ export const STATIC_POSTS = [
 `,
     catSlug: 'marketing',
     slug: 'aarrr-framework-for-e-commerce-and-how-amp-emails-accelerate-it',
-    img: '',
+    img: '/blog-covers/aarrr-framework-for-e-commerce-and-how-amp-emails-accelerate-it.png',
     createdAt: '2025-10-20'
   },
   {
@@ -501,7 +900,7 @@ export const STATIC_POSTS = [
           "name": "Convertic.ai",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://convertic.ai/logo.png"
+            "url": "https://convertic.ai/logo-mark-universal.png"
           }
         },
         "datePublished": "2025-10-19",
@@ -623,7 +1022,7 @@ export const STATIC_POSTS = [
 `,
     catSlug: 'marketing',
     slug: 'how-to-build-a-loyalty-program-with-amp-emails',
-    img: '',
+    img: '/blog-covers/how-to-build-a-loyalty-program-with-amp-emails.png',
     createdAt: '2025-10-19'
   },
   {
@@ -657,7 +1056,7 @@ export const STATIC_POSTS = [
           "name": "Convertic.ai",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://convertic.ai/logo.png"
+            "url": "https://convertic.ai/logo-mark-universal.png"
           }
         },
         "datePublished": "2025-09-26",
@@ -706,7 +1105,7 @@ export const STATIC_POSTS = [
 `,
     catSlug: 'product',
     slug: 'how-amp-emails-can-help',
-    img: '',
+    img: '/blog-covers/how-amp-emails-can-help.png',
     createdAt: '2025-09-25'
   }
 ];
@@ -803,7 +1202,7 @@ export const createMetatags = ({
         "name": "Convertic AI",
         "logo": {
           "@type": "ImageObject",
-          "url": `${siteUrl}/logo.png`
+          "url": `${siteUrl}/logo-mark-universal.png`
         }
       },
       "datePublished": publishedDate,

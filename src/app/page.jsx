@@ -18,7 +18,7 @@ export default function Home() {
             '@type': 'Organization',
             name: 'Convertic AI',
             url: 'https://convertic.ai',
-            logo: 'https://convertic.ai/logo.png',
+            logo: 'https://convertic.ai/logo-mark-universal.png',
             sameAs: [
               'https://www.linkedin.com/company/convertic-ai/',
               'https://twitter.com/convertic_ai'
