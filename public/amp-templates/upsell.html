@@ -634,7 +634,7 @@ body {
     color: black;
     border: 2px solid black;
     border-radius: 58px;
-    padding: 14px 20px;
+    padding: 14px 16px;
     font-size: 13px;
     font-weight: 300;
     cursor: pointer;
@@ -669,8 +669,8 @@ body {
 /* Light-red circular trash button to remove an added item */
 .upsell-remove-btn {
     flex-shrink: 0;
-    width: 47px;
-    height: 47px;
+    width: 40px;
+    height: 40px;
     padding: 0;
     border-radius: 50%;
     background: white;
@@ -772,7 +772,7 @@ body {
                 <button class="upsell-add-btn"
                         [class]="cart.upsellAdded.wallet ? 'upsell-add-btn added' : 'upsell-add-btn'"
                         on="tap:AMP.setState({cart: {price: cart.upsellAdded.wallet ? cart.price : cart.price + 45, upsellAdded: {wallet: true, sunglasses: cart.upsellAdded.sunglasses, belt: cart.upsellAdded.belt, watch: cart.upsellAdded.watch, scarf: cart.upsellAdded.scarf, cardholder: cart.upsellAdded.cardholder}}})"
-                        [text]="cart.upsellAdded.wallet ? 'Added to cart' : 'Add'">Add</button>
+                        [text]="cart.upsellAdded.wallet ? 'Added' : 'Add'">Add</button>
                 <button class="upsell-remove-btn" hidden [hidden]="!cart.upsellAdded.wallet" aria-label="Remove Leather Wallet"
                         on="tap:AMP.setState({cart: {price: cart.upsellAdded.wallet ? cart.price - 45 : cart.price, upsellAdded: {wallet: false, sunglasses: cart.upsellAdded.sunglasses, belt: cart.upsellAdded.belt, watch: cart.upsellAdded.watch, scarf: cart.upsellAdded.scarf, cardholder: cart.upsellAdded.cardholder}}})">
                     <amp-img class="upsell-remove-icon" src="/photos_of_products_in_amp/trash.svg?v=2" width="20" height="20"></amp-img>
@@ -789,7 +789,7 @@ body {
                 <button class="upsell-add-btn"
                         [class]="cart.upsellAdded.sunglasses ? 'upsell-add-btn added' : 'upsell-add-btn'"
                         on="tap:AMP.setState({cart: {price: cart.upsellAdded.sunglasses ? cart.price : cart.price + 89, upsellAdded: {wallet: cart.upsellAdded.wallet, sunglasses: true, belt: cart.upsellAdded.belt, watch: cart.upsellAdded.watch, scarf: cart.upsellAdded.scarf, cardholder: cart.upsellAdded.cardholder}}})"
-                        [text]="cart.upsellAdded.sunglasses ? 'Added to cart' : 'Add'">Add</button>
+                        [text]="cart.upsellAdded.sunglasses ? 'Added' : 'Add'">Add</button>
                 <button class="upsell-remove-btn" hidden [hidden]="!cart.upsellAdded.sunglasses" aria-label="Remove Sunglasses"
                         on="tap:AMP.setState({cart: {price: cart.upsellAdded.sunglasses ? cart.price - 89 : cart.price, upsellAdded: {wallet: cart.upsellAdded.wallet, sunglasses: false, belt: cart.upsellAdded.belt, watch: cart.upsellAdded.watch, scarf: cart.upsellAdded.scarf, cardholder: cart.upsellAdded.cardholder}}})">
                     <amp-img class="upsell-remove-icon" src="/photos_of_products_in_amp/trash.svg?v=2" width="20" height="20"></amp-img>
@@ -806,7 +806,7 @@ body {
                 <button class="upsell-add-btn"
                         [class]="cart.upsellAdded.belt ? 'upsell-add-btn added' : 'upsell-add-btn'"
                         on="tap:AMP.setState({cart: {price: cart.upsellAdded.belt ? cart.price : cart.price + 35, upsellAdded: {wallet: cart.upsellAdded.wallet, sunglasses: cart.upsellAdded.sunglasses, belt: true, watch: cart.upsellAdded.watch, scarf: cart.upsellAdded.scarf, cardholder: cart.upsellAdded.cardholder}}})"
-                        [text]="cart.upsellAdded.belt ? 'Added to cart' : 'Add'">Add</button>
+                        [text]="cart.upsellAdded.belt ? 'Added' : 'Add'">Add</button>
                 <button class="upsell-remove-btn" hidden [hidden]="!cart.upsellAdded.belt" aria-label="Remove Belt"
                         on="tap:AMP.setState({cart: {price: cart.upsellAdded.belt ? cart.price - 35 : cart.price, upsellAdded: {wallet: cart.upsellAdded.wallet, sunglasses: cart.upsellAdded.sunglasses, belt: false, watch: cart.upsellAdded.watch, scarf: cart.upsellAdded.scarf, cardholder: cart.upsellAdded.cardholder}}})">
                     <amp-img class="upsell-remove-icon" src="/photos_of_products_in_amp/trash.svg?v=2" width="20" height="20"></amp-img>
@@ -823,7 +823,7 @@ body {
                 <button class="upsell-add-btn"
                         [class]="cart.upsellAdded.watch ? 'upsell-add-btn added' : 'upsell-add-btn'"
                         on="tap:AMP.setState({cart: {price: cart.upsellAdded.watch ? cart.price : cart.price + 199, upsellAdded: {wallet: cart.upsellAdded.wallet, sunglasses: cart.upsellAdded.sunglasses, belt: cart.upsellAdded.belt, watch: true, scarf: cart.upsellAdded.scarf, cardholder: cart.upsellAdded.cardholder}}})"
-                        [text]="cart.upsellAdded.watch ? 'Added to cart' : 'Add'">Add</button>
+                        [text]="cart.upsellAdded.watch ? 'Added' : 'Add'">Add</button>
                 <button class="upsell-remove-btn" hidden [hidden]="!cart.upsellAdded.watch" aria-label="Remove Watch"
                         on="tap:AMP.setState({cart: {price: cart.upsellAdded.watch ? cart.price - 199 : cart.price, upsellAdded: {wallet: cart.upsellAdded.wallet, sunglasses: cart.upsellAdded.sunglasses, belt: cart.upsellAdded.belt, watch: false, scarf: cart.upsellAdded.scarf, cardholder: cart.upsellAdded.cardholder}}})">
                     <amp-img class="upsell-remove-icon" src="/photos_of_products_in_amp/trash.svg?v=2" width="20" height="20"></amp-img>
@@ -840,7 +840,7 @@ body {
                 <button class="upsell-add-btn"
                         [class]="cart.upsellAdded.scarf ? 'upsell-add-btn added' : 'upsell-add-btn'"
                         on="tap:AMP.setState({cart: {price: cart.upsellAdded.scarf ? cart.price : cart.price + 55, upsellAdded: {wallet: cart.upsellAdded.wallet, sunglasses: cart.upsellAdded.sunglasses, belt: cart.upsellAdded.belt, watch: cart.upsellAdded.watch, scarf: true, cardholder: cart.upsellAdded.cardholder}}})"
-                        [text]="cart.upsellAdded.scarf ? 'Added to cart' : 'Add'">Add</button>
+                        [text]="cart.upsellAdded.scarf ? 'Added' : 'Add'">Add</button>
                 <button class="upsell-remove-btn" hidden [hidden]="!cart.upsellAdded.scarf" aria-label="Remove Scarf"
                         on="tap:AMP.setState({cart: {price: cart.upsellAdded.scarf ? cart.price - 55 : cart.price, upsellAdded: {wallet: cart.upsellAdded.wallet, sunglasses: cart.upsellAdded.sunglasses, belt: cart.upsellAdded.belt, watch: cart.upsellAdded.watch, scarf: false, cardholder: cart.upsellAdded.cardholder}}})">
                     <amp-img class="upsell-remove-icon" src="/photos_of_products_in_amp/trash.svg?v=2" width="20" height="20"></amp-img>
@@ -857,7 +857,7 @@ body {
                 <button class="upsell-add-btn"
                         [class]="cart.upsellAdded.cardholder ? 'upsell-add-btn added' : 'upsell-add-btn'"
                         on="tap:AMP.setState({cart: {price: cart.upsellAdded.cardholder ? cart.price : cart.price + 29, upsellAdded: {wallet: cart.upsellAdded.wallet, sunglasses: cart.upsellAdded.sunglasses, belt: cart.upsellAdded.belt, watch: cart.upsellAdded.watch, scarf: cart.upsellAdded.scarf, cardholder: true}}})"
-                        [text]="cart.upsellAdded.cardholder ? 'Added to cart' : 'Add'">Add</button>
+                        [text]="cart.upsellAdded.cardholder ? 'Added' : 'Add'">Add</button>
                 <button class="upsell-remove-btn" hidden [hidden]="!cart.upsellAdded.cardholder" aria-label="Remove Card Holder"
                         on="tap:AMP.setState({cart: {price: cart.upsellAdded.cardholder ? cart.price - 29 : cart.price, upsellAdded: {wallet: cart.upsellAdded.wallet, sunglasses: cart.upsellAdded.sunglasses, belt: cart.upsellAdded.belt, watch: cart.upsellAdded.watch, scarf: cart.upsellAdded.scarf, cardholder: false}}})">
                     <amp-img class="upsell-remove-icon" src="/photos_of_products_in_amp/trash.svg?v=2" width="20" height="20"></amp-img>
