@@ -126,6 +126,7 @@ model LeadPage {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   token       String   @unique
   hubspotId   String?
+  product     Json?
   firstName   String?
   lastName    String?
   company     String?
@@ -148,7 +149,14 @@ model LeadEvent {
   type      String
   meta      Json?
   sessionId String?
+  // Internal-traffic exclusion: our own test visits are TAGGED (never dropped) so
+  // the dashboard can hide them by default while staying debuggable. Optional so
+  // pre-existing docs (no field) read as null = not internal until backfilled.
+  internal  Boolean? @default(false)
+  ip        String?
   createdAt DateTime @default(now())
 
   @@index([leadToken])
+  @@index([sessionId])
+  @@index([internal])
 }

@@ -56,18 +56,57 @@ function getSessionId() {
 }
 
 export default function LeadLandingClient({ lead }) {
-  const [inboxOpen, setInboxOpen] = useState(false);
-  const [read, setRead] = useState(false);
+  const emails = lead.emails || [];
+  const [openIndex, setOpenIndex] = useState(null);
+  const [readSet, setReadSet] = useState(() => new Set());
+  const [sendKey, setSendKey] = useState(emails[0]?.key || "");
   const [viewMode, setViewMode] = useState("desktop");
   const iframeRef = useRef(null);
   const videoRef = useRef(null);
 
-  const inboxTracked = useRef(false);
+  const openKeyRef = useRef("");
+  const openTracked = useRef(new Set());
   const ampListenerAttached = useRef(false);
+  const resizeObsRef = useRef(null);
+  const [frameHeight, setFrameHeight] = useState(560);
   const videoViewTracked = useRef(false);
   const videoPlayTracked = useRef(false);
   const videoSecondsRef = useRef(0);
   const videoVisibleRef = useRef(false);
+
+  // --- internal (our own testing) traffic flag ------------------------------
+  // ?test=1 sets a persistent localStorage flag so every event from this browser
+  // is tagged internal in the DB (kept, just excluded from the dashboard by
+  // default). ?test=0 clears it. Read into a ref so track() stays stable.
+  const internalRef = useRef(false);
+  const [internalMode, setInternalMode] = useState(false);
+  useEffect(() => {
+    try {
+      const param = new URLSearchParams(window.location.search).get("test");
+      if (param === "1") localStorage.setItem("convertic_internal", "true");
+      else if (param === "0") localStorage.removeItem("convertic_internal");
+      const on = localStorage.getItem("convertic_internal") === "true";
+      internalRef.current = on;
+      setInternalMode(on);
+    } catch {
+      /* localStorage may be unavailable */
+    }
+  }, []);
+
+  // Copy the current URL WITHOUT the ?test flag — the clean link to share with a
+  // real lead. Only surfaced in test mode.
+  const [copiedReal, setCopiedReal] = useState(false);
+  const copyRealUrl = () => {
+    try {
+      const u = new URL(window.location.href);
+      u.searchParams.delete("test");
+      navigator.clipboard.writeText(u.toString());
+      setCopiedReal(true);
+      setTimeout(() => setCopiedReal(false), 1500);
+    } catch {
+      /* clipboard may be blocked */
+    }
+  };
 
   // --- tracking transport ---------------------------------------------------
   const track = useCallback(
@@ -77,6 +116,7 @@ export default function LeadLandingClient({ lead }) {
           type,
           meta: meta || undefined,
           sessionId: getSessionId(),
+          internal: internalRef.current,
         });
         const url = `/api/lead/${lead.token}/event`;
         if (typeof navigator !== "undefined" && navigator.sendBeacon) {
@@ -111,20 +151,76 @@ export default function LeadLandingClient({ lead }) {
     return () => window.removeEventListener("beforeunload", onLeave);
   }, [track]);
 
-  // --- open the inbox email -------------------------------------------------
-  const openInbox = () => {
-    setInboxOpen(true);
-    setRead(true);
-    if (!inboxTracked.current) {
-      inboxTracked.current = true;
-      track("inbox_open", { subject: lead.subjectLine });
+  // Disconnect any live iframe ResizeObserver on unmount.
+  useEffect(() => {
+    return () => {
+      if (resizeObsRef.current) {
+        try {
+          resizeObsRef.current.disconnect();
+        } catch {
+          /* ignore */
+        }
+        resizeObsRef.current = null;
+      }
+    };
+  }, []);
+
+  // The iframe remounts on view-mode change (key includes viewMode). Reset the
+  // instrument flag + height so onIframeLoad re-measures at the new width — the
+  // responsive email is a different height on mobile vs desktop.
+  useEffect(() => {
+    ampListenerAttached.current = false;
+    if (resizeObsRef.current) {
+      try {
+        resizeObsRef.current.disconnect();
+      } catch {
+        /* ignore */
+      }
+      resizeObsRef.current = null;
+    }
+    setFrameHeight(560);
+  }, [viewMode]);
+
+  // --- open one of the inbox emails ----------------------------------------
+  const openEmail = (i) => {
+    const email = emails[i];
+    if (!email) return;
+    setOpenIndex(i);
+    setSendKey(email.key); // default the "send" picker to what they're viewing
+    setReadSet((s) => {
+      const next = new Set(s);
+      next.add(i);
+      return next;
+    });
+    openKeyRef.current = email.key;
+    // Re-instrument the newly loaded iframe and reset its measured height.
+    ampListenerAttached.current = false;
+    if (resizeObsRef.current) {
+      try {
+        resizeObsRef.current.disconnect();
+      } catch {
+        /* ignore */
+      }
+      resizeObsRef.current = null;
+    }
+    setFrameHeight(560);
+    if (!openTracked.current.has(email.key)) {
+      openTracked.current.add(email.key);
+      track("inbox_open", { template: email.key, subject: email.subject });
     }
   };
 
-  const closeInbox = () => {
-    setInboxOpen(false);
-    // Let the iframe re-instrument its click listener next time it opens.
+  const closeEmail = () => {
+    setOpenIndex(null);
     ampListenerAttached.current = false;
+    if (resizeObsRef.current) {
+      try {
+        resizeObsRef.current.disconnect();
+      } catch {
+        /* ignore */
+      }
+      resizeObsRef.current = null;
+    }
   };
 
   // Attach a click listener inside the srcDoc iframe (same-origin) so every
@@ -148,6 +244,7 @@ export default function LeadLandingClient({ lead }) {
             "a,button,[role='button'],input,label,[on]"
           ) || ev.target;
         track("amp_click", {
+          template: openKeyRef.current || null,
           tag: el?.tagName || "",
           text: (el?.textContent || "").trim().slice(0, 80),
           href: el?.getAttribute?.("href") || null,
@@ -155,6 +252,55 @@ export default function LeadLandingClient({ lead }) {
         });
       },
       true
+    );
+
+    // Size the iframe to its full content so nothing is clipped; the wrapper
+    // (.mailBody) is the scroll container. AMP4EMAIL can lock scrollHeight to the
+    // viewport, so measure the true content extent from the body's children's
+    // bounding boxes (that reflects real layout regardless of the viewport lock).
+    const measure = () => {
+      try {
+        const sc = doc.scrollingElement || doc.documentElement || doc.body;
+        const scrolled = sc ? sc.scrollTop || 0 : 0;
+        let bottom = 0;
+        for (const el of doc.body ? doc.body.children : []) {
+          const b = el.getBoundingClientRect().bottom + scrolled;
+          if (b > bottom) bottom = b;
+        }
+        const fallback = Math.max(
+          doc.body?.scrollHeight || 0,
+          doc.documentElement?.scrollHeight || 0
+        );
+        const h = bottom > 200 ? bottom : fallback;
+        if (h > 200 && h < 12000) setFrameHeight(Math.ceil(h) + 24);
+      } catch {
+        /* ignore */
+      }
+    };
+    measure();
+    try {
+      const ro = new ResizeObserver(measure);
+      ro.observe(doc.documentElement);
+      if (doc.body) ro.observe(doc.body);
+      resizeObsRef.current = ro;
+    } catch {
+      /* ResizeObserver unavailable — the delayed measures still run */
+    }
+    // The AMP runtime + images render async; re-measure a few times after load.
+    [250, 700, 1500, 3000].forEach((ms) => setTimeout(measure, ms));
+
+    // The email renders at full height; the page scrolls. A non-scrollable iframe
+    // swallows wheel events (and some browsers won't chain them to the page), so
+    // intercept them (non-passive, capture phase) and scroll the page manually —
+    // preventDefault stops any native chaining so it never double-scrolls.
+    doc.addEventListener(
+      "wheel",
+      (ev) => {
+        ev.preventDefault();
+        const step = ev.deltaMode === 1 ? ev.deltaY * 16 : ev.deltaY;
+        window.scrollBy(0, step);
+      },
+      { passive: false, capture: true }
     );
   };
 
@@ -216,18 +362,26 @@ export default function LeadLandingClient({ lead }) {
     track("email_submit", {
       email: r.email || "",
       status: r.status || "",
+      template: sendKey || null,
     });
   };
 
-  const greetName = lead.firstName ? `, ${lead.firstName}` : "";
-  const initials = (lead.senderName || "C").trim().charAt(0).toUpperCase();
+  // Use only the first name token (e.g. "Léo (Leo)" or "John Smith" -> first word).
+  const firstNameOnly = (lead.firstName || "").split(/[\s(]/)[0].trim();
+  const greetName = firstNameOnly ? `, ${firstNameOnly}` : "";
 
   return (
     <main className={styles.page}>
-      <header className={styles.topbar}>
+      <header
+        className={styles.topbar}
+        style={{
+          position: "relative",
+          ...(internalMode ? { background: "#FB923C", borderBottomColor: "#F97316" } : {}),
+        }}
+      >
         <a href="/" className={styles.logo}>
           <Image
-            src="/icon-192.png"
+            src="/logo-mark-universal.png"
             alt="Convertic"
             width={44}
             height={44}
@@ -237,6 +391,50 @@ export default function LeadLandingClient({ lead }) {
             Convertic<span className={styles.logoDot}>.</span>ai
           </span>
         </a>
+        {internalMode && (
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            <span
+              aria-label="Internal test mode active — events are excluded from analytics"
+              style={{
+                background: "#111",
+                color: "#fff",
+                fontSize: 11,
+                fontWeight: 700,
+                letterSpacing: "0.08em",
+                padding: "5px 10px",
+                borderRadius: 999,
+              }}
+            >
+              TEST MODE
+            </span>
+            <button
+              type="button"
+              onClick={copyRealUrl}
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: "#111",
+                background: "#fff",
+                border: "1px solid #d7d9e2",
+                borderRadius: 999,
+                padding: "8px 16px",
+                cursor: "pointer",
+              }}
+            >
+              {copiedReal ? "Copied ✓" : "Copy real URL"}
+            </button>
+          </div>
+        )}
       </header>
 
       <section className={styles.hero}>
@@ -311,10 +509,21 @@ export default function LeadLandingClient({ lead }) {
                 Compose
               </span>
               <nav className={styles.sideNav}>
-                <span className={`${styles.sideItem} ${styles.sideItemActive}`}>
+                <span
+                  className={`${styles.sideItem} ${styles.sideItemActive}`}
+                  role="button"
+                  tabIndex={0}
+                  style={{ cursor: "pointer" }}
+                  onClick={closeEmail}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") closeEmail();
+                  }}
+                >
                   <MdInbox />
                   Inbox
-                  <b>1</b>
+                  {emails.length - readSet.size > 0 && (
+                    <b>{emails.length - readSet.size}</b>
+                  )}
                 </span>
                 <span className={styles.sideItem}>
                   <MdStarBorder />
@@ -336,45 +545,55 @@ export default function LeadLandingClient({ lead }) {
             </aside>
 
             <div className={styles.gmailMain}>
-              {!inboxOpen ? (
-                <button
-                  type="button"
-                  className={`${styles.mailRow} ${
-                    read ? styles.mailRowRead : ""
-                  }`}
-                  onClick={openInbox}
-                >
-                  <span className={styles.avatar}>{initials}</span>
-                  <span className={styles.mailMeta}>
-                    <span className={styles.mailSender}>{lead.senderName}</span>
-                    <span className={styles.mailSubject}>{lead.subjectLine}</span>
-                    <span className={styles.mailSnippet}>{lead.snippet}</span>
-                  </span>
-                  <span className={styles.mailHint}>Click to open</span>
-                </button>
+              {openIndex === null ? (
+                <div className={styles.mailList}>
+                  {emails.map((email, i) => (
+                    <button
+                      key={email.key}
+                      type="button"
+                      className={`${styles.mailRow} ${
+                        readSet.has(i) ? styles.mailRowRead : ""
+                      }`}
+                      onClick={() => openEmail(i)}
+                    >
+                      <span className={styles.avatar}>
+                        {(email.sender || "S").trim().charAt(0).toUpperCase()}
+                      </span>
+                      <span className={styles.mailMeta}>
+                        <span className={styles.mailSender}>{email.sender}</span>
+                        <span className={styles.mailSubject}>{email.subject}</span>
+                        <span className={styles.mailSnippet}>{email.snippet}</span>
+                      </span>
+                      <span className={styles.mailHint}>Click to open</span>
+                    </button>
+                  ))}
+                </div>
               ) : (
                 <div className={styles.mailDetail}>
                   <div className={styles.mailDetailBar}>
                     <button
                       type="button"
                       className={styles.backBtn}
-                      onClick={closeInbox}
+                      onClick={closeEmail}
                     >
                       <MdArrowBack />
                       <span>Back</span>
                     </button>
                     <span className={styles.detailSubject}>
-                      {lead.subjectLine}
+                      {emails[openIndex]?.subject}
                     </span>
                   </div>
                   <div className={styles.mailBody}>
-                    {lead.previewHtml ? (
+                    {emails[openIndex]?.html ? (
                       <iframe
                         ref={iframeRef}
+                        key={`${emails[openIndex].key}-${viewMode}`}
                         className={styles.ampFrame}
                         title="AMP email preview"
-                        srcDoc={lead.previewHtml}
+                        srcDoc={emails[openIndex].html}
                         onLoad={onIframeLoad}
+                        scrolling="no"
+                        style={{ height: frameHeight }}
                         sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
                       />
                     ) : (
@@ -411,14 +630,29 @@ export default function LeadLandingClient({ lead }) {
         <div className={styles.tryInner}>
           <h2 className={styles.sendHeading}>Send it to your own inbox</h2>
           <p className={styles.sendSub}>
-            Drop your email and we&apos;ll deliver this interactive AMP email
-            straight to your inbox.
+            Feel it in your real inbox — drop your email and this exact experience
+            lands there in minutes
           </p>
+          <div className={styles.sendPicker}>
+            {emails.map((email) => (
+              <button
+                key={email.key}
+                type="button"
+                className={`${styles.sendChip} ${
+                  sendKey === email.key ? styles.sendChipActive : ""
+                }`}
+                onClick={() => setSendKey(email.key)}
+              >
+                {email.label || email.subject}
+              </button>
+            ))}
+          </div>
           <TryItInInbox
             showTemplateOptions={false}
             showHeading={false}
             mode="lead"
             token={lead.token}
+            templateKey={sendKey}
             onResult={onEmailResult}
           />
         </div>
