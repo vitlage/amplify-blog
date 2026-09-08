@@ -8,6 +8,26 @@ function toNumber(price) {
   return Number.isFinite(n) ? n : null;
 }
 
+// A page scrape only anchors the abandoned-cart email if it actually found a product.
+// A store homepage / collection URL (or a bot-blocked page) comes back with no price
+// AND no images — that's the signal to fall back to a catalog product instead.
+export function scrapeIsProduct(main) {
+  return !!(toNumber(main?.price) != null || (main?.images && main.images.length));
+}
+
+// The catalog product to anchor `main` on when the given URL wasn't a product page:
+// the URL's own handle if it resolved, else the store's first in-stock product with a
+// photo (its anchor product), else whatever the catalog has.
+export function anchorMainFromCatalog(catalog, handle) {
+  const list = Array.isArray(catalog) ? catalog : [];
+  return (
+    list.find((p) => p.handle === handle) ||
+    list.find((p) => p.available !== false && p.image) ||
+    list[0] ||
+    null
+  );
+}
+
 // Base title without the colour/size suffix ("The Re-Run Twin Mesh | Grey/Red" ->
 // "the re-run twin mesh"), so different colourways of the SAME product collapse
 // together. Split only on the pipe or a SPACE-delimited dash/slash — never an
@@ -272,9 +292,9 @@ export async function scrapeStore(url, othersLimit = 6) {
     /* discovery/store-name just yield less */
   }
 
-  const main = await scrapeProduct(url);
+  let main = await scrapeProduct(url);
   const storeName = extractStoreName(html, url);
-  const currency = main.currency || "";
+  let currency = main.currency || "";
 
   let origin = "";
   let mainHandle = "";
@@ -287,6 +307,46 @@ export async function scrapeStore(url, othersLimit = 6) {
   }
 
   const catalog = origin ? await fetchShopifyCatalog(origin, currency) : [];
+
+  // The abandoned-cart email is anchored on `main`. A product-page scrape gives the
+  // richest main (full gallery + sizes), but a store homepage / collection URL has no
+  // product on the page — scrapeProduct returns no price and no images, so the email
+  // would fall back to its demo default (the reported bug). When that happens and we
+  // have a Shopify catalog, anchor main on a real catalog product and re-scrape its
+  // product page for the full gallery + sizes.
+  let mainUrl = url;
+  if (!scrapeIsProduct(main) && catalog.length) {
+    const anchor = anchorMainFromCatalog(catalog, mainHandle);
+    if (anchor?.url) {
+      mainUrl = anchor.url;
+      mainHandle = anchor.handle || mainHandle;
+      let scraped = null;
+      try {
+        scraped = await scrapeProduct(anchor.url);
+      } catch {
+        /* fall back to the catalog fields below */
+      }
+      main = scrapeIsProduct(scraped)
+        ? scraped
+        : {
+            title: anchor.title,
+            price: anchor.price,
+            currency: anchor.currency || currency,
+            description: "",
+            images: anchor.images?.length
+              ? anchor.images
+              : anchor.image
+              ? [anchor.image]
+              : [],
+            sizes: [],
+          };
+      currency = main.currency || currency;
+    }
+  }
+
+  // products.json omits currency; inherit the resolved product's so the upsell and
+  // subscription emails render the same symbol as the abandoned-cart one.
+  if (currency) for (const p of catalog) if (!p.currency) p.currency = currency;
 
   let others = [];
   let subscription = null;
@@ -327,7 +387,7 @@ export async function scrapeStore(url, othersLimit = 6) {
 
   return {
     storeName,
-    main: { ...main, image: main.images[0] || "", url },
+    main: { ...main, image: main.images[0] || "", url: mainUrl },
     others,
     subscription,
   };

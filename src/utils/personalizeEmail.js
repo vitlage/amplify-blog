@@ -172,8 +172,55 @@ const UPSELL_ITEMS = [
   { img: "/photos_of_products_in_amp/miumiu_belt.png", title: "Belt", price: "$29.00" },
 ];
 
+// Hide the "You might also like" heading + product grid. Used when the store has no
+// products to cross-sell (e.g. a single-product store) — the demo grid's placeholder
+// images don't exist as assets, so leaving it would render six broken images.
+function hideUpsellGrid(html) {
+  return html
+    .replace(
+      '<div style="text-align: center; padding: 24px 32px 0;" [hidden]="subscriptionState.subscribed">',
+      '<div style="text-align: center; padding: 24px 32px 0; display: none;" [hidden]="subscriptionState.subscribed">'
+    )
+    .replace(
+      '<div class="upsell-grid" [hidden]="subscriptionState.subscribed">',
+      '<div class="upsell-grid" style="display: none;" [hidden]="subscriptionState.subscribed">'
+    );
+}
+
 function personalizeUpsell(html, others, currency, main) {
-  if (!others || !others.length) return html;
+  // Products to feature in the cross-sell grid. Prefer the discovered cross-sell
+  // products; when there are none (e.g. a single-product store) fall back to the
+  // store's own product so the email still demos the tap-to-add mechanic with a real
+  // item — an empty grid reads as broken. Only a store with no product at all hides it.
+  let items = Array.isArray(others) ? others.filter(Boolean) : [];
+  let featuringMain = false;
+  const mainImg = main?.image || (main?.images && main.images[0]) || "";
+  if (!items.length && main && (toNumber(main.price) != null || mainImg)) {
+    items = [
+      { title: main.title, price: main.price, currency: main.currency, image: mainImg },
+    ];
+    featuringMain = true;
+  }
+  if (!items.length) return hideUpsellGrid(html);
+
+  // "You might also like" reads oddly when the only thing to show is the store's own
+  // product — reframe the heading to fit featuring it ("add it to your order").
+  if (featuringMain) {
+    html = html.replace(">You might also like</p>", ">Complete your order</p>");
+  }
+
+  // Single-product store: fill a few empty slots with light-gray "your other products
+  // appear here" placeholders so the grid shows the cross-sell opportunity instead of
+  // looking empty (1 featured + 3 placeholders = a tidy 2×2). Real multi-product
+  // stores just hide their unused slots.
+  const placeholderSlots = featuringMain ? 3 : 0;
+  const placeholderBlock =
+    `<div class="upsell-product" data-product-block>\n` +
+    `            <div class="upsell-product-image" style="padding-bottom: 100%; background: #F3F4F6;"></div>\n` +
+    `            <div class="upsell-product-name" style="color: #9CA3AF;">Your other products</div>\n` +
+    `            <div class="upsell-product-price" style="color: #D1D5DB; font-weight: 300;">appear here</div>\n` +
+    `        </div>`;
+  let emptyIndex = 0;
 
   // Map each demo slot's price literal -> the real product price, so the cart
   // math is rewritten too. The template's add/remove handlers use `cart.price + N`
@@ -181,18 +228,28 @@ function personalizeUpsell(html, others, currency, main) {
   // displayed price (as before) left the totals computed from demo values.
   const demoToReal = {};
   UPSELL_ITEMS.forEach((item, i) => {
-    const o = others[i];
+    const o = items[i];
     if (!o) {
-      // No real product for this slot — hide the whole block. The demo fallback
-      // images don't exist as assets, so leaving the slot would render a broken
-      // image. Key off the slot's unique demo image to target only this block.
+      // No real product for this slot. The demo fallback images don't exist as
+      // assets, so the block can't stay as-is: turn the first few empties into gray
+      // placeholders (single-product store), and hide any beyond that.
       const q = item.img.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      html = html.replace(
-        new RegExp(
-          `(<div class="upsell-product") (data-product-block>\\s*<amp-img\\s+src="${q}")`
-        ),
-        `$1 style="display:none" $2`
-      );
+      if (emptyIndex < placeholderSlots) {
+        html = html.replace(
+          new RegExp(
+            `<div class="upsell-product" data-product-block>\\s*<amp-img\\s+src="${q}"[\\s\\S]*?</div>\\s*</div>`
+          ),
+          () => placeholderBlock
+        );
+      } else {
+        html = html.replace(
+          new RegExp(
+            `(<div class="upsell-product") (data-product-block>\\s*<amp-img\\s+src="${q}")`
+          ),
+          `$1 style="display:none" $2`
+        );
+      }
+      emptyIndex++;
       return;
     }
     if (o.image) html = html.replace(item.img, esc(o.image));
