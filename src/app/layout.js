@@ -2,6 +2,7 @@ import './global.css'
 import { DM_Sans } from 'next/font/google'
 import Script from 'next/script'
 import SmoothScroll from '@/components/smoothScroll/SmoothScroll'
+import HubSpotScript from '@/components/hubspotScript/HubSpotScript'
 
 const dmSans = DM_Sans({ subsets: ['latin'] })
 
@@ -130,14 +131,9 @@ export default function RootLayout({ children }) {
             }(window,document,window._fs_namespace,"script",window._fs_script);
           `}
         </Script>
-        {/* HubSpot Script */}
-        <Script
-          id="hs-script-loader"
-          src="//js-na1.hs-scripts.com/46429058.js"
-          strategy="afterInteractive"
-          async
-          defer
-        />
+        {/* HubSpot Script — suppressed for internal/test browsers and the admin tool
+            so testing never creates fake Collected-Forms reconversions. */}
+        <HubSpotScript />
         {/* Tidio Script — temporarily hidden */}
         {/* <Script
           id="tidio-script"
