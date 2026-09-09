@@ -1,0 +1,279 @@
+.sparkApp {
+    margin: 60px auto;
+    /* Phone-shaped: narrow + tall, similar proportions to a modern phone. */
+    width: clamp(360px, 30vw, 440px);
+    flex: 0 0 auto;
+    position: relative;
+    display: block;
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 22px 16px;
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.04),
+        0 8px 24px -8px rgba(0, 0, 0, 0.10),
+        0 30px 60px -20px rgba(0, 0, 0, 0.15);
+    font-family: 'Geist', 'DM Sans', system-ui, sans-serif;
+    color: #1a1a1a;
+}
+
+.sparkSidebar {
+    position: absolute;
+    top: 64px;
+    left: 16px;
+    width: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    color: rgba(60, 60, 60, 0.55);
+    z-index: 2;
+}
+
+.sparkSidebar iconify-icon {
+    font-size: 18px;
+    display: block;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.sparkSidebar iconify-icon:hover {
+    color: #1a1a1a;
+}
+
+.sparkMain {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+}
+
+.sparkSubhead {
+    font-family: 'Geist', 'DM Sans', system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #1a1a1a;
+    text-align: center;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+}
+
+.sparkInputWrap {
+    position: relative;
+    max-width: 100%;
+    margin: 0 0 22px;
+    /* Push the pill right of the absolute sidebar so it doesn't overlap. */
+    padding-left: 38px;
+}
+
+.sparkInputGlow {
+    position: absolute;
+    inset: -22px;
+    border-radius: 9999px;
+    background:
+        radial-gradient(ellipse 60% 100% at 50% 50%, rgba(166, 200, 255, 0.45) 0%, rgba(180, 210, 255, 0.18) 50%, rgba(255, 255, 255, 0) 80%);
+    filter: blur(18px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.sparkInput {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 9999px;
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.04),
+        0 8px 24px -8px rgba(60, 100, 180, 0.18);
+    font-family: 'Geist', 'DM Sans', system-ui, sans-serif;
+}
+
+.plusIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    color: rgba(60, 60, 60, 0.5);
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.placeholder {
+    flex: 1;
+    font-size: 14px;
+    color: rgba(60, 60, 60, 0.5);
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: -0.005em;
+}
+
+.bellIcon {
+    color: rgba(60, 60, 60, 0.45);
+    font-size: 16px;
+}
+
+.sparkBlock {
+    margin-bottom: 28px;
+}
+
+.sparkBlockTitle {
+    font-family: 'Geist', 'DM Sans', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(60, 60, 60, 0.55);
+    margin: 0 0 12px;
+    letter-spacing: 0;
+}
+
+.sparkTask {
+    position: relative;
+    padding: 10px 16px 10px 14px;
+    border-left: 1px solid rgba(0, 0, 0, 0.06);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.sparkTaskBody {
+    flex: 1;
+}
+
+.sparkTaskTitle {
+    font-family: 'Geist', 'DM Sans', system-ui, sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    color: #1a1a1a;
+    margin: 0 0 2px;
+    letter-spacing: -0.005em;
+}
+
+.sparkTaskDesc {
+    font-family: 'Geist', 'DM Sans', system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    color: rgba(60, 60, 60, 0.55);
+    margin: 0;
+    letter-spacing: -0.005em;
+}
+
+.sparkTaskMeta {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding-top: 4px;
+}
+
+.sparkTaskDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #a6c8ff 0%, #6b9eff 70%, #4f7ee0 100%);
+    box-shadow: 0 0 8px rgba(120, 160, 255, 0.5);
+}
+
+.sparkTaskBadge {
+    font-family: 'Geist', 'DM Sans', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: #6b8fc4;
+    padding: 4px 10px;
+    background: rgba(166, 200, 255, 0.18);
+    border-radius: 9999px;
+    letter-spacing: -0.005em;
+}
+
+.sparkAllLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Geist', 'DM Sans', system-ui, sans-serif;
+    font-size: 13px;
+    color: rgba(60, 60, 60, 0.55);
+    text-decoration: none;
+    margin-top: 4px;
+    padding-left: 14px;
+}
+
+.sparkAllLink:hover {
+    color: #1a1a1a;
+}
+
+.sparkDivider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.06);
+    margin: 28px 0 22px;
+}
+
+/* --- Scroll-driven template stage --- */
+.templateStage {
+    position: relative;
+    width: 100%;
+    margin-top: 8px;
+    /* Tall + narrow to keep phone-like aspect for the whole sparkApp.
+       Cards scroll internally if their content overflows. */
+    height: clamp(540px, 70vh, 720px);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.templateInner {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.templateCard {
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    border-radius: 16px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    pointer-events: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.templateCardActive {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+@media (max-width: 900px) {
+    .sparkApp {
+        width: calc(100vw - 24px);
+        max-width: 440px;
+        margin: 32px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .sparkApp {
+        width: calc(100vw - 16px);
+        padding: 16px 10px;
+        border-radius: 24px;
+    }
+    .sparkSidebar {
+        display: none;
+    }
+    .sparkMain {
+        padding: 0;
+    }
+    .sparkSubhead {
+        font-size: 13px;
+    }
+    .templateStage {
+        height: clamp(520px, 76vh, 700px);
+    }
+}

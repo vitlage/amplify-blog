@@ -53,7 +53,8 @@
 }
 
 .image {
-    object-fit: none;
+    object-fit: cover;
+    border-radius: 12px;
 }
 
 .content {

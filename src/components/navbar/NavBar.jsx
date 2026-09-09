@@ -12,16 +12,21 @@ const NavBar = () => {
          
       </div> */}
       <Link href={"/"} className={`${styles.logo} navbar-logo`}>
-        {/* <div className="hor_circle2">
-          <div className="hor_circle_inner"></div>
-        </div> */}
-        Convertic<span style={{ color: "#1C71E8" }}>.</span>ai
+        <Image
+          src="/logo-mark-universal.png"
+          alt="Convertic"
+          width={60}
+          height={60}
+          priority
+          className={styles.logoIcon}
+        />
+        <span>Convertic<span style={{ color: "#1C71E8" }}>.</span>ai</span>
       </Link>
       <div className={styles.links}>
-        <ThemeToggle />
+        {/* <ThemeToggle /> */}
         {/* <Link href="/blog/login" className={styles.navLink}>Login</Link> */}
-        {/* <Link href="/use-cases" className={styles.navLink}>Use Cases</Link> */}
-        {/* <Link href="/pricing" className={styles.navLink}>Pricing</Link> */}
+        <Link href="/use-cases" className={styles.navLink}>Use Cases</Link>
+        <Link href="/pricing" className={styles.navLink}>Pricing</Link>
         <Link href="/blog" className={styles.navLink}>Blog</Link>
         <a href="https://app.convertic.ai/login" className={styles.navBtn + ' ' + styles.navBtnOutline}>Login</a>
         <a href="https://app.convertic.ai/users/register" className={styles.navBtn + ' ' + styles.navBtnFilled}>Try it</a>

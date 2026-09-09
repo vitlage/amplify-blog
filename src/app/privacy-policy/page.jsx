@@ -58,7 +58,7 @@ export default function PrivacyPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>4. Data Security</h2>
             <p className={styles.text}>
-              We implement appropriate technical and organizational measures to protect your personal information. 
+              We implement appropriate technical and organizational measures to protect your personal information.
               However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security.
             </p>
           </section>
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>5. Cookies and Tracking</h2>
             <p className={styles.text}>
-              We use cookies and similar tracking technologies to collect information about your browsing activities. 
+              We use cookies and similar tracking technologies to collect information about your browsing activities.
               You can control cookies through your browser settings.
             </p>
           </section>
@@ -87,7 +87,7 @@ export default function PrivacyPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>7. Data Retention</h2>
             <p className={styles.text}>
-              We retain your information for as long as your account is active or as needed to provide you services. 
+              We retain your information for as long as your account is active or as needed to provide you services.
               We will delete your information upon request, subject to legal obligations.
             </p>
           </section>
@@ -95,15 +95,15 @@ export default function PrivacyPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>8. International Data Transfers</h2>
             <p className={styles.text}>
-              Your information may be transferred to and processed in countries other than your country of residence. 
+              Your information may be transferred to and processed in countries other than your country of residence.
               We ensure appropriate safeguards are in place for such transfers.
             </p>
           </section>
 
           <section className={styles.section}>
-            <h2 className={styles.sectionTitle}>9. Children's Privacy</h2>
+            <h2 className={styles.sectionTitle}>9. Children&apos;s Privacy</h2>
             <p className={styles.text}>
-              Our Service is not intended for children under 13 years of age. We do not knowingly collect personal 
+              Our Service is not intended for children under 13 years of age. We do not knowingly collect personal
               information from children under 13.
             </p>
           </section>
@@ -111,8 +111,8 @@ export default function PrivacyPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>10. Changes to Privacy Policy</h2>
             <p className={styles.text}>
-              We may update this Privacy Policy from time to time. We will notify you of any changes by posting the 
-              new Privacy Policy on this page and updating the "Last Updated" date.
+              We may update this Privacy Policy from time to time. We will notify you of any changes by posting the
+              new Privacy Policy on this page and updating the &quot;Last Updated&quot; date.
             </p>
           </section>
 
