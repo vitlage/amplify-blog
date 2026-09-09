@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify App Banner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #1a1a2e;
+        }
+
+        .banner {
+            width: 1600px;
+            height: 900px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+
+            /* Clean white background */
+            background: #ffffff;
+        }
+
+        /* Subtle animated glow effect */
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center,
+                    rgba(255, 255, 255, 0.15) 0%,
+                    transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1) rotate(5deg);
+                opacity: 0.8;
+            }
+        }
+
+        /* Decorative floating shapes */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -50px;
+            right: -50px;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -30px;
+            left: -30px;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+        }
+
+        .shape-4 {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            right: 15%;
+        }
+
+        .banner-text {
+            position: relative;
+            z-index: 10;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 90px;
+            font-weight: 800;
+            text-align: center;
+            line-height: 1.1;
+            max-width: 1200px;
+            padding: 0 60px;
+
+
+
+            /* Tight letter spacing like "get it done" */
+            letter-spacing: -4px;
+
+            /* Bigger space between words */
+            word-spacing: 20px;
+
+            /* Lowercase style */
+            text-transform: lowercase;
+        }
+
+        /* Italic emphasis for certain words */
+        .banner-text em {
+            font-style: italic;
+            padding-right: 12px;
+        }
+
+        /* Original gradient style */
+        .text-gradient {
+            background: linear-gradient(135deg,
+                    #667eea 0%,
+                    #4facfe 25%,
+                    #00f2fe 50%,
+                    #38bdf8 75%,
+                    #818cf8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+
+
+        /* Wrapper for the tech styled text + dots */
+        .tech-wrapper {
+            position: relative;
+            display: inline-block;
+            z-index: 20;
+
+            /* Pill style from 'footprint' reference */
+            /* background: linear-gradient(90deg, #7c3aed 0%, #2563eb 100%); */
+            background: linear-gradient(90deg, #a5b4fc 0%, #c084fc 50%, #2563eb 100%);
+            border-radius: 100px;
+            padding: 0 50px;
+            border: none;
+            /* Use box-shadow for cleaner border rendering */
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+                /* Inner lighter rim */
+                0 0 0 1px rgba(255, 255, 255, 0.2),
+                /* Outer subtle border */
+                0 10px 30px rgba(124, 58, 237, 0.3);
+            margin-top: 25px;
+            padding-bottom: 12px;
+        }
+
+        /* Text style -> Solid white */
+        .text-outline {
+            color: #ffffff;
+            -webkit-text-stroke: 0;
+            background-image: none;
+            -webkit-background-clip: border-box;
+            background-clip: border-box;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Orange dot separator */
+        .dot-separator {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #ff9f43;
+            /* Orange accent */
+            margin: 0 15px;
+            border-radius: 50%;
+            vertical-align: middle;
+            position: relative;
+            top: -2px;
+            transform: translateY(-5%);
+        }
+
+        /* Subheader — Flodesk-inspired editorial style */
+        .subheader {
+            /* position: relative;
+            z-index: 10; */
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 28px;
+            font-weight: 300;
+            text-align: center;
+            line-height: 1.1;
+            max-width: 1200px;
+            letter-spacing: -1px !important;
+            /* padding: 0 60px; */
+            /* letter-spacing: -4px; */
+            word-spacing: 6px !important;
+            /* text-transform: lowercase; */
+            margin-top: 35px;
+            color: #978E8C !important;
+        }
+
+        .subheader em {
+            font-style: italic;
+            color: #7c7ff2;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Top dots pattern fading out */
+        .dots-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Grid mesh pattern */
+            background-image:
+                linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+
+            /* Fade out: visible at top, smooth long fade to 35% */
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 0) 35%);
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 0) 35%);
+
+            z-index: 1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <!-- Dot pattern overlay -->
+        <div class="dots-overlay"></div>
+
+        <!-- Decorative shapes -->
+        <!-- <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div> -->
+
+        <!-- Main text -->
+        <h1 class="banner-text">
+            <span class="text-gradient">recover<br /> <em>abandoned carts</em>
+            </span> <br />
+            <span class="tech-wrapper">
+                <span class="text-outline">inside</span><span class="dot-separator"></span><span
+                    class="text-outline">gmail</span>
+            </span>
+            <div class="subheader">and seamlessly gather product reviews with interactive <em>AMP</em></div>
+        </h1>
+
+    </div>
+
+</html>

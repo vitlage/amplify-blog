@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, height=1200">
+    <title>Circle Icon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 1200px;
+            height: 1200px;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 100px;
+        }
+
+        .hor_circle2 {
+            width: 1000px;
+            height: 1000px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* High-Fidelity Glass: Thick blur and refractive gradient */
+            background: radial-gradient(circle at 35% 25%,
+                    rgba(255, 255, 255, 0.15) 0%,
+                    rgba(133, 63, 250, 0.4) 40%,
+                    rgba(80, 20, 160, 0.5) 100%);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            position: relative;
+
+            /* Creating the spacious void in the center */
+            -webkit-mask-image: radial-gradient(circle, transparent 250px, black 251px);
+            mask-image: radial-gradient(circle, transparent 250px, black 251px);
+
+            /* Outer Bevel: Physical glass edge */
+            box-shadow:
+                /* Outer light catch */
+                inset 6px 6px 15px rgba(255, 255, 255, 0.4),
+                /* Outer shadow depth */
+                inset -6px -6px 20px rgba(0, 0, 0, 0.15),
+                /* External drop shadow for grounding */
+                0 20px 50px rgba(80, 20, 160, 0.25);
+        }
+
+        /* OUTER FACET: Top-down light on the outer rim */
+        .hor_circle2::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            /* Ring highlight for the outer rim */
+            background: radial-gradient(circle at 50% 50%,
+                    transparent 485px,
+                    rgba(255, 255, 255, 0.6) 490px,
+                    #fff 495px,
+                    rgba(255, 255, 255, 0.6) 498px,
+                    transparent 500px);
+            /* Focus light on top half */
+            -webkit-mask-image: linear-gradient(180deg, black 40%, transparent 90%);
+            mask-image: linear-gradient(180deg, black 40%, transparent 90%);
+        }
+
+        /* INNER RIM / HOLE FACET: Repurposing target element for the hole's 3D edge */
+        .hor_circle_inner {
+            width: 512px;
+            height: 512px;
+            border-radius: 50%;
+            position: absolute;
+            z-index: 10;
+            pointer-events: none;
+            /* No background - this element exists for its rim highlights */
+            background: transparent;
+        }
+
+        /* INVERTED INNER RIM: Highlight at the BOTTOM of the hole to show thickness */
+        .hor_circle_inner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            /* Thin highlight on the inner edge */
+            border: 4px solid transparent;
+            /* This catches light at the bottom-right because it's an internal edge */
+            background: linear-gradient(315deg, rgba(255, 255, 255, 0.7) 0%, transparent 50%) border-box;
+            -webkit-mask: linear-gradient(black, black) content-box, linear-gradient(black, black);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(black, black) content-box, linear-gradient(black, black);
+            mask-composite: exclude;
+        }
+
+        /* TOP SURFACE SPECULAR: Sharp light catch on the donut curve */
+        .hor_circle_inner::before {
+            content: '';
+            position: absolute;
+            top: -240px;
+            left: -200px;
+            width: 800px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at 50% 50%,
+                    rgba(255, 255, 255, 0.3) 0%,
+                    rgba(255, 255, 255, 0.05) 50%,
+                    transparent 80%);
+            transform: rotate(-15deg);
+            z-index: 5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hor_circle2">
+        <div class="hor_circle_inner"></div>
+    </div>
+</body>
+
+</html>
