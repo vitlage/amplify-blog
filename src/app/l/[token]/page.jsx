@@ -1,6 +1,8 @@
 import prisma from "@/utils/connect";
 import { notFound } from "next/navigation";
 import LeadLandingClient from "./LeadLandingClient";
+import { readDemoEmails } from "@/utils/demoEmails";
+import { personalizeEmail } from "@/utils/personalizeEmail";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -33,6 +35,19 @@ export default async function LeadLandingPage({ params }) {
     snippet:
       lead.snippet ||
       "Open this to see your interactive AMP email in action.",
+    // The three interactive AMP demo emails, personalized with the lead's scraped
+    // store catalog (main product -> abandoned cart/subscription, other products
+    // -> upsell grid). Falls back to the demo products if no catalog was stored.
+    emails: readDemoEmails()
+      .filter((e) => e.html)
+      .map((e) => ({
+        ...e,
+        // Use the real store name as the sender when we scraped one.
+        sender: lead.product?.storeName || e.sender,
+        html: lead.product
+          ? personalizeEmail(e.key, e.html, lead.product)
+          : e.html,
+      })),
   };
 
   return <LeadLandingClient lead={data} />;

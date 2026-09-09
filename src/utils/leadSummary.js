@@ -10,6 +10,12 @@ export function summarizeEvents(lead, events) {
   const firstSeen = times.length ? new Date(Math.min(...times)) : null;
   const lastSeen = times.length ? new Date(Math.max(...times)) : null;
 
+  // The IP of the most recent event that captured one — used to resolve location.
+  const withIp = events
+    .filter((e) => e.ip)
+    .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  const lastIp = withIp.length ? withIp[withIp.length - 1].ip : "";
+
   const emailSubmits = byType.email_submit || [];
   const lastSubmit = emailSubmits[emailSubmits.length - 1];
 
@@ -58,5 +64,6 @@ export function summarizeEvents(lead, events) {
     submittedAddress: lastSubmit?.meta?.email || "",
     stoppedAt,
     totalEvents: events.length,
+    lastIp,
   };
 }

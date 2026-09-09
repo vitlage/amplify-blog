@@ -1,0 +1,529 @@
+/* --- 1. ROOT WRAPPER (replaces body styles) --- */
+.root {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    color: #111827;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.root *,
+.root *::before,
+.root *::after {
+    box-sizing: border-box;
+}
+
+/* --- 2. THE MAIN CARD (Modern Tech Style) --- */
+/* NOTE: box-shadow, border, max-width stripped — parent Spark card provides those */
+.techCard {
+    background: #ffffff;
+    margin: 0 auto;
+    border-radius: 16px;
+}
+
+/* --- 3. HEADER & HERO --- */
+.cardHeader {
+    padding: 24px 32px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.brandName {
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+.timerPill {
+    background-color: #fdf2f8;
+    color: #e11d48;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px 24px;
+    border-radius: 50px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.heroImageWrapper {
+    padding: 0 64px;
+    position: relative;
+}
+
+.heroImg {
+    border-radius: 12px;
+    background: #f9f9f9;
+}
+
+/* --- 4. PRODUCT DETAILS & CONTROLS --- */
+.productDetails {
+    padding: 24px 32px;
+}
+
+.productTitle {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Selectors */
+.controlLabel {
+    font-size: 11px;
+    font-weight: 400;
+    color: #6B7280;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+/* Color Swatches */
+.swatchContainer {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    justify-content: center;
+}
+
+.swatch {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.swatch.selected {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #111;
+}
+
+/* Size Grid */
+.sizeGrid {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+    justify-content: center;
+}
+
+.sizeBox {
+    width: 61px;
+    height: 61px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid #E5E7EB;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 300;
+    color: #6B7280;
+    cursor: pointer;
+    background: #fff;
+}
+
+.sizeBox.selected {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    font-size: 12px;
+}
+
+/* --- 5. THE NEGOTIATION BLOCK (Hybrid Super-Block) --- */
+.smartOfferCard {
+    background: #F3F4F6;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+}
+
+.smartOfferCard.active {
+    background: #ECFDF5;
+    border-color: #34D399;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.offerIcon {
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    flex-shrink: 0;
+}
+
+.strikePrice {
+    text-decoration: line-through;
+    color: #9CA3AF;
+    font-size: 16px;
+    font-weight: 400;
+    margin-right: 8px;
+}
+
+/* --- 6. UPSELL ROW (Shipping Swap) --- */
+.upsellContainer {
+    background: #FAFAFA;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.freeShippingTag {
+    background: #D1FAE5;
+    color: #059669;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* IOS Toggle */
+.toggle {
+    width: 44px;
+    height: 24px;
+    background: #E5E7EB;
+    border-radius: 99px;
+    position: relative;
+    cursor: pointer;
+}
+
+.toggle.active {
+    background: #111;
+}
+
+.toggleKnob {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.toggle.active .toggleKnob {
+    transform: translateX(20px);
+}
+
+/* --- 7. FOOTER --- */
+.footerPanel {
+    padding: 20px 32px 32px 32px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+}
+
+.mathRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #6B7280;
+}
+
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    margin-bottom: 24px;
+    font-size: 20px;
+    font-weight: 400;
+    color: #111;
+}
+
+.greenText {
+    color: #059669;
+    font-weight: 600;
+}
+
+.checkoutBtn {
+    display: inline-block;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    padding: 18px 32px;
+    border: none;
+    border-radius: 50px;
+    text-align: center;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+
+.checkoutBtn:active {
+    transform: scale(0.98);
+}
+
+.checkoutBtn.disabled {
+    opacity: 0.6;
+}
+
+.successMessage {
+    text-align: center;
+    padding: 24px;
+    background: #ECFDF5;
+    border-radius: 12px;
+    margin-top: 16px;
+}
+
+.successMessage h3 {
+    color: #059669;
+    margin: 0 0 8px 0;
+    font-size: 18px;
+}
+
+.successMessage p {
+    color: #374151;
+    margin: 0 0 16px 0;
+    font-size: 14px;
+}
+
+.continueBtn {
+    display: inline-block;
+    background: #059669;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Bundle Selection Styles */
+.bundleOption {
+    background: #ffffff;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+}
+
+.bundleOption.selected {
+    border-color: #111;
+    background: #fafafa;
+}
+
+.bundleRadio {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #E5E7EB;
+    border-radius: 50%;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.bundleOption.selected .bundleRadio {
+    border-color: #111;
+}
+
+.bundleOption.selected .bundleRadio::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #111;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.bundleImage {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    background: #f9f9f9;
+    flex-shrink: 0;
+}
+
+.bundleDetails {
+    flex: 1;
+}
+
+.bundleTitle {
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 4px;
+    color: #111;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.bundleBadge {
+    display: inline-block;
+    background: #C9A86A;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 300;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-left: 8px;
+    text-transform: uppercase;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.bundlePopular {
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    background: #C9A86A;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 300;
+    padding: 6px 16px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.bundlePrice {
+    text-align: right;
+}
+
+.bundlePriceCurrent {
+    font-size: 20px;
+    font-weight: 300;
+    color: #111;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.bundlePriceOriginal {
+    font-size: 14px;
+    color: #9CA3AF;
+    text-decoration: line-through;
+    display: block;
+    font-weight: 300;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.bundleColors {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    align-items: center;
+}
+
+.bundleColorLabel {
+    font-size: 11px;
+    color: #6B7280;
+    margin-right: 4px;
+    font-weight: 300;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.bundleColorSwatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.bundleGiftSection {
+    text-align: center;
+    padding: 24px 32px 16px;
+}
+
+.bundleGiftTitle {
+    font-size: 16px;
+    font-weight: 300;
+    color: #111;
+    margin-bottom: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.bundleGifts {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.bundleGiftItem {
+    width: 100px;
+    text-align: center;
+}
+
+.bundleGiftBox {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.bundleGiftCheck {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 28px;
+    height: 28px;
+    background: #6B5B47;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+}
+
+.bundleGiftPrice {
+    font-size: 12px;
+    color: #6B7280;
+    margin-bottom: 4px;
+    font-weight: 300;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.bundleGiftName {
+    font-size: 13px;
+    font-weight: 300;
+    color: #111;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: -0.02em;
+}

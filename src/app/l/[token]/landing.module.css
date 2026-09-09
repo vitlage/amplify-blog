@@ -276,6 +276,15 @@
   }
 }
 
+.mailList {
+  display: flex;
+  flex-direction: column;
+}
+
+.mailList .mailRow:not(:last-child) {
+  border-bottom: 1px solid #eef0f6;
+}
+
 .mailRow {
   display: flex;
   align-items: center;
@@ -409,9 +418,16 @@
 
 .ampFrame {
   width: 100%;
-  min-height: 640px;
   border: none;
   display: block;
+  background: #fff;
+}
+
+/* The global Lenis smooth-scroll hack sets `.lenis.lenis-smooth iframe {
+   pointer-events: none }`, which makes the AMP email un-clickable. Re-enable it
+   for our frame with higher specificity so taps (color/size/checkout) work. */
+:global(.lenis.lenis-smooth) .ampFrame {
+  pointer-events: auto;
 }
 
 .emptyMail {
@@ -482,6 +498,39 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
   font-weight: 300;
+}
+
+/* Which-email-to-send picker */
+.sendPicker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto 22px;
+}
+
+.sendChip {
+  padding: 9px 18px;
+  border-radius: 9999px;
+  border: 1px solid #d7dbe8;
+  background: #fff;
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.sendChip:hover {
+  border-color: #4a5fd9;
+  color: #4a5fd9;
+}
+
+.sendChipActive,
+.sendChipActive:hover {
+  background: #4a5fd9;
+  border-color: #4a5fd9;
+  color: #fff;
 }
 
 /* Reuse the home-page form, but style it self-contained here so it never

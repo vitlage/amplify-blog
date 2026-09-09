@@ -52,3 +52,25 @@ export function submittedEmailOf(type, meta) {
   if (type === "real_amp_submit") return (meta.fields && meta.fields.email) || "";
   return "";
 }
+
+// Build a predicate that decides whether an event is internal — WITHOUT relying on a
+// persisted tag, so historical (pre-tagging) events are still excluded from the
+// dashboard with no backfill. An event is internal when: it's already tagged, its
+// email is internal, its IP is internal, or its session/IP ever submitted an internal
+// email (in the given event set). Pass the full set you're filtering.
+export function internalEventPredicate(events) {
+  const intSessions = new Set();
+  const intIps = new Set(internalIps());
+  for (const e of events) {
+    if (isInternalEmail(submittedEmailOf(e.type, e.meta))) {
+      if (e.sessionId) intSessions.add(e.sessionId);
+      if (e.ip) intIps.add(String(e.ip).toLowerCase());
+    }
+  }
+  return (e) =>
+    e.internal === true ||
+    isInternalEmail(submittedEmailOf(e.type, e.meta)) ||
+    isInternalIp(e.ip) ||
+    (e.sessionId && intSessions.has(e.sessionId)) ||
+    (e.ip && intIps.has(String(e.ip).toLowerCase()));
+}
