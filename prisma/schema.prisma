@@ -5,7 +5,13 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  // The Docker runtime is node:18-bookworm-slim (Debian 12, openssl 3.0). Pin the
+  // engine target explicitly: Prisma's "native" detection in the builder stage
+  // resolves to debian-openssl-1.1.x, which the bookworm runtime can't load —
+  // every query then throws PrismaClientInitializationError. Listing 3.0.x makes
+  // `prisma generate` bundle the engine the deployed OS actually needs.
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {

@@ -1,9 +1,17 @@
 # Multi-stage build for optimal image size
-FROM node:18-bullseye-slim AS base
+# bookworm (Debian 12, current stable) instead of bullseye (oldstable): the
+# bullseye security mirror had purged openssl 1.1.1w-0+deb11u8 from its pool
+# while still referencing it, breaking apt. bookworm ships openssl 3.0; Prisma
+# uses the default "native" target and both build+run stages share this base,
+# so the generated query engine matches at runtime.
+FROM node:18-bookworm-slim AS base
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN apt-get update && apt-get install -y \
+# bullseye is oldstable; its security mirror occasionally serves an expired
+# Release file, which makes apt-get update exit 100. Accept the metadata so
+# the build is not at the mercy of mirror refresh timing.
+RUN apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y \
     openssl \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
@@ -34,7 +42,7 @@ FROM base AS runner
 WORKDIR /app
 
 # Install OpenSSL for Prisma
-RUN apt-get update && apt-get install -y \
+RUN apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y \
     openssl \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
