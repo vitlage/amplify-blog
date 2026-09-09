@@ -34,6 +34,50 @@ function absolutize(src, base) {
   }
 }
 
+// Recover a product's photo gallery from the page HTML when the Shopify product
+// JSON is unavailable (headless storefronts like Gymshark run on Astro/Next with
+// CloudFront returning 403/404 for /products/<handle>.json). Shopify uploads a
+// product's shots with a shared filename base and a differing trailing index
+// (…ButterYellowB6C4K_YBZ5_1599.jpg, _1605.jpg, …). We take the primary image's
+// base and collect every cdn.shopify image on the page that shares it, so we get
+// this variant's gallery without pulling in other products/colorways.
+function recoverShopifyGallery(primary, html, pageUrl) {
+  let file;
+  try {
+    file = decodeURIComponent(new URL(primary).pathname.split("/").pop() || "");
+  } catch {
+    return [];
+  }
+  // Strip extension, any size suffix, and the trailing shot index or Shopify hash.
+  let stem = file.replace(/\.[a-z0-9]+$/i, "").replace(/_\d+x\d*$/i, "");
+  stem = stem.replace(
+    /_(?:\d{2,}|[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12})$/i,
+    ""
+  );
+  if (stem.length < 12) return []; // too generic — refuse to risk over-matching
+  const esc = stem.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const re = new RegExp(
+    "https?:\\/\\/cdn\\.shopify\\.com\\/[^\"'\\s)\\\\]*\\/" +
+      esc +
+      "[^\"'\\s)\\\\]*\\.(?:jpe?g|png|webp)",
+    "gi"
+  );
+  const found = html.match(re) || [];
+  const seen = new Set();
+  const items = [];
+  for (const raw of found) {
+    const clean = raw.replace(/_\d+x\d*(\.[a-z]+)/i, "$1").replace(/\?.*$/, "");
+    const key = clean.replace(/^https?:\/\//i, "//");
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const m = clean.match(/_(\d+)\.[a-z]+$/i);
+    items.push({ url: absolutize(clean, pageUrl), n: m ? parseInt(m[1], 10) : Infinity });
+  }
+  // Order by trailing shot index so the primary (lowest) stays first.
+  items.sort((a, b) => a.n - b.n);
+  return items.map((i) => i.url);
+}
+
 // All <meta ... property|name|itemprop="key" ... content="..."> values, any attr order.
 function metaAll(html, key) {
   const k = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -316,6 +360,7 @@ export async function scrapeProduct(url) {
     const presta = u.match(/\/(\d+)-[a-z]+_default\//i);
     if (presta) return presta[1];
     return u
+      .replace(/^https?:\/\//i, "//") // protocol-agnostic: og:image (http) == og:image:secure_url (https)
       .replace(/_\d+x\d*(\.[a-z]+)(\?.*)?$/i, "$1") // Shopify size suffix
       .replace(/[?&](width|height|v)=[^&]*/gi, "");
   };
@@ -351,6 +396,13 @@ export async function scrapeProduct(url) {
       const s = cleanSizes(sizeOpt.values);
       if (s.length) finalSizes = s;
     }
+  }
+
+  // If the Shopify JSON was blocked and meta tags only yielded the single primary
+  // image, try to recover the full gallery from the page HTML by its filename base.
+  if (finalImages.length <= 1 && finalImages[0]) {
+    const gallery = recoverShopifyGallery(finalImages[0], html, url);
+    if (gallery.length > 1) finalImages = gallery;
   }
 
   return {
