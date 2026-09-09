@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import { requireAdmin } from "@/utils/admin";
 import { generateToken } from "@/utils/token";
 import { summarizeEvents } from "@/utils/leadSummary";
+import { internalEventPredicate } from "@/utils/internalTraffic";
+import { resolveLocations } from "@/utils/geoip";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -21,9 +23,10 @@ export async function GET(req) {
     prisma.leadEvent.findMany(),
   ]);
 
+  const isInternal = internalEventPredicate(allEvents);
   const events = includeInternal
     ? allEvents
-    : allEvents.filter((e) => e.internal !== true);
+    : allEvents.filter((e) => !isInternal(e));
 
   const eventsByToken = {};
   for (const e of events) {
@@ -37,6 +40,10 @@ export async function GET(req) {
     storeName: l.product?.storeName || null,
     productCount: l.product?.others ? l.product.others.length + 1 : 0,
   }));
+
+  // Resolve "location" from each lead's most recent IP (cached across requests).
+  const locations = await resolveLocations(summaries.map((s) => s.lastIp));
+  for (const s of summaries) s.location = locations.get(s.lastIp) || "";
 
   return NextResponse.json({ leads: summaries });
 }

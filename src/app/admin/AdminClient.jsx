@@ -147,25 +147,6 @@ export default function AdminClient({ adminEmail }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showInternal]);
 
-  // One-time (idempotent) backfill: tag existing internal/test events.
-  const [backfilling, setBackfilling] = useState(false);
-  const runBackfill = async () => {
-    if (!window.confirm("Tag all existing internal (test) events? Safe to re-run.")) return;
-    setBackfilling(true);
-    try {
-      const res = await fetch("/api/admin/backfill-internal", { method: "POST" });
-      const d = await res.json();
-      window.alert(
-        `Backfill done: tagged ${d.tagged} of ${d.totalEvents} events internal ` +
-          `(email ${d.breakdown?.byEmail}, session ${d.breakdown?.bySession}, ip ${d.breakdown?.byIp}).`
-      );
-      loadLeads();
-    } catch {
-      window.alert("Backfill failed.");
-    } finally {
-      setBackfilling(false);
-    }
-  };
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
@@ -518,42 +499,22 @@ export default function AdminClient({ adminEmail }) {
             <h2 className={styles.h2} style={{ margin: 0 }}>
               Existing pages ({leads.length})
             </h2>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 14 }}>
-              <label
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  fontSize: 13,
-                  color: "#6B7280",
-                  cursor: "pointer",
-                }}
-              >
-                <input
-                  type="checkbox"
-                  checked={showInternal}
-                  onChange={(e) => setShowInternal(e.target.checked)}
-                />
-                Show internal traffic
-              </label>
-              <button
-                type="button"
-                onClick={runBackfill}
-                disabled={backfilling}
-                style={{
-                  fontSize: 12,
-                  color: "#6B7280",
-                  background: "none",
-                  border: "1px solid #E5E7EB",
-                  borderRadius: 8,
-                  padding: "4px 10px",
-                  cursor: backfilling ? "default" : "pointer",
-                }}
-                title="Tag existing internal/test events (one-time, safe to re-run)"
-              >
-                {backfilling ? "Tagging…" : "Backfill internal"}
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => setShowInternal((v) => !v)}
+              style={{
+                fontSize: 12,
+                color: "#6B7280",
+                background: "none",
+                border: "1px solid #E5E7EB",
+                borderRadius: 8,
+                padding: "4px 10px",
+                cursor: "pointer",
+              }}
+              title="Your own test/admin visits are hidden by default"
+            >
+              {showInternal ? "Hide my logs" : "Show my logs"}
+            </button>
           </div>
           {loading ? (
             <p className={styles.note}>Loading…</p>

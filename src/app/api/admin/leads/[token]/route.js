@@ -2,6 +2,7 @@ import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/utils/admin";
 import { summarizeEvents } from "@/utils/leadSummary";
+import { internalEventPredicate } from "@/utils/internalTraffic";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -25,9 +26,10 @@ export async function GET(req, { params }) {
     where: { leadToken: params.token },
     orderBy: { createdAt: "asc" },
   });
+  const isInternal = internalEventPredicate(allEvents);
   const events = includeInternal
     ? allEvents
-    : allEvents.filter((e) => e.internal !== true);
+    : allEvents.filter((e) => !isInternal(e));
 
   return NextResponse.json({
     lead,
