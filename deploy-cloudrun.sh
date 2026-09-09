@@ -6,9 +6,9 @@
 set -e
 
 # Configuration
-PROJECT_ID=${GCP_PROJECT_ID:-"your-project-id"}
+PROJECT_ID=${GCP_PROJECT_ID:-"convertic"}
 REGION=${GCP_REGION:-"us-central1"}
-SERVICE_NAME="amplify-blog"
+SERVICE_NAME="convertic-ai"
 IMAGE_NAME="gcr.io/${PROJECT_ID}/${SERVICE_NAME}"
 
 echo "🚀 Starting deployment to Cloud Run..."
@@ -54,7 +54,7 @@ gcloud run deploy ${SERVICE_NAME} \
     --set-env-vars "GOOGLE_SECRET=${GOOGLE_SECRET}" \
     --set-env-vars "FIREBASE=${FIREBASE}" \
     --set-env-vars "NEXTAUTH_SECRET=${NEXTAUTH_SECRET}" \
-    --set-env-vars "NEXTAUTH_URL=https://${SERVICE_NAME}-${PROJECT_ID}.${REGION}.run.app"
+    --set-env-vars "NEXTAUTH_URL=${NEXTAUTH_URL:-https://${SERVICE_NAME}-${PROJECT_ID}.${REGION}.run.app}"
 
 # Get the service URL
 SERVICE_URL=$(gcloud run services describe ${SERVICE_NAME} --region ${REGION} --format 'value(status.url)')
