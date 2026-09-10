@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./admin.module.css";
+import { GENERAL_TEMPLATES } from "@/utils/generalTemplates";
 
 const SAMPLE_AMP = `<!doctype html>
 <html><head><meta charset="utf-8"><style>
@@ -184,15 +185,16 @@ export default function AdminClient({ adminEmail }) {
     setQ("");
   };
 
-  const createLead = async (e) => {
-    e.preventDefault();
+  // Shared create path: POST the current form plus whatever product catalog we
+  // were given (a live scrape, a frozen template, or null for the demo products).
+  const submitLead = async (product) => {
     setSaving(true);
     setCreated(null);
     try {
       const res = await fetch("/api/admin/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, product: productData }),
+        body: JSON.stringify({ ...form, product }),
       });
       if (!res.ok) {
         alert("Could not create page: " + (await res.text()));
@@ -207,6 +209,22 @@ export default function AdminClient({ adminEmail }) {
     } finally {
       setSaving(false);
     }
+  };
+
+  const createLead = (e) => {
+    e.preventDefault();
+    submitLead(productData);
+  };
+
+  // One-click: create a lead for the currently selected/entered contact using a
+  // ready-made frozen catalog (e.g. GymShark) — no URL, no scrape. For prospects
+  // whose own store we don't have.
+  const generateFromTemplate = (template) => {
+    if (!form.firstName && !form.email && !form.company) {
+      alert("Pick or enter a contact first (search HubSpot, or type a name/email/company above).");
+      return;
+    }
+    submitLead(template.product);
   };
 
   const remove = async (token) => {
@@ -418,6 +436,24 @@ export default function AdminClient({ adminEmail }) {
               )}
             </div>
           )}
+
+          <label className={styles.label}>
+            Or use a ready-made template — one-click generates the page for the
+            selected contact using a frozen store catalog (no URL, no scrape)
+          </label>
+          <div className={styles.searchRow}>
+            {GENERAL_TEMPLATES.map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                className={styles.btnSmall}
+                onClick={() => generateFromTemplate(t)}
+                disabled={saving}
+              >
+                {saving ? "Creating…" : `Use general ${t.label} template`}
+              </button>
+            ))}
+          </div>
 
           <label className={styles.label}>Preview AMP HTML (rendered in the inbox + sent to the lead)</label>
           <div
