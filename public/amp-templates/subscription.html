@@ -68,6 +68,14 @@ body {
     background: #f9f9f9;
 }
 
+/* amp-img renders an inner <img> that defaults to object-fit: fill, which
+   squeezes a portrait product photo into the 1:1 (416x416) responsive box.
+   Cover keeps the aspect ratio (crop, don't distort) — matches the cart email. */
+.hero-img img {
+    object-fit: cover;
+    object-position: center;
+}
+
 /* --- 4. PRODUCT DETAILS & CONTROLS --- */
 .product-details {
     padding: 24px 32px;
