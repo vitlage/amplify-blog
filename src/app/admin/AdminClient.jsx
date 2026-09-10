@@ -187,14 +187,16 @@ export default function AdminClient({ adminEmail }) {
 
   // Shared create path: POST the current form plus whatever product catalog we
   // were given (a live scrape, a frozen template, or null for the demo products).
-  const submitLead = async (product) => {
+  // `overrides` lets a caller supply contact fields the form doesn't hold yet
+  // (e.g. the template button reading the search box directly).
+  const submitLead = async (product, overrides = {}) => {
     setSaving(true);
     setCreated(null);
     try {
       const res = await fetch("/api/admin/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, product }),
+        body: JSON.stringify({ ...form, ...overrides, product }),
       });
       if (!res.ok) {
         alert("Could not create page: " + (await res.text()));
@@ -216,15 +218,31 @@ export default function AdminClient({ adminEmail }) {
     submitLead(productData);
   };
 
-  // One-click: create a lead for the currently selected/entered contact using a
-  // ready-made frozen catalog (e.g. GymShark) — no URL, no scrape. For prospects
-  // whose own store we don't have.
+  // One-click: create a lead using a ready-made frozen catalog (e.g. GymShark) —
+  // no URL, no scrape. For prospects whose own store we don't have. Uses the
+  // contact already in the form if present; otherwise falls back to whatever was
+  // typed in the "Find a HubSpot contact" box, so you can just type a name and go.
   const generateFromTemplate = (template) => {
-    if (!form.firstName && !form.email && !form.company) {
-      alert("Pick or enter a contact first (search HubSpot, or type a name/email/company above).");
-      return;
+    const hasFormContact = form.firstName || form.email || form.company;
+    let overrides = {};
+    if (!hasFormContact) {
+      const typed = q.trim();
+      if (!typed) {
+        alert(
+          "Type a name (or email) in the contact box above, or pick a HubSpot contact, then click again."
+        );
+        return;
+      }
+      if (typed.includes("@")) {
+        overrides.email = typed;
+      } else {
+        const parts = typed.split(/\s+/);
+        overrides.firstName = parts[0];
+        overrides.lastName = parts.slice(1).join(" ");
+      }
     }
-    submitLead(template.product);
+    submitLead(template.product, overrides);
+    setQ("");
   };
 
   const remove = async (token) => {
@@ -438,8 +456,9 @@ export default function AdminClient({ adminEmail }) {
           )}
 
           <label className={styles.label}>
-            Or use a ready-made template — one-click generates the page for the
-            selected contact using a frozen store catalog (no URL, no scrape)
+            Or use a ready-made template — one-click generates the page using a
+            frozen store catalog (no URL, no scrape). Uses the picked contact, or
+            just type a name/email in the contact box above.
           </label>
           <div className={styles.searchRow}>
             {GENERAL_TEMPLATES.map((t) => (
