@@ -215,6 +215,16 @@ export default function AdminClient({ adminEmail }) {
 
   const createLead = (e) => {
     e.preventDefault();
+    // Guard the blank case: no contact and no product catalog. This is never a
+    // real page — it's usually an accidental click on this submit right after the
+    // "Use general template" button already created the page and reset the form.
+    const hasContact = form.firstName || form.lastName || form.email || form.company;
+    if (!hasContact && !productData) {
+      alert(
+        "Nothing to create yet — add a contact (search/pick or type a name), and either scrape a product URL or use a ready-made template. If you just used a template button, the page was already created (see the link above)."
+      );
+      return;
+    }
     submitLead(productData);
   };
 
