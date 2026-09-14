@@ -1,7 +1,7 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/utils/admin";
-import { generateToken } from "@/utils/token";
+import { createLeadPage } from "@/utils/leadPages";
 import { summarizeEvents } from "@/utils/leadSummary";
 import { internalEventPredicate } from "@/utils/internalTraffic";
 import { resolveLocations } from "@/utils/geoip";
@@ -64,35 +64,12 @@ export async function POST(req) {
     return new NextResponse("templateId is required", { status: 400 });
   }
 
-  // Retry a couple of times on the (astronomically unlikely) token collision.
-  let lead = null;
-  for (let attempt = 0; attempt < 3 && !lead; attempt++) {
-    const token = generateToken();
-    try {
-      lead = await prisma.leadPage.create({
-        data: {
-          token,
-          product: body.product ?? undefined,
-          hubspotId: body.hubspotId || null,
-          firstName: body.firstName || null,
-          lastName: body.lastName || null,
-          company: body.company || null,
-          email: body.email || null,
-          templateId: String(body.templateId),
-          previewHtml: body.previewHtml || null,
-          videoUrl: body.videoUrl || null,
-          subjectLine: body.subjectLine || null,
-          senderName: body.senderName || null,
-          senderEmail: body.senderEmail || null,
-          snippet: body.snippet || null,
-          createdBy: session.user.email,
-        },
-      });
-    } catch (err) {
-      if (err?.code === "P2002") continue; // unique collision, retry
-      console.error("create lead error", err);
-      return new NextResponse("Server error", { status: 500 });
-    }
+  let lead;
+  try {
+    lead = await createLeadPage({ ...body, createdBy: session.user.email });
+  } catch (err) {
+    console.error("create lead error", err);
+    return new NextResponse("Server error", { status: 500 });
   }
 
   if (!lead) return new NextResponse("Could not create lead", { status: 500 });
