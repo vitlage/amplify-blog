@@ -237,14 +237,14 @@ function personalizeUpsell(html, others, currency, main) {
       if (emptyIndex < placeholderSlots) {
         html = html.replace(
           new RegExp(
-            `<div class="upsell-product" data-product-block>\\s*<amp-img\\s+src="${q}"[\\s\\S]*?</div>\\s*</div>`
+            `<div class="upsell-product" data-product-block>\\s*(?:<div[^>]*>\\s*)?<amp-img\\s+src="${q}"[\\s\\S]*?</div>\\s*</div>`
           ),
           () => placeholderBlock
         );
       } else {
         html = html.replace(
           new RegExp(
-            `(<div class="upsell-product") (data-product-block>\\s*<amp-img\\s+src="${q}")`
+            `(<div class="upsell-product") (data-product-block>\\s*(?:<div[^>]*>\\s*)?<amp-img\\s+src="${q}")`
           ),
           `$1 style="display:none" $2`
         );
@@ -457,20 +457,41 @@ function personalizeSubscription(html, catalog) {
   return html;
 }
 
+// AMP4EMAIL requires https for amp-img src and CSS url(); some scraped images
+// (e.g. a Shopify og:image) come as http and make the template fail validation.
+// Upgrade every product image URL to https before it's injected.
+const toHttps = (u) =>
+  typeof u === "string" ? u.replace(/^http:\/\//i, "https://") : u;
+function httpsImages(p) {
+  if (!p || typeof p !== "object") return p;
+  const out = { ...p };
+  if (out.image) out.image = toHttps(out.image);
+  if (Array.isArray(out.images)) out.images = out.images.map(toHttps);
+  return out;
+}
+
 export function personalizeEmail(templateKey, html, catalog) {
   if (!html || !catalog) return html;
+  const c = {
+    ...catalog,
+    main: httpsImages(catalog.main),
+    others: Array.isArray(catalog.others)
+      ? catalog.others.map(httpsImages)
+      : catalog.others,
+    subscription: httpsImages(catalog.subscription),
+  };
   switch (templateKey) {
     case "abandoned-cart-recovery":
-      return personalizeAbandonedCart(html, catalog.main);
+      return personalizeAbandonedCart(html, c.main);
     case "upsell":
       return personalizeUpsell(
         html,
-        catalog.others,
-        catalog.main?.currency || catalog.others?.[0]?.currency,
-        catalog.main
+        c.others,
+        c.main?.currency || c.others?.[0]?.currency,
+        c.main
       );
     case "subscription":
-      return personalizeSubscription(html, catalog);
+      return personalizeSubscription(html, c);
     default:
       return html;
   }

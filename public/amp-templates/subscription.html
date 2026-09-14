@@ -63,8 +63,14 @@ body {
     position: relative;
 }
 
-.hero-img {
+/* Plain-div wrapper carries the rounded corners + clip. Gmail mobile ignores
+   border-radius/overflow on the amp-img itself, but honors it on a regular div. */
+.hero-img-wrap {
     border-radius: 12px;
+    overflow: hidden;
+    background: #f9f9f9;
+}
+.hero-img {
     background: #f9f9f9;
 }
 
@@ -857,9 +863,11 @@ body {
         <div [hidden]="subscriptionState.subscribed">
 
         <div class="hero-image-wrapper" style="margin-bottom: 24px;">
+            <div class="hero-img-wrap">
             <amp-img data-sub-hero
                      src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=800&q=80"
-                     width="416" height="416" layout="responsive" class="hero-img"></amp-img>
+                     width="416" height="520" layout="responsive" class="hero-img"></amp-img>
+            </div>
         </div>
 
         <div style="margin-bottom: 28px; text-align: center;">

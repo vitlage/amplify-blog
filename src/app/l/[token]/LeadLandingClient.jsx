@@ -630,7 +630,7 @@ export default function LeadLandingClient({ lead }) {
         <div className={styles.tryInner}>
           <h2 className={styles.sendHeading}>Send it to your own inbox</h2>
           <p className={styles.sendSub}>
-            Feel it in your real inbox — drop your email and this exact experience
+            Feel it in your real inbox - drop your email and this exact experience
             lands there in minutes
           </p>
           <div className={styles.sendPicker}>
@@ -657,10 +657,6 @@ export default function LeadLandingClient({ lead }) {
           />
         </div>
       </section>
-
-      <footer className={styles.footer}>
-        <span>Powered by Convertic</span>
-      </footer>
     </main>
   );
 }
