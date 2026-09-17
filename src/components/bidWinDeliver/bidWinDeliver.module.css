@@ -1,0 +1,391 @@
+.showcase {
+  position: relative;
+  height: 520vh;
+  background: #fff;
+}
+
+.showcaseSticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.showcaseWord {
+  position: absolute;
+  font-size: clamp(70px, 10vw, 150px);
+  font-weight: 500;
+  letter-spacing: -1px;
+  line-height: 0.95;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  pointer-events: none;
+  z-index: 1;
+  font-family: "DM Sans", "Inter", system-ui, sans-serif;
+}
+
+.showcaseWordLeft {
+  left: 8vw;
+  top: 14vh;
+  color: #1a1a1a;
+}
+
+.showcaseWordRight {
+  right: 3vw;
+  background: linear-gradient(135deg, rgba(133, 63, 250, 1) 0%, #fff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.showcaseWordBottom {
+  left: 3vw;
+  bottom: 14vh;
+  color: #1a1a1a;
+}
+
+.showcaseWordVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.showcasePhoneWrap {
+  position: relative;
+  z-index: 2;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.showcasePhoneFade {
+  opacity: 0;
+}
+
+.showcasePhoneFade .showcasePhone {
+  animation: none;
+  box-shadow: none;
+  transition: box-shadow 1s ease;
+}
+
+.showcasePhone {
+  position: relative;
+  width: 324px;
+  height: 560px;
+  border-radius: 46px;
+  background: linear-gradient(180deg, #0d1525 0%, #080f1d 100%);
+  border: 1.5px solid rgba(190, 225, 255, 0.85);
+  padding: 14px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.25),
+    0 0 22px 2px rgba(140, 200, 255, 0.7),
+    0 0 60px 6px rgba(96, 165, 250, 0.55),
+    0 0 120px 20px rgba(59, 130, 246, 0.35),
+    0 0 220px 40px rgba(59, 130, 246, 0.18);
+  animation: phoneGlow 4.5s ease-in-out infinite;
+}
+
+@keyframes phoneGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.25),
+      0 0 22px 2px rgba(140, 200, 255, 0.7),
+      0 0 60px 6px rgba(96, 165, 250, 0.55),
+      0 0 120px 20px rgba(59, 130, 246, 0.35),
+      0 0 220px 40px rgba(59, 130, 246, 0.18);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.32),
+      0 0 28px 3px rgba(170, 215, 255, 0.8),
+      0 0 80px 10px rgba(110, 180, 255, 0.6),
+      0 0 150px 28px rgba(59, 130, 246, 0.4),
+      0 0 260px 50px rgba(59, 130, 246, 0.22);
+  }
+}
+
+.showcaseScreen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 34px;
+  background: #05090f;
+  overflow: hidden;
+  font-family: "DM Sans", "Inter", system-ui, sans-serif;
+}
+
+.showcaseBase {
+  position: absolute;
+  inset: 0;
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: opacity 0.6s ease, filter 0.6s ease;
+}
+
+.showcaseBaseDim {
+  opacity: 0.35;
+}
+
+.showcasePayOverlay {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  padding: 18px 16px;
+  background: #0d1525;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.5);
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.5s ease;
+  z-index: 2;
+}
+
+.showcasePayOverlayVisible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.showcaseHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.showcaseAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6ee7ff, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #05060a;
+}
+
+.showcaseBubble {
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 12px;
+  line-height: 1.4;
+  max-width: 82%;
+}
+
+.showcaseBubbleIn {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.showcaseBubbleOut {
+  background: #3b82f6;
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.showcaseWinRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 12px;
+}
+
+.showcaseWinAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6ee7ff, #3b82f6);
+}
+
+.showcaseWinName {
+  flex: 1;
+  text-align: left;
+  font-size: 13px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.showcaseWinSub {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+}
+
+.showcaseAmount {
+  font-size: 30px;
+  font-weight: 800;
+  color: #fff;
+  margin: 4px 0 2px;
+}
+
+.showcaseAmount small {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  margin-left: 4px;
+}
+
+.showcaseAmountSub {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 14px;
+}
+
+.showcaseMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  font-size: 11px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.showcaseMeta strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.showcaseButtons {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.showcaseBtnGhost {
+  flex: 1;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.showcaseBtnSolid {
+  flex: 1;
+  padding: 10px;
+  background: #3b82f6;
+  border: none;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.showcaseConfirmCard {
+  position: absolute;
+  top: 30%;
+  left: -36px;
+  right: -36px;
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 22px;
+  padding: 20px 22px;
+  color: #fff;
+  box-shadow:
+    0 30px 60px -10px rgba(59, 130, 246, 0.55),
+    0 0 0 1px rgba(110, 231, 255, 0.3),
+    0 0 80px rgba(59, 130, 246, 0.4);
+  opacity: 0;
+  transform: translateY(30px) scale(0.92);
+  transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.showcaseConfirmVisible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.showcaseConfirmTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.showcaseConfirmIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.showcaseConfirmLabel {
+  flex: 1;
+}
+
+.showcaseConfirmLabel strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.showcaseConfirmLabel span {
+  color: #9ef7c9;
+  font-size: 12px;
+}
+
+.showcaseConfirmAmount {
+  text-align: right;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.showcaseConfirmAmount small {
+  display: block;
+  font-size: 11px;
+  opacity: 0.75;
+  font-weight: 500;
+}
+
+.showcaseConfirmRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 12px;
+}
+
+.showcaseConfirmRow span:first-child {
+  opacity: 0.75;
+}
+
+@media (max-width: 900px) {
+  .showcase { height: 400vh; }
+  .showcaseWord {
+    font-size: clamp(48px, 13vw, 100px);
+    letter-spacing: -2px;
+  }
+  .showcaseWordLeft { left: 4vw; top: 10vh; }
+  .showcaseWordRight { right: 4vw; bottom: 18vh; }
+  .showcaseConfirmCard { left: -10px; right: -10px; }
+}

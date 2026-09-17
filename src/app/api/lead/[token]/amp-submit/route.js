@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { recordLeadEvent } from "@/utils/leadEvents";
+import { getClientIp } from "@/utils/internalTraffic";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -43,7 +44,10 @@ export async function POST(req, { params }) {
   }
 
   try {
-    await recordLeadEvent(token, "real_amp_submit", { meta: { fields } });
+    await recordLeadEvent(token, "real_amp_submit", {
+      meta: { fields },
+      ip: getClientIp(req),
+    });
   } catch (err) {
     console.error("real amp submit log error", err);
   }

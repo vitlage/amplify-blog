@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { recordLeadEvent } from "@/utils/leadEvents";
+import { getClientIp } from "@/utils/internalTraffic";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -21,7 +22,10 @@ export async function GET(req, { params }) {
   }
 
   try {
-    await recordLeadEvent(token, "real_amp_click", { meta: { href: dest } });
+    await recordLeadEvent(token, "real_amp_click", {
+      meta: { href: dest },
+      ip: getClientIp(req),
+    });
   } catch (err) {
     console.error("real amp click log error", err);
   }

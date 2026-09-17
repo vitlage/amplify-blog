@@ -1,8 +1,8 @@
-import './blog/globals.css'
 import './global.css'
 import { DM_Sans } from 'next/font/google'
 import Script from 'next/script'
 import SmoothScroll from '@/components/smoothScroll/SmoothScroll'
+import HubSpotScript from '@/components/hubspotScript/HubSpotScript'
 
 const dmSans = DM_Sans({ subsets: ['latin'] })
 
@@ -11,7 +11,16 @@ export const metadata = {
   title: 'Convertic.ai - AI Agentic Email Marketing Software | Automate AMP Emails Boost Engagement & Conversions',
   description: 'Revolutionize your email marketing with our AI-driven software that automates AMP emails and enhances interactivity. Engage your audience with dynamic, interactive content, personalized messaging, and optimized campaigns—all with zero manual effort. Increase open rates, boost conversions, and effortlessly scale your business with advanced email technology!',
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
+      { url: '/icon-512.png', type: 'image/png', sizes: '512x512' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
   alternates: {
     canonical: 'https://convertic.ai',
@@ -22,13 +31,13 @@ export const metadata = {
     siteName: 'Convertic AI',
     title: 'Convertic.ai — AI Agentic Email Marketing Software',
     description: 'AI-driven software to automate and optimize AMP email campaigns with interactive content and personalization.',
-    images: [{ url: 'https://convertic.ai/logo.png' }],
+    images: [{ url: 'https://convertic.ai/logo-mark-universal.png' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Convertic.ai — AI Agentic Email Marketing Software',
     description: 'Automate interactive AMP emails to boost engagement and conversions.',
-    images: ['https://convertic.ai/logo.png'],
+    images: ['https://convertic.ai/logo-mark-universal.png'],
   },
 }
 
@@ -36,7 +45,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -47,10 +55,17 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200&family=Manrope:wght@200;300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossOrigin="anonymous"></link>
       </head>
       <body className={dmSans.className}>
         <SmoothScroll />
+        {/* iconify-icon web component (used by ConverticSpark and other UI) */}
+        <Script
+          src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"
+          strategy="afterInteractive"
+        />
         {children}
         {/* Google Tag */}
         <Script
@@ -116,32 +131,26 @@ export default function RootLayout({ children }) {
             }(window,document,window._fs_namespace,"script",window._fs_script);
           `}
         </Script>
-        {/* HubSpot Script */}
-        <Script
-          id="hs-script-loader"
-          src="//js-na1.hs-scripts.com/46429058.js"
-          strategy="afterInteractive"
-          async
-          defer
-        />
-        {/* Tidio Script */}
-        <Script
+        {/* HubSpot Script — suppressed for internal/test browsers and the admin tool
+            so testing never creates fake Collected-Forms reconversions. */}
+        <HubSpotScript />
+        {/* Tidio Script — temporarily hidden */}
+        {/* <Script
           id="tidio-script"
           src="//code.tidio.co/7ibdpkegkso2ccq3cbvdww88ibwizvsh.js"
           strategy="afterInteractive"
           async
+        /> */}
+        {/* Convertic — loaded async so it never blocks parsing / DOMContentLoaded.
+            (Was a synchronous <script>, which stalled every page for seconds while
+            connect.js resolved. The demo popup is triggered on user click, long
+            after load, so async is safe.) */}
+        <Script
+          id="ACXConnectScript"
+          src="https://app.convertic.ai/websites/66953e3ababf0/connect.js"
+          strategy="afterInteractive"
+          async
         />
-        {/* Convertic  */}
-        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script id="ACXConnectScript" type="text/javascript"
-          src="https://app.convertic.ai/websites/66953e3ababf0/connect.js"></script>
-        {/*<Script */}
-        {/*  id="ACXConnectScript"*/}
-        {/*  src="https://app.convertic.ai/websites/66953e3ababf0/connect.js"*/}
-        {/*  strategy="afterInteractive"*/}
-        {/*  crossOrigin="anonymous"*/}
-        {/*  async*/}
-        {/*/>*/}
       </body>
     </html>
   )

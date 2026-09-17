@@ -23,6 +23,8 @@ export default function TryItInInbox({
   templateKey = "",
 }) {
   const [loading, setLoading] = React.useState(false);
+  // Timers that auto-dismiss the success alert; cleared before each new alert.
+  const fadeTimers = React.useRef([]);
 
   const onTryItInputFocus = () => {
     document
@@ -54,7 +56,26 @@ export default function TryItInInbox({
     const displayAlert = (r) => {
       const msg = (r.msg || "").replace(/📥/g, "").trim();
       if (mainInputAlert) {
+        fadeTimers.current.forEach(clearTimeout);
+        fadeTimers.current = [];
         mainInputAlert.innerHTML = `<div class="alert alert-${r.status} animate__animated animate__fadeIn">${msg}</div>`;
+        // Success message auto-dismisses: hold 10s, then fade out over 1s.
+        if (r.status === "success") {
+          const box = mainInputAlert.firstElementChild;
+          fadeTimers.current.push(
+            setTimeout(() => {
+              if (box) {
+                box.style.transition = "opacity 1s ease";
+                box.style.opacity = "0";
+              }
+            }, 10000)
+          );
+          fadeTimers.current.push(
+            setTimeout(() => {
+              if (mainInputAlert) mainInputAlert.innerHTML = "";
+            }, 11000)
+          );
+        }
       }
       if (window.analytics) {
         if (r.status === "danger") {

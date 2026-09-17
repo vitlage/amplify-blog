@@ -63,9 +63,23 @@ body {
     position: relative;
 }
 
-.hero-img {
+/* Plain-div wrapper carries the rounded corners + clip. Gmail mobile ignores
+   border-radius/overflow on the amp-img itself, but honors it on a regular div. */
+.hero-img-wrap {
     border-radius: 12px;
+    overflow: hidden;
     background: #f9f9f9;
+}
+.hero-img {
+    background: #f9f9f9;
+}
+
+/* amp-img renders an inner <img> that defaults to object-fit: fill, which
+   squeezes a portrait product photo into the 1:1 (416x416) responsive box.
+   Cover keeps the aspect ratio (crop, don't distort) — matches the cart email. */
+.hero-img img {
+    object-fit: cover;
+    object-position: center;
 }
 
 /* --- 4. PRODUCT DETAILS & CONTROLS --- */
@@ -848,10 +862,12 @@ body {
     <div class="product-details">
         <div [hidden]="subscriptionState.subscribed">
 
-        <div class="hero-image-wrapper" style="margin-bottom: 4px;">
+        <div class="hero-image-wrapper" style="margin-bottom: 24px;">
+            <div class="hero-img-wrap">
             <amp-img data-sub-hero
                      src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=800&q=80"
-                     width="416" height="416" layout="responsive" class="hero-img"></amp-img>
+                     width="416" height="520" layout="responsive" class="hero-img"></amp-img>
+            </div>
         </div>
 
         <div style="margin-bottom: 28px; text-align: center;">

@@ -37,3 +37,14 @@ coverage
 # Misc
 .vercel
 *.log
+
+# Local tooling / scratch — must NEVER ship into the image. Some (e.g. .claude-flow)
+# are created with 0700 perms the non-root container user can't read, which crashes
+# the app on any request that scans a served directory (EACCES scandir).
+.claude-flow
+**/.claude-flow
+.kiro
+agentdb.rvf
+agentdb.rvf.lock
+*.rvf
+*.rvf.lock

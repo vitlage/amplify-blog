@@ -1,19 +1,14 @@
 import prisma from "@/utils/connect";
-import { upsertContactByEmail } from "@/utils/hubspot";
+import { upsertContactByEmail, mergeContacts } from "@/utils/hubspot";
 
-// Ensure the email a visitor submitted on their /l/[token] page exists as a HubSpot
-// contact, then wire it into the lead-tracking system.
-//
-// Mirrors the main landing's "try it" behavior (which creates a contact on submit),
-// and additionally: enriches the contact with what we already know about the lead,
-// and — the first time — links the contact id back onto the leadPage row so every
-// future engagement event flows through the existing syncLeadToHubspot pipeline.
+// Handle the email a visitor submitted on their /l/[token] page in HubSpot, keeping
+// the submission tied to the RIGHT contact.
 //
 // Enrichment only ever ADDS non-empty name/company fields, so we never blank out or
 // clobber values already on an existing HubSpot contact.
 //
-// Best-effort: returns { skipped } / swallows nothing here — the caller is expected
-// to run this fire-and-forget so HubSpot can never break the email send.
+// Best-effort: the caller runs this fire-and-forget so HubSpot can never break the
+// email send.
 export async function ensureLeadContact(lead, email) {
   if (!lead || !email) return { skipped: true };
 
@@ -22,16 +17,26 @@ export async function ensureLeadContact(lead, email) {
   if (lead.lastName) properties.lastname = lead.lastName;
   if (lead.company) properties.company = lead.company;
 
-  const { id, skipped } = await upsertContactByEmail(email, properties);
-  if (skipped || !id) return { skipped: true };
-
-  // Link the contact on first submit so engagement tracking starts syncing to it.
-  if (!lead.hubspotId) {
-    await prisma.leadPage.update({
-      where: { token: lead.token },
-      data: { hubspotId: id },
-    });
+  // Known contact (personalized landing page): keep the submission on THIS contact.
+  // Upserting by the submitted email may resolve to a different contact — a brand-new
+  // one when the email differs, or one HubSpot's Collected Forms just created. Merge
+  // that into the current contact so the current one stays primary and simply gains
+  // the submitted email as a secondary email: no duplicate, no lost original email.
+  if (lead.hubspotId) {
+    const { id, skipped } = await upsertContactByEmail(email, properties);
+    if (!skipped && id && String(id) !== String(lead.hubspotId)) {
+      await mergeContacts(lead.hubspotId, id);
+    }
+    return { id: lead.hubspotId };
   }
 
+  // Unknown contact (e.g. the main-site "try it"): create the contact by email and
+  // link it on first submit so engagement tracking starts syncing to it.
+  const { id, skipped } = await upsertContactByEmail(email, properties);
+  if (skipped || !id) return { skipped: true };
+  await prisma.leadPage.update({
+    where: { token: lead.token },
+    data: { hubspotId: id },
+  });
   return { id };
 }

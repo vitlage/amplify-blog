@@ -39,6 +39,31 @@ export async function searchHubspotContacts(query) {
   }));
 }
 
+// Fetch a single contact by its object id, including the "Website URL" property
+// (internal name `website`). Returns null if unconfigured or not found.
+export async function fetchContactById(id) {
+  const token = process.env.HUBSPOT_TOKEN;
+  if (!token || id == null) return null;
+  const props = ["firstname", "lastname", "email", "company", "website"];
+  const res = await fetch(
+    `https://api.hubapi.com/crm/v3/objects/contacts/${encodeURIComponent(
+      String(id)
+    )}?properties=${props.join(",")}`,
+    { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" }
+  );
+  if (!res.ok) return null;
+  const r = await res.json();
+  const p = r.properties || {};
+  return {
+    hubspotId: String(r.id ?? id),
+    firstName: p.firstname || "",
+    lastName: p.lastname || "",
+    email: p.email || "",
+    company: p.company || "",
+    website: p.website || "",
+  };
+}
+
 const HUBSPOT_BASE = "https://api.hubapi.com";
 
 // Warn only once per process that the target property is missing, then skip quietly.
@@ -123,6 +148,36 @@ export async function upsertContactByEmail(email, properties = {}) {
 
   const data = await res.json();
   return { id: data.results?.[0]?.id || null };
+}
+
+// Merge one contact into another. The primary survives (keeps its id and primary
+// email); the merged contact's data — including its email, as a secondary — folds
+// into the primary. Irreversible in HubSpot. Requires crm.objects.contacts.write.
+// No-ops when unconfigured, ids missing, or the two ids are the same.
+export async function mergeContacts(primaryObjectId, objectIdToMerge) {
+  const token = process.env.HUBSPOT_TOKEN;
+  if (!token || !primaryObjectId || !objectIdToMerge) return { skipped: true };
+  if (String(primaryObjectId) === String(objectIdToMerge)) return { skipped: true };
+
+  const res = await fetch(`${HUBSPOT_BASE}/crm/v3/objects/contacts/merge`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      primaryObjectId: String(primaryObjectId),
+      objectIdToMerge: String(objectIdToMerge),
+    }),
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`HubSpot merge ${res.status}: ${text.slice(0, 200)}`);
+  }
+  const data = await res.json().catch(() => ({}));
+  return { id: data.id || String(primaryObjectId) };
 }
 
 // Append a custom event to a contact's timeline. No-op unless HUBSPOT_TOKEN and

@@ -1,0 +1,60 @@
+# Controls what `gcloud builds submit` uploads as the Cloud Build context.
+# Without this file, gcloud derives excludes from .gitignore — which ignores
+# .env.production. That would strip the env file the Docker build stage needs
+# to bake NEXT_PUBLIC_* vars. So we define the upload set explicitly here and
+# mirror .dockerignore: keep .env.production, drop deps/build output/junk.
+
+# Dependencies (reinstalled in the image)
+node_modules
+npm-debug.log
+
+# Next.js build output (rebuilt in the image)
+.next
+out
+
+# Environment files — keep .env.production (needed at build time), drop the rest
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Version control
+.git
+.gitignore
+
+# Documentation
+README.md
+DEPLOY_TO_GCP.md
+WARP.md
+
+# IDE
+.vscode
+.idea
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage
+.nyc_output
+
+# Misc
+.vercel
+*.log
+
+# Local tooling / scratch — must NEVER ship into the build context.
+.claude-flow
+**/.claude-flow
+.kiro
+agentdb.rvf
+agentdb.rvf.lock
+*.rvf
+*.rvf.lock
+
+# Root design scratch (committed but not needed for the build)
+icon-circle.html
+icon_circle_full.png
+shopify-banner.html
+shopify-banner.png

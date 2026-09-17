@@ -287,10 +287,6 @@ export default function PricingPage() {
               </li>
               <li className={styles.feature}>
                 <div className={styles.checkmark}></div>
-                2,500 monthly credits for sending or AI-powered generation
-              </li>
-              <li className={styles.feature}>
-                <div className={styles.checkmark}></div>
                 Vibe marketing generation with AI
               </li>
               <li className={styles.feature}>

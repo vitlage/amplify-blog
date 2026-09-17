@@ -94,15 +94,15 @@ export async function POST(req, { params }) {
         : "Oops, something went wrong. Please try again later.",
     }));
 
-    // Create/link a HubSpot contact for the submitted email, same as the main
-    // landing's "try it". Capped at ~2s and fully swallowed on error so HubSpot
-    // can never break or noticeably delay the email send.
+    // Attach the submitted email to the lead's HubSpot contact (merging into the
+    // known contact for a personalized page). Capped at ~3s and fully swallowed on
+    // error so HubSpot can never break or noticeably delay the email send.
     try {
       await Promise.race([
         ensureLeadContact(lead, email).catch((err) =>
           console.error("lead contact upsert error", err)
         ),
-        new Promise((resolve) => setTimeout(resolve, 2000)),
+        new Promise((resolve) => setTimeout(resolve, 3000)),
       ]);
     } catch (err) {
       console.error("lead contact upsert setup error", err);

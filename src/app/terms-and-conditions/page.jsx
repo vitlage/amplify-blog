@@ -20,7 +20,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>1. Acceptance of Terms</h2>
             <p className={styles.text}>
-              By accessing and using Convertic.ai ("Service"), you accept and agree to be bound by these Terms and Conditions. 
+              By accessing and using Convertic.ai (&quot;Service&quot;), you accept and agree to be bound by these Terms and Conditions.
               If you do not agree to these terms, please do not use our Service.
             </p>
           </section>
@@ -28,7 +28,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>2. Description of Service</h2>
             <p className={styles.text}>
-              Convertic.ai provides AI-powered email marketing software that enables users to create, send, and manage 
+              Convertic.ai provides AI-powered email marketing software that enables users to create, send, and manage
               interactive AMP emails. Our Service includes email templates, AI generation tools, analytics, and related features.
             </p>
           </section>
@@ -36,7 +36,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>3. User Accounts</h2>
             <p className={styles.text}>
-              You are responsible for maintaining the confidentiality of your account credentials and for all activities 
+              You are responsible for maintaining the confidentiality of your account credentials and for all activities
               that occur under your account. You agree to notify us immediately of any unauthorized use of your account.
             </p>
           </section>
@@ -56,7 +56,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>5. Pricing and Payment</h2>
             <p className={styles.text}>
-              Subscription fees are billed in advance on a monthly or annual basis. All fees are non-refundable except 
+              Subscription fees are billed in advance on a monthly or annual basis. All fees are non-refundable except
               as required by law. We reserve the right to change our pricing with 30 days notice.
             </p>
           </section>
@@ -64,7 +64,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>6. Intellectual Property</h2>
             <p className={styles.text}>
-              All content, features, and functionality of the Service are owned by Convertic.ai and are protected by 
+              All content, features, and functionality of the Service are owned by Convertic.ai and are protected by
               international copyright, trademark, and other intellectual property laws.
             </p>
           </section>
@@ -72,7 +72,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>7. Limitation of Liability</h2>
             <p className={styles.text}>
-              Convertic.ai shall not be liable for any indirect, incidental, special, consequential, or punitive damages 
+              Convertic.ai shall not be liable for any indirect, incidental, special, consequential, or punitive damages
               resulting from your use or inability to use the Service.
             </p>
           </section>
@@ -80,7 +80,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>8. Termination</h2>
             <p className={styles.text}>
-              We reserve the right to suspend or terminate your account at any time for violation of these Terms. 
+              We reserve the right to suspend or terminate your account at any time for violation of these Terms.
               You may cancel your subscription at any time through your account settings.
             </p>
           </section>
@@ -88,7 +88,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>9. Changes to Terms</h2>
             <p className={styles.text}>
-              We reserve the right to modify these Terms at any time. We will notify users of any material changes 
+              We reserve the right to modify these Terms at any time. We will notify users of any material changes
               via email or through the Service.
             </p>
           </section>
