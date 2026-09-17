@@ -81,6 +81,7 @@ gcloud run deploy ${SERVICE_NAME} \
     --update-env-vars "FIREBASE=${FIREBASE}" \
     --update-env-vars "NEXTAUTH_SECRET=${NEXTAUTH_SECRET}" \
     --update-env-vars "HUBSPOT_TOKEN=${HUBSPOT_TOKEN}" \
+    --update-env-vars "HUBSPOT_WEBHOOK_SECRET=${HUBSPOT_WEBHOOK_SECRET}" \
     --update-env-vars "NEXTAUTH_URL=${NEXTAUTH_URL:-https://${SERVICE_NAME}-${PROJECT_ID}.${REGION}.run.app}"
 
 # Get the service URL
