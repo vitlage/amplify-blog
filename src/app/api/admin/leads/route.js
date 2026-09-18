@@ -4,7 +4,7 @@ import { requireAdmin } from "@/utils/admin";
 import { createLeadPage } from "@/utils/leadPages";
 import { summarizeEvents } from "@/utils/leadSummary";
 import { internalEventPredicate } from "@/utils/internalTraffic";
-import { resolveLocations } from "@/utils/geoip";
+import { resolveLocations, resolveBotIps } from "@/utils/geoip";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -24,9 +24,20 @@ export async function GET(req) {
   ]);
 
   const isInternal = internalEventPredicate(allEvents);
+
+  // Also drop datacenter/scanner "opens": email link-security (Microsoft Defender,
+  // Google, etc.) fetches a shared /l/ link in a headless sandbox seconds after you
+  // send, which otherwise looks like a real open from a datacenter city. Resolve by
+  // IP; unknown IPs are kept (never hide a real person). Skipped when showing all.
+  let isBot = () => false;
+  if (!includeInternal) {
+    const botIps = await resolveBotIps(allEvents.map((e) => e.ip));
+    isBot = (e) => e.ip != null && botIps.get(String(e.ip)) === true;
+  }
+
   const events = includeInternal
     ? allEvents
-    : allEvents.filter((e) => !isInternal(e));
+    : allEvents.filter((e) => !isInternal(e) && !isBot(e));
 
   const eventsByToken = {};
   for (const e of events) {
