@@ -40,6 +40,40 @@ function baseTitle(t) {
     .toLowerCase();
 }
 
+// Match a catalog product to a non-product landing URL (e.g. /pages/catch-camera-new)
+// whose scrape only yielded a single banner image: by handle prefix
+// (catch-camera <- catch-camera-new), then by title. Lets a campaign page borrow the
+// real product's photo gallery while keeping the page's own hero as the primary image.
+function matchCatalogProduct(catalog, pageSlug, mainTitle, linkedHandles = []) {
+  const slug = String(pageSlug || "").toLowerCase();
+  const byHandle = catalog
+    .filter(
+      (p) =>
+        p.handle && slug && (slug === p.handle || slug.startsWith(p.handle + "-"))
+    )
+    .sort((a, b) => b.handle.length - a.handle.length)[0];
+  if (byHandle) return byHandle;
+
+  // The page's product the landing page links to most (its buy buttons / cards),
+  // among those whose handle extends the page slug (goodie -> goodie-fermented-…).
+  const linked = linkedHandles
+    .map((h) => catalog.find((p) => p.handle === h))
+    .filter(Boolean);
+  const linkedBySlug = linked.find((p) => slug && p.handle.startsWith(slug + "-"));
+  if (linkedBySlug) return linkedBySlug;
+
+  const mt = baseTitle(mainTitle);
+  if (!mt) return null;
+  return (
+    catalog.find((p) => baseTitle(p.title) === mt) ||
+    catalog.find((p) => {
+      const bt = baseTitle(p.title);
+      return bt && (mt.includes(bt) || bt.includes(mt));
+    }) ||
+    null
+  );
+}
+
 // Shopify groups the colourways of ONE product with an ItemNumber tag (ItemGroup is
 // the broad category, e.g. "Sneakers" — deliberately NOT used here).
 function itemGroup(tags) {
@@ -55,7 +89,7 @@ const ACCESSORY_RE =
 
 // Replenishable / consumable signals — things people re-buy on a cadence.
 const CONSUMABLE_RE =
-  /\b(coffee|espresso|roast|beans?|tea|matcha|protein|whey|creatine|supplement|vitamins?|collagen|powder|serum|cream|lotion|moisturi\w*|skin ?care|cleanser|shampoo|conditioner|soap|refill|capsules?|pods?|snacks?|granola|probiotic|deodorant|razor|blades?|toothpaste|detergent|candle|filter|treats|kibble|formula|diapers?|wipes|juice|kombucha|honey|spice|nutrition|gummies|drops)\b/i;
+  /\b(coffee|espresso|roast|beans?|tea|matcha|protein|whey|creatine|supplement|vitamins?|collagen|powder|serum|cream|lotion|moisturi\w*|skin ?care|cleanser|shampoo|conditioner|soap|refill|capsules?|pods?|snacks?|granola|probiotic|deodorant|razor|blades?|toothpaste|detergent|candle|filter|treats|kibble|formula|diapers?|wipes|juice|kombucha|drinks?|beverages?|fermented|honey|spice|nutrition|gummies|drops)\b/i;
 
 // --- upsell ranking: complementary category + priced as an affordable add-on ------
 function upsellScore(mainInfo, p) {
@@ -87,11 +121,23 @@ function isSameProduct(mainInfo, p) {
   return false;
 }
 
+// Candidates for upsell/subscription: in-stock, has a photo, not the main product.
+// A single-line brand (cannumo: "GOODIE – Fermented Raspberry / Blackcurrant / Sea
+// Buckthorn Drink") collapses every product to one base title, which would leave
+// nothing — then fall back to excluding only the exact main product.
+function candidates(mainInfo, catalog) {
+  const ok = catalog.filter((p) => p.available !== false && p.image);
+  const strict = ok.filter((p) => !isSameProduct(mainInfo, p));
+  if (strict.length) return strict;
+  return ok.filter((p) => !(p.handle && p.handle === mainInfo.handle));
+}
+
 // Top-N complementary, affordable, in-stock products — with a per-category cap so the
 // grid stays varied (not six pairs of socks).
 function pickUpsells(mainInfo, catalog, n = 6) {
-  const scored = catalog
-    .filter((p) => p.available !== false && p.image && !isSameProduct(mainInfo, p))
+  const pool = candidates(mainInfo, catalog);
+  const relaxed = pool.some((p) => isSameProduct(mainInfo, p));
+  const scored = pool
     .map((p) => ({ p, s: upsellScore(mainInfo, p) }))
     .sort((a, b) => b.s - a.s);
 
@@ -100,7 +146,7 @@ function pickUpsells(mainInfo, catalog, n = 6) {
   const out = [];
   for (const { p } of scored) {
     if (out.length >= n) break;
-    const base = baseTitle(p.title);
+    const base = relaxed ? "" : baseTitle(p.title);
     if (base && seenBase.has(base)) continue; // skip other colours of a product already shown
     const key = (p.type || "other").toLowerCase();
     if ((perType[key] || 0) >= 3) continue; // variety cap across categories
@@ -139,8 +185,7 @@ function subscriptionScore(p) {
 }
 
 function pickSubscription(mainInfo, catalog) {
-  const ranked = catalog
-    .filter((p) => p.available !== false && p.image && !isSameProduct(mainInfo, p))
+  const ranked = candidates(mainInfo, catalog)
     .map((p) => ({ p, s: subscriptionScore(p) }))
     .filter((x) => x.s > 0)
     // Best signal first; tie-break to the cheaper (lower-commitment) subscribe item.
@@ -160,11 +205,11 @@ function pickSubscription(mainInfo, catalog) {
 
 // Fetch the whole Shopify storefront catalog (products.json). Currency isn't in that
 // feed, so it's inherited from the scraped main product. Returns [] for non-Shopify.
-async function fetchShopifyCatalog(origin, currency) {
+async function fetchShopifyCatalog(origin, currency, path = "/products.json?limit=250") {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 15000);
   try {
-    const res = await fetch(`${origin}/products.json?limit=250`, {
+    const res = await fetch(`${origin}${path}`, {
       headers: { "User-Agent": UA, Accept: "application/json" },
       redirect: "follow",
       cache: "no-store",
@@ -199,6 +244,95 @@ async function fetchShopifyCatalog(origin, currency) {
   } finally {
     clearTimeout(timer);
   }
+}
+
+// Product handles a page links to, most-linked first (a landing page's buy buttons and
+// product cards all point at its hero product).
+function linkedProductHandles(html) {
+  const counts = new Map();
+  for (const m of String(html || "").matchAll(/\/products\/([a-z0-9][a-z0-9-]*)/gi)) {
+    const h = m[1].toLowerCase();
+    counts.set(h, (counts.get(h) || 0) + 1);
+  }
+  return [...counts.entries()].sort((a, b) => b[1] - a[1]).map(([h]) => h);
+}
+
+// Product handles from the store's Shopify product sitemap (sitemap.xml ->
+// sitemap_products_1.xml). Served as a static-ish file, so it usually still answers
+// when the products.json API is throttled.
+async function sitemapProductHandles(origin, max = 40) {
+  const get = async (u) => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 10000);
+    try {
+      const res = await fetch(u, {
+        headers: { "User-Agent": UA },
+        redirect: "follow",
+        cache: "no-store",
+        signal: controller.signal,
+      });
+      return res.ok ? await res.text() : "";
+    } catch {
+      return "";
+    } finally {
+      clearTimeout(timer);
+    }
+  };
+  const index = await get(`${origin}/sitemap.xml`);
+  const loc = (index.match(/<loc>([^<]*sitemap_products[^<]*)<\/loc>/i) || [])[1];
+  if (!loc) return [];
+  const xml = await get(loc.replace(/&amp;/g, "&"));
+  const out = [];
+  for (const m of xml.matchAll(/<loc>[^<]*\/products\/([a-z0-9][a-z0-9-]*)<\/loc>/gi)) {
+    const h = m[1].toLowerCase();
+    if (!out.includes(h)) out.push(h);
+    if (out.length >= max) break;
+  }
+  return out;
+}
+
+// Fallback catalog when products.json is unavailable (Shopify throttles/blocks it for
+// some datacenter IPs, e.g. our Cloud Run egress): read each linked product's AJAX
+// record at /products/<handle>.js. Same shape as fetchShopifyCatalog.
+async function fetchCatalogFromHandles(origin, handles, currency, max = 24) {
+  const one = async (handle) => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 10000);
+    try {
+      const res = await fetch(`${origin}/products/${handle}.js`, {
+        headers: { "User-Agent": UA, Accept: "application/json" },
+        redirect: "follow",
+        cache: "no-store",
+        signal: controller.signal,
+      });
+      if (!res.ok) return null;
+      const p = await res.json();
+      const images = (p.images || [])
+        .map((src) => (typeof src === "string" ? src : src && src.src))
+        .filter(Boolean)
+        .map((src) => (src.startsWith("//") ? `https:${src}` : src));
+      const variants = Array.isArray(p.variants) ? p.variants : [];
+      const cents = variants[0]?.price ?? p.price;
+      return {
+        handle: p.handle || handle,
+        title: p.title,
+        price: cents != null && cents !== "" ? (Number(cents) / 100).toFixed(2) : "",
+        currency,
+        image: images[0] || "",
+        images,
+        type: p.type || "",
+        tags: Array.isArray(p.tags) ? p.tags : [],
+        available: p.available !== false,
+        url: `${origin}/products/${p.handle || handle}`,
+      };
+    } catch {
+      return null;
+    } finally {
+      clearTimeout(timer);
+    }
+  };
+  const list = await Promise.all(handles.slice(0, max).map(one));
+  return list.filter((p) => p && p.title && p.image);
 }
 
 // Discover other product URLs from a product page's HTML (fallback for non-Shopify
@@ -293,20 +427,37 @@ export async function scrapeStore(url, othersLimit = 6) {
   }
 
   let main = await scrapeProduct(url);
+  const pageImages = main.pageImages || [];
   const storeName = extractStoreName(html, url);
   let currency = main.currency || "";
 
   let origin = "";
   let mainHandle = "";
+  let pageSlug = "";
   try {
     const u = new URL(url);
     origin = u.origin;
     mainHandle = (u.pathname.match(/\/products\/([^/]+)/) || [])[1] || "";
+    const segs = u.pathname.split("/").filter(Boolean);
+    pageSlug = segs[segs.length - 1] || "";
   } catch {
     /* ignore */
   }
 
-  const catalog = origin ? await fetchShopifyCatalog(origin, currency) : [];
+  const linkedHandles = linkedProductHandles(html);
+  let catalog = origin ? await fetchShopifyCatalog(origin, currency) : [];
+  if (!catalog.length && origin) {
+    catalog = await fetchShopifyCatalog(origin, currency, "/collections/all/products.json?limit=250");
+  }
+  if (!catalog.length && origin) {
+    // products.json throttled: rebuild the catalog from the handles the page links to
+    // plus the product sitemap, one /products/<handle>.js record each.
+    const handles = [
+      ...new Set([mainHandle, ...linkedHandles, ...(await sitemapProductHandles(origin))]),
+    ].filter(Boolean);
+    if (handles.length) catalog = await fetchCatalogFromHandles(origin, handles, currency);
+  }
+  const isLandingPage = !mainHandle;
 
   // The abandoned-cart email is anchored on `main`. A product-page scrape gives the
   // richest main (full gallery + sizes), but a store homepage / collection URL has no
@@ -316,7 +467,10 @@ export async function scrapeStore(url, othersLimit = 6) {
   // product page for the full gallery + sizes.
   let mainUrl = url;
   if (!scrapeIsProduct(main) && catalog.length) {
-    const anchor = anchorMainFromCatalog(catalog, mainHandle);
+    const anchor = anchorMainFromCatalog(
+      catalog,
+      mainHandle || matchCatalogProduct(catalog, pageSlug, main.title, linkedHandles)?.handle
+    );
     if (anchor?.url) {
       mainUrl = anchor.url;
       mainHandle = anchor.handle || mainHandle;
@@ -342,6 +496,40 @@ export async function scrapeStore(url, othersLimit = 6) {
           };
       currency = main.currency || currency;
     }
+  }
+
+  // A campaign / landing page (e.g. /pages/catch-camera-new) exposes only a single
+  // banner og:image — not the product's photo gallery. When the URL wasn't a product
+  // page and the scrape found at most one image, match the real catalog product and
+  // use ITS gallery so the email's photo picker gets real product shots. We don't keep
+  // the page's banner: it's usually the same shot as the gallery's first photo (just a
+  // different theme-asset URL, so it dedupes to a visible duplicate).
+  if (!mainHandle && catalog.length && (main.images?.length || 0) <= 1) {
+    const match = matchCatalogProduct(catalog, pageSlug, main.title, linkedHandles);
+    if (match?.images?.length) {
+      const seen = new Set();
+      const photoKey = (u) =>
+        String(u || "")
+          .replace(/^https?:\/\//i, "//")
+          .replace(/[?#].*$/, "")
+          .replace(/(_\d+x\d*)(\.[a-z]+)$/i, "$2"); // collapse Shopify size variants
+      const merged = [];
+      for (const src of match.images) {
+        const k = photoKey(src);
+        if (!src || seen.has(k)) continue;
+        seen.add(k);
+        merged.push(src);
+      }
+      main.images = merged.slice(0, 10);
+      mainHandle = match.handle || mainHandle; // exclude the product from upsell/subscription
+      if (!main.title && match.title) main.title = match.title;
+    }
+  }
+
+  // A landing page's own hero gallery (e.g. cannumo.co.uk/pages/goodie: ~19 slides)
+  // beats a catalog product that only has one or two photos.
+  if (isLandingPage && pageImages.length > (main.images?.length || 0)) {
+    main.images = pageImages.slice(0, 10);
   }
 
   // products.json omits currency; inherit the resolved product's so the upsell and
@@ -385,9 +573,10 @@ export async function scrapeStore(url, othersLimit = 6) {
     }
   }
 
+  const { pageImages: _pageImages, ...mainOut } = main;
   return {
     storeName,
-    main: { ...main, image: main.images[0] || "", url: mainUrl },
+    main: { ...mainOut, image: main.images[0] || "", url: mainUrl },
     others,
     subscription,
   };

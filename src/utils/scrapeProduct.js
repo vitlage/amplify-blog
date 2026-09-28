@@ -78,6 +78,50 @@ function recoverShopifyGallery(primary, html, pageUrl) {
   return items.map((i) => i.url);
 }
 
+// Custom landing pages (Shopify /pages/… templates like cannumo.co.uk/pages/goodie)
+// have no JSON-LD Product and often no og:image, yet still show a hero photo gallery.
+// Take the <img>s from the start of <main> up to the first <h1> (the gallery usually
+// sits beside/above the buy box). If the title comes first, fall back to the first
+// images in <main>. Logos, icons, avatars, badges and SVGs are skipped.
+const PAGE_IMG_SKIP_RE =
+  /(logo|icon|avatar|badge|sprite|payment|flag|pandectes|placeholder|spinner|loader)/i;
+
+export function extractPageGallery(html, pageUrl, limit = 12) {
+  const mainIdx = html.search(/<main\b/i);
+  const body = mainIdx >= 0 ? html.slice(mainIdx) : html;
+  const collect = (region) => {
+    const out = [];
+    const seen = new Set();
+    for (const m of region.matchAll(/<img\b[^>]*>/gi)) {
+      const tag = m[0];
+      const attr = (name) =>
+        (tag.match(new RegExp(`\\b${name}\\s*=\\s*["']([^"']+)["']`, "i")) || [])[1] || "";
+      let src = attr("src") || attr("data-src") || attr("data-original");
+      if (!src || /^data:/i.test(src)) src = (attr("srcset") || attr("data-srcset")).split(/\s+/)[0];
+      if (!src || /^data:/i.test(src)) continue;
+      src = decodeEntities(src);
+      if (/\.(svg|gif)(\?|$)/i.test(src)) continue;
+      if (PAGE_IMG_SKIP_RE.test(src) || PAGE_IMG_SKIP_RE.test(tag.match(/\bclass\s*=\s*["']([^"']*)["']/i)?.[1] || ""))
+        continue;
+      const abs = absolutize(src, pageUrl);
+      const key = abs
+        .replace(/^https?:\/\//i, "//")
+        .replace(/[?#].*$/, "")
+        .replace(/_\d+x\d*(\.[a-z]+)$/i, "$1");
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push(abs);
+      if (out.length >= limit) break;
+    }
+    return out;
+  };
+  const h1 = body.search(/<h1\b/i);
+  const hero = collect(body.slice(0, h1 > 0 ? h1 : 60000));
+  if (hero.length >= 2) return hero;
+  const any = collect(body.slice(0, 200000));
+  return any.length > hero.length ? any : hero;
+}
+
 // All <meta ... property|name|itemprop="key" ... content="..."> values, any attr order.
 function metaAll(html, key) {
   const k = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -317,6 +361,12 @@ export async function scrapeProduct(url) {
     offerSpec.priceCurrency ||
     metaOne(html, "product:price:currency") ||
     metaOne(html, "og:price:currency") ||
+    // Shopify exposes the shop currency in an inline script; JSON-LD/meta are often
+    // absent (e.g. Indian coffee stores), which otherwise defaults the symbol to $.
+    (html.match(
+      /Shopify\.currency\s*=\s*\{[^}]*?"active"\s*:\s*"([A-Z]{3})"/
+    )?.[1] ||
+      "") ||
     "";
 
   const description =
@@ -405,6 +455,13 @@ export async function scrapeProduct(url) {
     if (gallery.length > 1) finalImages = gallery;
   }
 
+  // Non-product landing page with no usable image metadata: keep the page's own hero
+  // gallery on the side. scrapeStore decides between it and a matched catalog product.
+  let pageImages = [];
+  if (!products.length && !/\/products\/[^/]+/.test(url) && finalImages.length <= 1) {
+    pageImages = extractPageGallery(html, url);
+  }
+
   return {
     title: finalTitle,
     price: finalPrice,
@@ -412,5 +469,6 @@ export async function scrapeProduct(url) {
     description: decodeEntities(description).slice(0, 500),
     images: finalImages.slice(0, 10),
     sizes: finalSizes,
+    pageImages,
   };
 }
