@@ -68,17 +68,19 @@ body {
 .hero-img-wrap {
     border-radius: 12px;
     overflow: hidden;
-    background: #f9f9f9;
+    background: #ffffff;
 }
 .hero-img {
-    background: #f9f9f9;
+    background: #ffffff;
 }
 
 /* amp-img renders an inner <img> that defaults to object-fit: fill, which
-   squeezes a portrait product photo into the 1:1 (416x416) responsive box.
-   Cover keeps the aspect ratio (crop, don't distort) — matches the cart email. */
+   squeezes a portrait product photo into the responsive box. `contain` shows the
+   WHOLE photo — a landscape/square shot (e.g. a camera) keeps its left/right
+   edges instead of being cropped — and the light-gray wrap letterboxes any spare
+   space. Matches the cart email. */
 .hero-img img {
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
 }
 

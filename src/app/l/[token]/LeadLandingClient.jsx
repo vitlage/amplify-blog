@@ -100,6 +100,11 @@ export default function LeadLandingClient({ lead }) {
     try {
       const u = new URL(window.location.href);
       u.searchParams.delete("test");
+      // Always the production URL, even when testing on localhost — this is the
+      // link you share with the lead, so force the canonical domain.
+      u.protocol = "https:";
+      u.hostname = "convertic.ai";
+      u.port = ""; // drop any :3000 from localhost
       navigator.clipboard.writeText(u.toString());
       setCopiedReal(true);
       setTimeout(() => setCopiedReal(false), 1500);
@@ -180,6 +185,43 @@ export default function LeadLandingClient({ lead }) {
     }
     setFrameHeight(560);
   }, [viewMode]);
+
+  // Size the iframe from the moment the email opens — NOT from its load event.
+  // The srcdoc's `load` fires only after the AMP runtime (v0.js) loads, which is
+  // well after the content has already laid out and reserved the hero image's
+  // space. Waiting for it leaves the iframe at its initial 560px while the content
+  // is full height → the bottom is clipped. Polling the same-origin document each
+  // frame for the first ~3s tracks the real height the instant it settles.
+  useEffect(() => {
+    if (openIndex == null) return undefined;
+    let raf = 0;
+    let start = 0;
+    const tick = (ts) => {
+      if (!start) start = ts;
+      let doc = null;
+      try {
+        doc = iframeRef.current && iframeRef.current.contentDocument;
+      } catch {
+        doc = null;
+      }
+      if (doc && doc.body) {
+        let bottom = 0;
+        for (const el of doc.body.children) {
+          const b = el.getBoundingClientRect().bottom;
+          if (b > bottom) bottom = b;
+        }
+        const fallback = Math.max(
+          doc.body.scrollHeight || 0,
+          doc.documentElement ? doc.documentElement.scrollHeight : 0
+        );
+        const h = bottom > 200 ? bottom : fallback;
+        if (h > 200 && h < 12000) setFrameHeight(Math.ceil(h) + 24);
+      }
+      if (ts - start < 3000) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [openIndex, viewMode]);
 
   // --- open one of the inbox emails ----------------------------------------
   const openEmail = (i) => {

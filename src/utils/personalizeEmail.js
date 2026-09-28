@@ -7,7 +7,11 @@
 // amp-state price literals). We replace those in place. Best-effort: if catalog
 // fields are missing, the demo values are left as-is.
 
-const CURRENCY_SYMBOL = { EUR: "€", USD: "$", GBP: "£", JPY: "¥", CAD: "$", AUD: "$" };
+const CURRENCY_SYMBOL = {
+  EUR: "€", USD: "$", GBP: "£", JPY: "¥", CAD: "$", AUD: "$",
+  INR: "₹", BRL: "R$", RUB: "₽", KRW: "₩", CNY: "¥", TRY: "₺",
+  THB: "฿", ILS: "₪", NGN: "₦", MXN: "$", SGD: "$", NZD: "$", HKD: "$",
+};
 
 function symbol(currency) {
   const c = String(currency || "").toUpperCase();
@@ -35,6 +39,19 @@ function truncate(s, n) {
 // Escape a value for use inside a single-quoted AMP expression string.
 function jsStr(s) {
   return String(s ?? "").replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+}
+
+// Option values sometimes arrive ALL-CAPS from a store ("WHOLE BEANS",
+// "CHEMEX (POUR OVER)"), which looks shouty and cramped in the chip. Title-case
+// long descriptive labels, but leave real size codes (S, M, L, XL, XXL, 6, 250G).
+function humanizeSize(s) {
+  const str = String(s).trim();
+  if (!str) return str;
+  if (/^[A-Z0-9]{1,3}$/.test(str)) return str; // XS/S/M/L/XL/XXL/6...
+  if (str === str.toUpperCase() && /[A-Z]{2,}/.test(str)) {
+    return str.toLowerCase().replace(/\b([a-z])/g, (m, c) => c.toUpperCase());
+  }
+  return str;
 }
 
 // One size chip mirroring the template's markup. `selected` marks the initial pick.
@@ -104,7 +121,7 @@ function personalizeAbandonedCart(html, main) {
     .map((s) => String(s).trim())
     .filter(Boolean);
   if (sizes.length) {
-    const boxes = sizes.map((s, i) => sizeBox(s, i === 0)).join("\n");
+    const boxes = sizes.map((s, i) => sizeBox(humanizeSize(s), i === 0)).join("\n");
     html = html.replace(
       /<!-- SIZE_BOXES_START -->[\s\S]*?<!-- SIZE_BOXES_END -->/,
       `<!-- SIZE_BOXES_START -->\n${boxes}\n                <!-- SIZE_BOXES_END -->`
@@ -158,6 +175,11 @@ function personalizeAbandonedCart(html, main) {
     `${summaryName}${sizePart} · ${symbol(main.currency)}` +
     `<span [text]="${totalExpr}">${totalDefault}</span>`;
   html = html.replace("<!-- CHECKOUT_SUMMARY -->", summary);
+
+  // Convert any remaining $ to the store's currency. The price pass above only runs
+  // when the product has a real price; a store in another currency (e.g. INR) whose
+  // main lacks a price would otherwise keep the demo figures with a $.
+  if (main.currency) html = html.replace(/\$/g, symbol(main.currency));
 
   return html;
 }
