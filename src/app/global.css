@@ -29,6 +29,46 @@
 
 @import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/plus-jakarta-display.min.css");
 
+/* Mazzard H Black (900) for display text */
+@font-face {
+    font-family: 'Mazzard';
+    src: url('/fonts/mazzard/MazzardH-Black.woff2') format('woff2'),
+         url('/fonts/mazzard/MazzardH-Black.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Mazzard';
+    src: url('/fonts/mazzard/MazzardH-BlackItalic.woff2') format('woff2'),
+         url('/fonts/mazzard/MazzardH-BlackItalic.otf') format('opentype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Convertic Wordmark: Mazzard H Regular with a reshaped "r" whose arm runs into the next letter,
+   so "rt" in the Convertic.ai wordmark touches. Logo text only. */
+@font-face {
+    font-family: 'Convertic Wordmark';
+    src: url('/fonts/convertic-wordmark/ConverticWordmark-Regular.woff2') format('woff2'),
+         url('/fonts/convertic-wordmark/ConverticWordmark-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --font-mazzard: 'Mazzard', 'DM Sans', sans-serif;
+    --font-wordmark: 'Convertic Wordmark', 'DM Sans', sans-serif;
+}
+
+.font-mazzard {
+    font-family: var(--font-mazzard);
+    font-weight: 900;
+}
+
 /* 
 @font-face {
     font-family: 'Metropolis';
@@ -448,8 +488,9 @@ body {
 .header_nav_logo_link {
     color: white !important;
     font-size: 36px;
-    font-weight: 300;
-    font-family: "DM Sans";
+    font-weight: 400;
+    font-family: var(--font-wordmark);
+    letter-spacing: -0.03em;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
@@ -461,6 +502,12 @@ body {
     height: 48px;
     flex-shrink: 0;
     object-fit: contain;
+}
+
+/* Mazzard sits high in its line box; nudge the wordmark down to center it on the icon */
+.header_nav_logo_link > span {
+    position: relative;
+    top: 0.075em;
 }
 
 .header_nav_logo_link:hover {

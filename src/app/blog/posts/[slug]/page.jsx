@@ -1,9 +1,8 @@
 import React from 'react'
-import styles from './singlePage.module.css'
-import Menu from '@/components/Menu/Menu'
-import Image from 'next/image'
-import Comments from '@/components/comments/Comments'
+import Link from 'next/link'
 import { STATIC_POSTS } from '@/lib/staticData'
+import { blogStyles as styles, Rule, Chip, Byline, ReadTime, PostGrid } from '@/components/blogUi/BlogUi'
+import { categoryLabel, prepareArticle } from '@/lib/blogMeta'
 
 // Use static data for build-time generation (cheapest option)
 const getData = async (slug) => {
@@ -74,8 +73,15 @@ const SinglePage = async ({ params }) => {
   const siteUrl = 'https://convertic.ai';
   const url = `${siteUrl}/blog/posts/${slug}`;
   const plainDesc = (data?.desc || '').replace(/<[^>]*>/g, '');
+  const { body, toc } = prepareArticle(data?.desc);
+  // Same category first, then the newest of the rest.
+  const others = STATIC_POSTS.filter((p) => p.slug !== slug);
+  const related = [
+    ...others.filter((p) => p.catSlug === data?.catSlug),
+    ...others.filter((p) => p.catSlug !== data?.catSlug),
+  ].slice(0, 3);
   return (
-    <div className={styles.container}>
+    <div className={styles.page}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -99,34 +105,53 @@ const SinglePage = async ({ params }) => {
           ),
         }}
       />
-      <div className={styles.infoContainer}>
-        <div className={styles.textContainer}>
-          <h1 className={styles.title}>
-            {data?.title}
-          </h1>
-          {data?.img && data.img.trim() !== '' && <div className={styles.imageContainer}>
-            <Image src={data.img} alt={data?.title || 'Article image'} fill className={styles.image} />
-          </div>}
-          <div className={styles.user}>
-            {data?.user?.image && <div className={styles.userImageContainer}>
-              <Image src={data?.user?.image} alt={data?.user?.name || 'Author avatar'} fill className={styles.avatar} />
-            </div>}
-            <div className={styles.userTextContainer}>
-              <span className={styles.username}>{data?.user?.name}</span>
-              {/* <span className={styles.date}>{data.createdAt?.substring(0, 10)}</span> */}
-            </div>
+      <header className={styles.hero}>
+        <Rule>
+          <Chip href={`/blog/category?cat=${data?.catSlug}`}>{categoryLabel(data?.catSlug)}</Chip>
+        </Rule>
+        <h1 className={styles.heroTitle}>{data?.title}</h1>
+        <Rule>
+          <div className={styles.heroMeta}>
+            <Byline post={data} size="lg" />
+            <ReadTime html={data?.desc} />
           </div>
-        </div>
+        </Rule>
+      </header>
+
+      <div className={styles.articleLayout}>
+        <aside className={styles.aside}>
+          <Link href="/blog" className={styles.back}>
+            <svg width="18" height="15" viewBox="0 0 20 16" fill="none" aria-hidden>
+              <path d="M17.5 14C17.5 8 13.5 4.75 8 4.75H3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              <path d="M6.75 1L3 4.75L6.75 8.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Go back to blog
+          </Link>
+          {toc.length > 1 && (
+            <nav className={styles.toc} aria-label="On this page">
+              <div className={styles.tocLabel}>On this page</div>
+              <ol>
+                {toc.map((t) => (
+                  <li key={t.id}>
+                    <a href={`#${t.id}`}>{t.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
+        </aside>
+        <div className={styles.prose} dangerouslySetInnerHTML={{ __html: body }} />
+        <div className={styles.articleSpacer} aria-hidden />
       </div>
-      <div className={styles.content}>
-        <div className={styles.post}>
-          <div 
-            className={styles.description}
-            dangerouslySetInnerHTML={{ __html: `${data?.desc}` }}
-          />
-        </div>
-        <Menu />
-      </div>
+
+      {related.length > 0 && (
+        <>
+          <Rule className={styles.sectionRule}>
+            <h2 className={styles.sectionLabel}>Related stories</h2>
+          </Rule>
+          <PostGrid posts={related} />
+        </>
+      )}
     </div>
   )
 }

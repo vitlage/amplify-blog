@@ -13,13 +13,20 @@
 
 .logo {
     font-size: 36px;
-    font-weight: 300;
-    font-family: "DM Sans";
+    font-weight: 400;
+    font-family: var(--font-wordmark);
+    letter-spacing: -0.03em;
     display: flex;
     align-items: center;
     gap: 10px;
     text-decoration: none;
     color: var(--textColor);
+}
+
+/* Mazzard sits high in its line box; nudge the wordmark down to center it on the icon */
+.logo > span {
+    position: relative;
+    top: 0.075em;
 }
 
 .logoIcon {

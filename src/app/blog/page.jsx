@@ -1,10 +1,7 @@
-import styles from "./homepage.module.css";
-import CategoryList from "@/components/categoryList/CategoryList";
 import CardList from "@/components/cardList/CardList";
-import Menu from "@/components/Menu/Menu";
 import Featured from "@/components/featured/Featured";
-import NavBar from "@/components/navbar/NavBar";
-import Footer from "@/components/footer/Footer";
+import { blogStyles as styles, Rule, CategoryChips } from "@/components/blogUi/BlogUi";
+import { STATIC_POSTS } from "@/lib/staticData";
 
 export async function generateMetadata() {
   const siteUrl = 'https://convertic.ai';
@@ -36,21 +33,29 @@ export async function generateMetadata() {
   };
 }
 
-// Page will be statically optimized automatically by Next.js
-
 export default function Home() {
-  // For static export, we show the main blog page (page 1)
-  // Pagination can be handled client-side or via separate static pages
-  const page = 1;
+  const [featured] = STATIC_POSTS;
+  const categories = [...new Set(STATIC_POSTS.map((p) => p.catSlug))];
 
   return (
-    <div className={styles.container}>
-      <Featured item={page} />
-      <CategoryList />
-      <div className={styles.content}>
-        <CardList page={page}/>
-        <Menu />
-      </div>
+    <div className={styles.page}>
+      <header className={styles.indexHead}>
+        <h1 className={styles.indexTitle}>The Convertic.ai blog</h1>
+        <p className={styles.indexSub}>
+          Interactive email, retention and AI for DTC brands.
+        </p>
+      </header>
+
+      <Rule className={styles.sectionRule}>
+        <h2 className={styles.sectionLabel}>Featured story</h2>
+      </Rule>
+      <Featured post={featured} />
+
+      <Rule className={styles.sectionRule}>
+        <h2 className={styles.sectionLabel}>Recent stories</h2>
+      </Rule>
+      <CategoryChips categories={categories} active={null} />
+      <CardList exclude={featured?.slug} />
     </div>
   );
 }

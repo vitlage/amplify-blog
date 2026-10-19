@@ -1,7 +1,7 @@
 import React from 'react'
-import styles from './blogPage.module.css'
 import CardList from '@/components/cardList/CardList'
-import Menu from '@/components/Menu/Menu'
+import { blogStyles as styles, Rule, CategoryChips } from '@/components/blogUi/BlogUi'
+import { STATIC_POSTS } from '@/lib/staticData'
 
 export async function generateMetadata({ searchParams }) {
   const cat = searchParams.cat;
@@ -48,7 +48,6 @@ export async function generateMetadata({ searchParams }) {
 }
 
 const CategoryPage = ({ searchParams }) => {
-  const page = parseInt(searchParams.page) || 1;
   const cat = searchParams.cat || null;
 
   // Get category title for display
@@ -74,12 +73,18 @@ const CategoryPage = ({ searchParams }) => {
   const categoryTitle = getCategoryTitle(cat);
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>{categoryTitle}</h1>
-        <div className={styles.content}>
-            <CardList page={page} cat={cat} />
-            <Menu />
-        </div>
+    <div className={styles.page}>
+      <header className={styles.indexHead}>
+        <h1 className={styles.indexTitle}>{categoryTitle}</h1>
+      </header>
+      <Rule className={styles.sectionRule}>
+        <h2 className={styles.sectionLabel}>Stories</h2>
+      </Rule>
+      <CategoryChips
+        categories={[...new Set(STATIC_POSTS.map((p) => p.catSlug))]}
+        active={cat}
+      />
+      <CardList cat={cat} />
     </div>
   )
 }
