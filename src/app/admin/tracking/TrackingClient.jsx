@@ -25,6 +25,46 @@ const EVENT_LABELS = {
   real_amp_submit: "Submitted in the real email",
 };
 
+function pct(n, total) {
+  return total ? `${Math.round((n / total) * 100)}%` : "0%";
+}
+
+// Funnel totals across every lead page, computed from the per-lead summaries.
+function Stats({ leads }) {
+  const created = leads.length;
+  const opened = leads.filter((l) => l.opened).length;
+  const clicked = leads.filter((l) => l.inboxOpened && l.ampClicks > 0).length;
+  const sent = leads.filter((l) => l.submittedEmail).length;
+  const realClicked = leads.filter((l) => l.realAmpClicks > 0).length;
+
+  const tiles = [
+    { label: "Landing pages created", value: created, sub: "Total custom pages" },
+    { label: "Opened the page", value: opened, sub: `${pct(opened, created)} of created` },
+    {
+      label: "Opened + clicked in email",
+      value: clicked,
+      sub: `${pct(clicked, created)} of created · ${pct(clicked, opened)} of opened`,
+    },
+    {
+      label: "Sent email to inbox",
+      value: sent,
+      sub: `${pct(sent, created)} of created · ${realClicked} clicked the real email`,
+    },
+  ];
+
+  return (
+    <section className={styles.stats} aria-label="Summary">
+      {tiles.map((t) => (
+        <div key={t.label} className={styles.stat}>
+          <div className={styles.statLabel}>{t.label}</div>
+          <div className={styles.statValue}>{t.value}</div>
+          <div className={styles.statSub}>{t.sub}</div>
+        </div>
+      ))}
+    </section>
+  );
+}
+
 function Yes({ on }) {
   return (
     <span className={on ? styles.yes : styles.no}>{on ? "Yes" : "No"}</span>
@@ -111,6 +151,7 @@ export default function TrackingClient() {
       </header>
 
       <main className={styles.main}>
+        {!loading && leads.length > 0 && <Stats leads={leads} />}
         {loading ? (
           <div className={styles.card}>
             <p className={styles.note}>Loading…</p>
