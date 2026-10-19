@@ -1,4 +1,4 @@
-import { scrapeProduct, fetchShopifyProduct } from "@/utils/scrapeProduct";
+import { scrapeProduct, withMarketCookie } from "@/utils/scrapeProduct";
 
 const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
@@ -125,8 +125,15 @@ function isSameProduct(mainInfo, p) {
 // A single-line brand (cannumo: "GOODIE – Fermented Raspberry / Blackcurrant / Sea
 // Buckthorn Drink") collapses every product to one base title, which would leave
 // nothing — then fall back to excluding only the exact main product.
+const GIFT_CARD_RE = /\bgift[\s-]?cards?\b|\be-?gift\b/i;
+
 function candidates(mainInfo, catalog) {
-  const ok = catalog.filter((p) => p.available !== false && p.image);
+  const ok = catalog.filter(
+    (p) =>
+      p.available !== false &&
+      p.image &&
+      !GIFT_CARD_RE.test(`${p.title || ""} ${p.type || ""} ${p.handle || ""}`)
+  );
   const strict = ok.filter((p) => !isSameProduct(mainInfo, p));
   if (strict.length) return strict;
   return ok.filter((p) => !(p.handle && p.handle === mainInfo.handle));
@@ -210,7 +217,7 @@ async function fetchShopifyCatalog(origin, currency, path = "/products.json?limi
   const timer = setTimeout(() => controller.abort(), 15000);
   try {
     const res = await fetch(`${origin}${path}`, {
-      headers: { "User-Agent": UA, Accept: "application/json" },
+      headers: withMarketCookie(origin, { "User-Agent": UA, Accept: "application/json" }),
       redirect: "follow",
       cache: "no-store",
       signal: controller.signal,
@@ -291,6 +298,20 @@ async function sitemapProductHandles(origin, max = 40) {
   return out;
 }
 
+// Product handles linked inside the page's <main> (after the header/nav), in the
+// order they appear. On a homepage that's the featured / bestsellers grid.
+function pageOrderHandles(html) {
+  const str = String(html || "");
+  let start = str.search(/<main\b/i);
+  if (start < 0) start = Math.max(0, str.search(/<\/header>/i));
+  const out = [];
+  for (const m of str.slice(start).matchAll(/\/products\/([a-z0-9][a-z0-9-]*)/gi)) {
+    const h = m[1].toLowerCase();
+    if (!out.includes(h)) out.push(h);
+  }
+  return out;
+}
+
 // Fallback catalog when products.json is unavailable (Shopify throttles/blocks it for
 // some datacenter IPs, e.g. our Cloud Run egress): read each linked product's AJAX
 // record at /products/<handle>.js. Same shape as fetchShopifyCatalog.
@@ -300,7 +321,7 @@ async function fetchCatalogFromHandles(origin, handles, currency, max = 24) {
     const timer = setTimeout(() => controller.abort(), 10000);
     try {
       const res = await fetch(`${origin}/products/${handle}.js`, {
-        headers: { "User-Agent": UA, Accept: "application/json" },
+        headers: withMarketCookie(origin, { "User-Agent": UA, Accept: "application/json" }),
         redirect: "follow",
         cache: "no-store",
         signal: controller.signal,
@@ -414,10 +435,13 @@ function extractStoreName(html, url) {
 // Shopify stores use products.json for the catalog; others fall back to on-page link
 // discovery (upsell only, no catalog-wide subscription pick).
 export async function scrapeStore(url, othersLimit = 6) {
+  // scrapeProduct runs first: it decides whether this store needs the US-market
+  // cookie, so the page fetch below gets the same market (and currency).
+  let main = await scrapeProduct(url);
   let html = "";
   try {
     const res = await fetch(url, {
-      headers: { "User-Agent": UA, "Accept-Language": "en-US,en;q=0.9" },
+      headers: withMarketCookie(url, { "User-Agent": UA, "Accept-Language": "en-US,en;q=0.9" }),
       redirect: "follow",
       cache: "no-store",
     });
@@ -426,7 +450,6 @@ export async function scrapeStore(url, othersLimit = 6) {
     /* discovery/store-name just yield less */
   }
 
-  let main = await scrapeProduct(url);
   const pageImages = main.pageImages || [];
   const storeName = extractStoreName(html, url);
   let currency = main.currency || "";
@@ -434,9 +457,15 @@ export async function scrapeStore(url, othersLimit = 6) {
   let origin = "";
   let mainHandle = "";
   let pageSlug = "";
+  let isHomeOrCollection = false;
   try {
     const u = new URL(url);
     origin = u.origin;
+    // Store root (incl. a locale root like /en-us) or a collection: never a product,
+    // whatever banners its og:image / hero carousel show.
+    isHomeOrCollection = /^\/?$|^\/collections(\/|$)|^\/[a-z]{2}(-[a-z]{2})?\/?$/i.test(
+      u.pathname
+    );
     mainHandle = (u.pathname.match(/\/products\/([^/]+)/) || [])[1] || "";
     const segs = u.pathname.split("/").filter(Boolean);
     pageSlug = segs[segs.length - 1] || "";
@@ -457,7 +486,7 @@ export async function scrapeStore(url, othersLimit = 6) {
     ].filter(Boolean);
     if (handles.length) catalog = await fetchCatalogFromHandles(origin, handles, currency);
   }
-  const isLandingPage = !mainHandle;
+  const isLandingPage = !mainHandle && !isHomeOrCollection;
 
   // The abandoned-cart email is anchored on `main`. A product-page scrape gives the
   // richest main (full gallery + sizes), but a store homepage / collection URL has no
@@ -466,10 +495,19 @@ export async function scrapeStore(url, othersLimit = 6) {
   // have a Shopify catalog, anchor main on a real catalog product and re-scrape its
   // product page for the full gallery + sizes.
   let mainUrl = url;
-  if (!scrapeIsProduct(main) && catalog.length) {
+  if ((isHomeOrCollection || !scrapeIsProduct(main)) && catalog.length) {
+    // A homepage/collection anchors on the first product it shows in <main> (its
+    // bestsellers grid), in page order: header/nav menu links don't count.
+    const featured = isHomeOrCollection
+      ? pageOrderHandles(html).find((h) =>
+          catalog.some((p) => p.handle === h && p.available !== false && p.image)
+        )
+      : "";
     const anchor = anchorMainFromCatalog(
       catalog,
-      mainHandle || matchCatalogProduct(catalog, pageSlug, main.title, linkedHandles)?.handle
+      mainHandle ||
+        featured ||
+        matchCatalogProduct(catalog, pageSlug, main.title, linkedHandles)?.handle
     );
     if (anchor?.url) {
       mainUrl = anchor.url;

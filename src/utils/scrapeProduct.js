@@ -265,6 +265,30 @@ function extractSizes(html, products) {
 const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
 
+// Shopify Markets picks the currency from the requester's IP. Scraped from Poland
+// (local dev) a store answers in PLN at its own conversion rate. Leads see US
+// pricing instead: when a Shopify page comes back in PLN, that store is pinned to
+// its US market with the localization cookies for every later request (pages,
+// products.json, /products/<handle>.js). A store without a US market ignores them.
+const US_MARKET_COOKIE = "localization=US; cart_currency=USD";
+const marketCookies = new Map(); // origin -> Cookie header
+
+function originOf(url) {
+  try {
+    return new URL(url).origin;
+  } catch {
+    return "";
+  }
+}
+
+export function withMarketCookie(url, headers = {}) {
+  const c = marketCookies.get(originOf(url));
+  return c ? { ...headers, Cookie: c } : headers;
+}
+
+const GEO_PRICED_RE =
+  /Shopify\.currency\s*=\s*\{[^}]*?"active"\s*:\s*"PLN"|Shopify\.country\s*=\s*"PL"/;
+
 // Shopify exposes a product's full record (whole image gallery, variants, option
 // values) at `<product-url>.json`. A plain page scrape only sees the single JSON-LD/
 // OG image, so for Shopify stores this is how we get all photos + real sizes.
@@ -283,7 +307,7 @@ export async function fetchShopifyProduct(url) {
   const timer = setTimeout(() => controller.abort(), 12000);
   try {
     const res = await fetch(jsonUrl, {
-      headers: { "User-Agent": UA, Accept: "application/json" },
+      headers: withMarketCookie(jsonUrl, { "User-Agent": UA, Accept: "application/json" }),
       redirect: "follow",
       cache: "no-store",
       signal: controller.signal,
@@ -305,15 +329,14 @@ export async function scrapeProduct(url) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 15000);
   let html;
-  try {
+  const get = async () => {
     const res = await fetch(url, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+      headers: withMarketCookie(url, {
+        "User-Agent": UA,
         Accept:
           "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
         "Accept-Language": "en-US,en;q=0.9",
-      },
+      }),
       redirect: "follow",
       cache: "no-store",
       signal: controller.signal,
@@ -323,7 +346,15 @@ export async function scrapeProduct(url) {
       err.status = res.status;
       throw err;
     }
-    html = await res.text();
+    return res.text();
+  };
+  try {
+    html = await get();
+    const origin = originOf(url);
+    if (origin && !marketCookies.has(origin) && GEO_PRICED_RE.test(html)) {
+      marketCookies.set(origin, US_MARKET_COOKIE);
+      html = await get();
+    }
   } finally {
     clearTimeout(timer);
   }
